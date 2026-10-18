@@ -1,12 +1,12 @@
 """
 Archivo general de tests (Explota de Exceptions, asique no es muy recomendable ejecutarlo)
-Ejecutable con: python3 -m unittest src.test.todos
+Ejecutable con: python3 -m unittest test.todos
 """
 
 import unittest
 
 from src.arimaa import *
-from src.test.ejemplos.tableros import (
+from test.ejemplos.tableros import (
     tablero_8x8_inicial_ejemplo,
     tablero_8x8_vacio,
     tablero_mal_formado_columnas_ejemplo,

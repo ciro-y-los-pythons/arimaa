@@ -1,4 +1,4 @@
-from src.template.definiciones import *
+from template.definiciones import *
 
 #### Funciones ya dadas
 

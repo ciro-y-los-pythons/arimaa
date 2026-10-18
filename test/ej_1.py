@@ -1,7 +1,7 @@
 import unittest
 
 from src.arimaa import *
-from src.test.ejemplos.tableros import (
+from test.ejemplos.tableros import (
     tablero_8x8_inicial_ejemplo,
     tablero_8x8_vacio,
     tablero_mal_formado_columnas_ejemplo,
@@ -10,7 +10,7 @@ from src.test.ejemplos.tableros import (
 
 """
 Archivo de tests separado para focalizarse en el Ejercicio_1
-Ejecutable con: python3 -m unittest src.test.ej_1
+Ejecutable con: python3 -m unittest test.ej_1
 """
 
 
