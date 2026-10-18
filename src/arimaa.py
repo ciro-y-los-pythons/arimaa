@@ -29,14 +29,17 @@ def pasar_turno(j: Juego) -> Juego:  # pragma: no cover
 
 #### Ejercicio 1
 
-"""
-aux tableroBienFormado (t : Tablero) :=
-    |t| = Alto
-    ∧ para todo i:Z.(0 ≤ i < |t| → |t[i]| = Ancho)
-"""
-
 
 def tablero_bien_formado(t: Tablero) -> bool:
+    """Verifica si el Tablero se encuentra con las medidas correspondientes (8 x 8)
+
+    Args:
+        t: Tablero a Verificar.
+
+    Returns:
+        Si el Tablero se encuentra con las medidas correspondientes True, Sino False
+        (|t| = ALTO ∧ ∀ i:Z.(0 ≤ i < |t| → |t[i]| = ANCHO))
+    """
     if len(t) != ALTO:
         return False
     for i in t:
