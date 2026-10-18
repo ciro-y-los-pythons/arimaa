@@ -1,50 +1,30 @@
+"""
+Archivo general de tests (Explota de Exceptions, asique no es muy recomendable ejecutarlo)
+Ejecutable con: python3 -m unittest src.test.todos
+"""
+
 import unittest
 
 from src.arimaa import *
+from src.test.ejemplos.tableros import (
+    tablero_8x8_inicial_ejemplo,
+    tablero_8x8_vacio,
+    tablero_mal_formado_columnas_ejemplo,
+    tablero_mal_formado_filas_ejemplo,
+)
 
-# Las piezas se representan con las siguientes letras:
-#   E : elefante
-#   M : camello
-#   H : caballo
-#   D : perro
-#   C : gato
-#   R : ratón
-# donde
-#   mayúscula : dorado
-#   minúscula : plateado
-
-
-def tablero_8x8_vacio():
-    return leer_tablero(
-        [
-            "--------",  # 7
-            "--------",  # 6
-            "--------",  # 5
-            "--------",  # 4
-            "--------",  # 3
-            "--------",  # 2
-            "--------",  # 1
-            "--------",  # 0
-            # 01234567
-        ]
-    )
-
-
-def tablero_8x8_inicial_ejemplo():
-    return leer_tablero(
-        [
-            "hcdmedch",  # 7
-            "rrrrrrrr",  # 6
-            "--------",  # 5
-            "--------",  # 4
-            "--------",  # 3
-            "--------",  # 2
-            "RRRRRRRR",  # 1
-            "HCDMEDCH",  # 0
-            # 01234567
-        ]
-    )
-
+"""
+Las piezas se representan con las siguientes letras:
+  E : elefante
+  M : camello
+  H : caballo
+  D : perro
+  C : gato
+  R : ratón
+donde
+  mayúscula : dorado
+  minúscula : plateado
+"""
 
 #### Ejercicio 1
 
@@ -53,6 +33,18 @@ class test_tablero_bien_formado(unittest.TestCase):
     def test_8x8_lleno(self):
         t = tablero_8x8_inicial_ejemplo()
         self.assertTrue(tablero_bien_formado(t))
+
+    def test_8x8_vacio(self):
+        t = tablero_8x8_vacio()
+        self.assertTrue(tablero_bien_formado(t))
+
+    def test_8x8_mal_en_fila(self):
+        t = tablero_mal_formado_filas_ejemplo()
+        self.assertFalse(tablero_bien_formado(t))
+
+    def test_8x8_mal_en_columna(self):
+        t = tablero_mal_formado_columnas_ejemplo()
+        self.assertFalse(tablero_bien_formado(t))
 
 
 class test_posicion_en_tablero(unittest.TestCase):
@@ -315,3 +307,7 @@ class test_ganador_del_juego(unittest.TestCase):
         j = Juego(t, PLATEADO, 0)
         self.assertTrue(hay_ganador_determinado(j))
         self.assertEqual(ganador_del_juego(j), DORADO)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

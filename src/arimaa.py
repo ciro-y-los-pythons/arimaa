@@ -1,6 +1,6 @@
-from template.definiciones import *
+from src.template.definiciones import *
 
-#### Algunas funciones ya dadas
+#### Funciones ya dadas
 
 
 def son_posiciones_vecinas(pos1: Posicion, pos2: Posicion) -> bool:  # pragma: no cover
@@ -29,9 +29,20 @@ def pasar_turno(j: Juego) -> Juego:  # pragma: no cover
 
 #### Ejercicio 1
 
+"""
+aux tableroBienFormado (t : Tablero) :=
+    |t| = Alto
+    ∧ para todo i:Z.(0 ≤ i < |t| → |t[i]| = Ancho)
+"""
+
 
 def tablero_bien_formado(t: Tablero) -> bool:
-    raise Exception("No implementado")
+    if len(t) != ALTO:
+        return False
+    for i in t:
+        if len(i) != ANCHO:
+            return False
+    return True
 
 
 def posicion_en_tablero(pos: Posicion) -> bool:
