@@ -14,7 +14,6 @@ Ejecutable con: python3 -m unittest test.ej_1
 """
 
 
-# Cantidad de Casos de test: 4
 class test_tablero_bien_formado(unittest.TestCase):
     def test_8x8_lleno(self):
         t = tablero_8x8_inicial_ejemplo()
@@ -31,6 +30,40 @@ class test_tablero_bien_formado(unittest.TestCase):
     def test_8x8_mal_en_columna(self):
         t = tablero_mal_formado_columnas_ejemplo()
         self.assertFalse(tablero_bien_formado(t))
+
+
+class test_posicion_en_tablero(unittest.TestCase):
+    def test_posicion_valida_minimo(self):
+        pos = Posicion(0, 0)
+        self.assertTrue(posicion_en_tablero(pos))
+
+    def test_posicion_valida_maximo(self):
+        pos = Posicion(7, 7)
+        self.assertTrue(posicion_en_tablero(pos))
+
+    def test_posicion_col_pasa_min(self):
+        pos = Posicion(1, -1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_col_pasa_max(self):
+        pos = Posicion(1, 8)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_row_pasa_min(self):
+        pos = Posicion(-1, 1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_row_pasa_max(self):
+        pos = Posicion(8, 1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_todo_invalido_min(self):
+        pos = Posicion(-1, -1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_todo_invalido_max(self):
+        pos = Posicion(8, 8)
+        self.assertFalse(posicion_en_tablero(pos))
 
 
 if __name__ == "__main__":
