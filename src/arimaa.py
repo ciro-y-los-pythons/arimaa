@@ -84,7 +84,29 @@ def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
 
 
 def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
-    raise Exception("No implementado")
+    """Verifica si la casilla del {t} ubicada en la {pos} está vacía
+
+    Args:
+        t   (Tablero): Tablero del Juego, en él se busca la posición.
+        pos (Posición): Posición en la que se busca la casilla.
+
+    Returns:
+        bool: si esta vacía la celda en la {pos} dentro del {t}
+              {posicion_en_tablero(pos) and t[pos.fila][pos.columna] == CasillaVacia}
+
+    Requires:
+        bool: {tablero_bien_formado(t) ∧ posicion_en_tablero(pos)}
+    """
+    if not tablero_bien_formado(t):
+        no_cumple_requiere = Exception("Requiere: tablero_bien_formado(t)")
+        raise no_cumple_requiere
+    if not posicion_en_tablero(pos):
+        no_cumple_requiere = Exception("Requiere: posicion_en_tablero(pos)")
+        raise no_cumple_requiere
+
+    casilla: Casilla = t[pos.fila][pos.columna]
+    casilla_esta_vacia: bool = casilla == CasillaVacia.VACIA
+    return casilla_esta_vacia
 
 
 def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:

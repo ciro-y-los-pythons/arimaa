@@ -48,8 +48,37 @@ class test_tablero_bien_formado(unittest.TestCase):
 
 
 class test_posicion_en_tablero(unittest.TestCase):
-    def test_posicion_ok(self):
-        self.assertTrue(posicion_en_tablero(Posicion(5, 3)))
+    def test_posicion_valida_minimo(self):
+        pos = Posicion(0, 0)
+        self.assertTrue(posicion_en_tablero(pos))
+
+    def test_posicion_valida_maximo(self):
+        pos = Posicion(7, 7)
+        self.assertTrue(posicion_en_tablero(pos))
+
+    def test_posicion_col_pasa_min(self):
+        pos = Posicion(1, -1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_col_pasa_max(self):
+        pos = Posicion(1, 8)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_row_pasa_min(self):
+        pos = Posicion(-1, 1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_row_pasa_max(self):
+        pos = Posicion(8, 1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_todo_invalido_min(self):
+        pos = Posicion(-1, -1)
+        self.assertFalse(posicion_en_tablero(pos))
+
+    def test_posicion_todo_invalido_max(self):
+        pos = Posicion(8, 8)
+        self.assertFalse(posicion_en_tablero(pos))
 
 
 class test_movimiento_bien_formado(unittest.TestCase):
@@ -88,6 +117,10 @@ class test_hay_casilla_vacia(unittest.TestCase):
     def test_casilla_vacia(self):
         t = tablero_8x8_inicial_ejemplo()
         self.assertTrue(hay_casilla_vacia(t, Posicion(2, 1)))
+
+    def test_casilla_no_vacia(self):
+        t = tablero_8x8_inicial_ejemplo()
+        self.assertFalse(hay_casilla_vacia(t, Posicion(0, 0)))
 
 
 class test_hay_pieza_de_color(unittest.TestCase):
