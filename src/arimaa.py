@@ -49,7 +49,19 @@ def tablero_bien_formado(t: Tablero) -> bool:
 
 
 def posicion_en_tablero(pos: Posicion) -> bool:
-    raise Exception("No implementado")
+    """Verifica si la posición ingresada Existe dentro del Tablero (8 x 8)
+
+    Args:
+        pos: Posición a Verificar.
+
+    Returns:
+        Si la posición ingresada no excede las medidas del Tablero: True, Sino False
+        (0 ≤ pos.fila < Alto ∧ 0 ≤ pos.columna < Ancho)
+    """
+    es_fila_valida: bool = 0 <= pos.fila and pos.fila < ALTO
+    es_columna_valida: bool = 0 <= pos.columna and pos.columna < ANCHO
+    es_posicion_valida: bool = es_fila_valida and es_columna_valida
+    return es_posicion_valida
 
 
 def movimiento_bien_formado(m: Movimiento) -> bool:
