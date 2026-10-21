@@ -76,8 +76,22 @@ def juego_bien_formado(j: Juego) -> bool:
 
 
 def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
-    raise Exception("No implementado")
-
+    """Verifico la posicion a la que quiero mover la pieza
+    Args:
+        pos (posicion): posicion actual
+        d   (Dirección): dirección a la que quiero mover
+    Return:
+        Posicion (Posicion): posicion despues de mover a la dirección indicada """
+    movimiento:Posicion
+    if d==ESTE:
+        movimiento=Posicion(fila = pos.fila-1, columna =pos.columna)
+    elif d==OESTE:
+        movimiento=Posicion(fila=pos.fila+1, columna=pos.columna)
+    elif d==NORTE:
+        movimiento=Posicion(fila=pos.fila, columna=pos.columna+1)
+    elif d==SUR:
+        movimiento=Posicion(fila=pos.fila, columna=pos.columna-1)
+    return movimiento    
 
 def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
     raise Exception("No implementado")
