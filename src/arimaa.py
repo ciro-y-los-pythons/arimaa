@@ -94,9 +94,18 @@ def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
     return movimiento    
 
 def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
-    raise Exception("No implementado")
-
-
+    """"re
+    Args:
+        t   (Tablero): Tablero del Juego, en él se busca la posición.
+        pos (Posición): Posición en la que se busca la casilla.
+    
+    Returns:
+        bool: si esta vacía la celda en la {pos} dentro del {t}
+    requires:
+        tableroBienFormado (t) ∧ posiciónEnTablero (pos) 
+    """
+    casilla=t[p.fila][p.columna]
+    return casilla
 def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
     """Verifica si la casilla del {t} ubicada en la {pos} está vacía
 
