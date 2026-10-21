@@ -104,6 +104,27 @@ def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
     raise Exception("No implementado")
 
 
+def hay_figura_de_color(t: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
+    """
+    Verfica si hay una {Figura} de determinado {Color} en la {Posicion} en el {Tablero}
+
+    PRE:
+        True
+
+    Args:
+        t    (Tablero): 
+        pos (Posicion): 
+        f     (Figura): 
+        col    (Color): 
+
+    Return:
+        bool: 
+            posiciónEnTablero(pos) ∧ ¬hayCasillaVacía(t, pos)
+    """
+
+    return False
+
+
 def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
     """Verifica si la casilla del {t} ubicada en la {pos} está vacía
 
