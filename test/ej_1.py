@@ -66,5 +66,37 @@ class test_posicion_en_tablero(unittest.TestCase):
         self.assertFalse(posicion_en_tablero(pos))
 
 
+class test_movimiento_bien_formado(unittest.TestCase):
+    def test_movimiento_no_esta_en_tablero(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(MOVER_A_SECAS, Posicion(9, -1), [NORTE]))
+        )
+    def test_movimiento_mover_a_secas_con_un_paso(self):
+        self.assertTrue(
+            movimiento_bien_formado(Movimiento(MOVER_A_SECAS, Posicion(0, 1), [NORTE]))
+        )
+    def test_movimiento_mover_a_secas_con_dos_pasos(self): 
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(MOVER_A_SECAS, Posicion(2, 3), [NORTE,SUR]))
+        )
+    def test_movimiento_empujar_con_dos_pasos(self):
+        self.assertTrue(
+            movimiento_bien_formado(Movimiento(EMPUJAR, Posicion(0, 1), [NORTE,ESTE]))
+        )
+    def test_movimiento_empujar_con_un_paso(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(EMPUJAR, Posicion(0, 1), [NORTE,ESTE]))
+        )
+    def test_movimiento_arrastrar_con_dos_pasos(self):
+        self.assertTrue(
+            movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE,ESTE]))
+        )
+    def test_movimiento_arrastrar_con_un_paso(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE]))
+        )
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
