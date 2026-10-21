@@ -1,0 +1,1 @@
+# arimaa/template/__init__.py

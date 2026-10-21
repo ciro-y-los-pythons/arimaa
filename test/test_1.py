@@ -1,7 +1,16 @@
 import unittest
 
-from src.arimaa import *
-from test.ejemplos.tableros import (
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1] 
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+from arimaa import *
+
+from ejemplos.tableros import (
     tablero_8x8_inicial_ejemplo,
     tablero_8x8_vacio,
     tablero_mal_formado_columnas_ejemplo,
@@ -85,7 +94,7 @@ class test_movimiento_bien_formado(unittest.TestCase):
         )
     def test_movimiento_empujar_con_un_paso(self):
         self.assertFalse(
-            movimiento_bien_formado(Movimiento(EMPUJAR, Posicion(0, 1), [NORTE,ESTE]))
+            movimiento_bien_formado(Movimiento(EMPUJAR, Posicion(0, 1), [NORTE]))
         )
     def test_movimiento_arrastrar_con_dos_pasos(self):
         self.assertTrue(

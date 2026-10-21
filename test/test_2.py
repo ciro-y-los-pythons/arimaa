@@ -1,7 +1,15 @@
 import unittest
 
-from src.arimaa import *
-from test.ejemplos.tableros import tablero_8x8_inicial_ejemplo
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1] 
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+from arimaa import *
+
+from ejemplos.tableros import tablero_8x8_inicial_ejemplo
 
 # class test_posicion_vecina_hacia(unittest.TestCase):
 #     def test_vecina_al_norte(self):
