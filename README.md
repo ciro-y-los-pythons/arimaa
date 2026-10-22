@@ -9,6 +9,7 @@ El objetivo de este trabajo es aplicar los conceptos de programación imperativa
 - Ignacio Maldonado
 - Mauricio Fernandez Diotti
 - Gael Aquino
+- Nahuel Macario
 
 ### Acerca de la Materia
 
