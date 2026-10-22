@@ -131,9 +131,9 @@ def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
 
 def hay_figura_de_color(t: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
     """
-    Verfica si hay una {Figura} de determinado {Color} en la {Posicion} en el {Tablero}
+    Verfica si hay una {Figura} de determinado {Color} en cierta {Posicion} del {Tablero}
 
-    PRE:
+    Reqs:
         True
 
     Args:
@@ -142,11 +142,19 @@ def hay_figura_de_color(t: Tablero, pos: Posicion, f: Figura, col: Color) -> boo
         f     (Figura): 
         col    (Color): 
 
-    Return:
-        bool: 
+    Returns:
+        bool: Si hay una {f} de determinado {col} en cierta {pos} del {t}
             posiciónEnTablero(pos) ∧ ¬hayCasillaVacía(t, pos)
     """
+    print(t[pos])
+    for fila in t:
+        for casilla in fila:
+            posicion_valida: bool = posicion_en_tablero(pos)
+            casilla_no_vacia: bool = not hay_casilla_vacia(t, pos)
 
+            if posicion_valida and casilla_no_vacia:
+                return True
+    
     return False
 
 
