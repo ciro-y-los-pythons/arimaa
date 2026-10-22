@@ -228,6 +228,21 @@ def puede_realizar_movimiento(j: Juego, m: Movimiento) -> bool:
 def activar_trampas(t: Tablero) -> Tablero:
     raise Exception("No implementado")
 
+def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool: #Auxiliar
+    """ Verifica si ambos tableros tienen la misma pieza o casilla vacia en una posicion especifica (pasada por parametro)
+    PRE:
+        True
+    
+    Args:
+        t1 (Tablero): Tablero a comparar
+        t2 (Tablero): Tablero a comparar
+        pos (Posicion): Posicion a evaluar
+    
+    Returns:
+        Si las posiciones tienen el mismo valor devuelve True, sino False.
+    """
+    return t1[pos.fila][pos.columna] == t2[pos.fila][pos.columna]
+
 
 #### Ejercicio 6
 
