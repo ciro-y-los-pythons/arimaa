@@ -184,7 +184,19 @@ def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:
 
 
 def hay_casilla_vacia_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
-    raise Exception("No implementado")
+    """Verifica si hay una casilla vacia en la direccion a la que se quiere mover
+    requiere:
+        ableroBienFormado (t) ∧ posiciónEnTablero (pos)
+    Args:
+        t (tablero): ablero del Juego, en él se busca la posición.
+        pos (Posición): Posición en la que se busca la casilla.
+        d   (Dirección): direccion a la que se quiere hacer el movimiento
+    Returns:
+        Bool: retorna True si """
+    casilla: Tablero=posicion_vecina_hacia(pos, d)
+    verificar:bool= hay_casilla_vacia(t, casilla) 
+    return verificar
+
 
 
 def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
