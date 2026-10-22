@@ -1,7 +1,16 @@
 import unittest
 
-from src.arimaa import *
-from test.ejemplos.tableros import (
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1] 
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+from arimaa import *
+
+from ejemplos.tableros import (
     tablero_8x8_inicial_ejemplo,
     tablero_8x8_vacio,
     tablero_mal_formado_columnas_ejemplo,
@@ -64,6 +73,38 @@ class test_posicion_en_tablero(unittest.TestCase):
     def test_posicion_todo_invalido_max(self):
         pos = Posicion(8, 8)
         self.assertFalse(posicion_en_tablero(pos))
+
+
+class test_movimiento_bien_formado(unittest.TestCase):
+    def test_movimiento_no_esta_en_tablero(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(MOVER_A_SECAS, Posicion(9, -1), [NORTE]))
+        )
+    def test_movimiento_mover_a_secas_con_un_paso(self):
+        self.assertTrue(
+            movimiento_bien_formado(Movimiento(MOVER_A_SECAS, Posicion(0, 1), [NORTE]))
+        )
+    def test_movimiento_mover_a_secas_con_dos_pasos(self): 
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(MOVER_A_SECAS, Posicion(2, 3), [NORTE,SUR]))
+        )
+    def test_movimiento_empujar_con_dos_pasos(self):
+        self.assertTrue(
+            movimiento_bien_formado(Movimiento(EMPUJAR, Posicion(0, 1), [NORTE,ESTE]))
+        )
+    def test_movimiento_empujar_con_un_paso(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(EMPUJAR, Posicion(0, 1), [NORTE]))
+        )
+    def test_movimiento_arrastrar_con_dos_pasos(self):
+        self.assertTrue(
+            movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE,ESTE]))
+        )
+    def test_movimiento_arrastrar_con_un_paso(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE]))
+        )
+
 
 
 if __name__ == "__main__":

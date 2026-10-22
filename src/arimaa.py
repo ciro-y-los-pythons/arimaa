@@ -65,7 +65,28 @@ def posicion_en_tablero(pos: Posicion) -> bool:
 
 
 def movimiento_bien_formado(m: Movimiento) -> bool:
-    raise Exception("No implementado")
+    """Verifica si el movimiento parte de un origen valido y si la cantidad de pasos coincide con la accion
+
+    PRE: True
+    
+    Args:
+        m: Movimiento a verificar
+
+    Returns:
+        Si la posicion de origen existe en el tablero y la cantidad de pasos coincide con la accion: True, sino False
+        {posiciónEnTablero(m.origen)
+        ∧ (m.acción = Mover_a_secas → |m.pasos| = 1)
+        ∧ (m.acción = Arrastrar → |m.pasos| = 2) 
+        ∧ (m.acción = Empujar → |m.pasos| = 2)}
+
+    """
+    while posicion_en_tablero(m.origen):
+        if len(m.pasos) == 1:
+            return m.accion == MOVER_A_SECAS
+        elif len(m.pasos) == 2:
+            return m.accion == ARRASTRAR or m.accion == EMPUJAR
+    
+    return False
 
 
 def juego_bien_formado(j: Juego) -> bool:
@@ -106,6 +127,29 @@ def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
     """
     casilla=t[p.fila][p.columna]
     return casilla
+
+
+def hay_figura_de_color(t: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
+    """
+    Verfica si hay una {Figura} de determinado {Color} en la {Posicion} en el {Tablero}
+
+    PRE:
+        True
+
+    Args:
+        t    (Tablero): 
+        pos (Posicion): 
+        f     (Figura): 
+        col    (Color): 
+
+    Return:
+        bool: 
+            posiciónEnTablero(pos) ∧ ¬hayCasillaVacía(t, pos)
+    """
+
+    return False
+
+
 def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
     """Verifica si la casilla del {t} ubicada en la {pos} está vacía
 
