@@ -208,6 +208,25 @@ def hay_casilla_vacia_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     return verificar
 
 
+def hay_pieza(t: Tablero, pos: Posicion) -> bool:
+    """
+    Verfica si hay una {Pieza} en cierta {Posicion} del {Tablero}
+
+    Requires:
+        True
+
+    Arguments:
+        t    (Tablero): Tablero en el que se busca la Pieza
+        pos (Posicion): Posición de la Pieza a buscar
+
+    Returns:
+        ∃ f: Figura. ∃ col: Color. {hay_figura_de_color(t, pos, f, col)}
+    """
+    casilla_encontrada: Casilla = casilla_en_posicion(t, pos)
+    es_una_pieza: bool = casilla_encontrada != VACIA
+    return es_una_pieza
+
+
 def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
     raise Exception("No implementado")
 
