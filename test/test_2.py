@@ -1,15 +1,13 @@
-import unittest
-
 import sys
+import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1] 
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from arimaa import *
-
-from ejemplos.tableros import tablero_8x8_inicial_ejemplo
+from src.arimaa import *
+from test.ejemplos.tableros import tablero_8x8_inicial_ejemplo
 
 # class test_posicion_vecina_hacia(unittest.TestCase):
 #     def test_vecina_al_norte(self):
@@ -40,6 +38,50 @@ class test_hay_casilla_vacia(unittest.TestCase):
     def test_casilla_no_vacia(self):
         t = tablero_8x8_inicial_ejemplo()
         self.assertFalse(hay_casilla_vacia(t, Posicion(0, 0)))
+
+
+class test_hay_figura_de_color(unittest.TestCase):
+    def test_posicion_invalida(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(8, 8)
+        f = CABALLO
+        col = DORADO
+        self.assertFalse(hay_figura_de_color(t, pos, f, col))
+
+    def test_casilla_vacia(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(2, 2)
+        f = CABALLO
+        col = DORADO
+        self.assertFalse(hay_figura_de_color(t, pos, f, col))
+
+    def test_diferente_color(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(7, 0)
+        f = CABALLO
+        col = DORADO
+        self.assertFalse(hay_figura_de_color(t, pos, f, col))
+
+    def test_diferente_figura(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(0, 0)
+        f = GATO
+        col = DORADO
+        self.assertFalse(hay_figura_de_color(t, pos, f, col))
+
+    def test_diferente_pieza(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(7, 1)
+        f = CABALLO
+        col = DORADO
+        self.assertFalse(hay_figura_de_color(t, pos, f, col))
+
+    def test_misma_pieza(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(0, 0)
+        f = CABALLO
+        col = DORADO
+        self.assertTrue(hay_figura_de_color(t, pos, f, col))
 
 
 # class test_hay_pieza_de_color(unittest.TestCase):
