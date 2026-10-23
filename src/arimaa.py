@@ -203,8 +203,8 @@ def hay_casilla_vacia_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
         d   (Dirección): direccion a la que se quiere hacer el movimiento
     Returns:
         Bool: retorna True si"""
-    casilla: Tablero = posicion_vecina_hacia(pos, d)
-    verificar: bool = hay_casilla_vacia(t, casilla)
+    posicion_vecina: Posicion = posicion_vecina_hacia(pos, d)
+    verificar: bool = hay_casilla_vacia(t, posicion_vecina)
     return verificar
 
 
