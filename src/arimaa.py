@@ -238,6 +238,50 @@ def hay_pieza_enemiga_mas_debil_hacia(t: Tablero, pos: Posicion, d: Direccion) -
     raise Exception("No implementado")
 
 
+def hay_pieza_enemiga_mas_fuerte_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
+    """
+    Verifica si hay una pieza_enemiga más fuerte hacia cierta dirección
+
+    Requires:
+        True
+
+    Arguments:
+        t    (Tablero): Tablero en el que se verifica si ∃ la p_enemiga
+        pos (Posicion): Posición de la p_propia
+        d  (Dirección): Dirección en la que se busca la p_enemiga
+
+    Returns:
+        ∃ f: Figura. ∃ col: Color. ∃ pos_enemiga: Posición. ∃ f_enemiga: Figura. (
+            hay_figura_de_color (t, pos, f, col)
+            ∧ es_posición_vecina_hacia (pos, d, pos_enemiga)
+            ∧ hay_figura_de_color (t, pos_enemiga, f_enemiga, oponente(col))
+            ∧ fuerza(f) < fuerza(f_enemiga)
+        )
+    """
+    # Verificar ∃ pieza_propia
+    casilla_propia_esta_vacia: bool = hay_casilla_vacia(t, pos)
+    if casilla_propia_esta_vacia:
+        return False
+    p_propia: Casilla = casilla_en_posicion(t, pos)
+
+    # Verificar ∃ pieza_vecina
+    posicion_vecina: Posicion = posicion_vecina_hacia(pos, d)
+    if not posicion_en_tablero(posicion_vecina):
+        return False
+    if hay_casilla_vacia_hacia(t, pos, d):
+        return False
+    p_vecina: Casilla = casilla_en_posicion(t, posicion_vecina)
+
+    # Verifica si es pieza enemiga
+    color_enemigo: Color = oponente(p_propia.color)
+    es_p_enemiga: bool = p_vecina.color == color_enemigo
+    if not es_p_enemiga:
+        return False
+
+    es_p_enemiga_mas_fuerte: bool = fuerza(p_propia.figura) < fuerza(p_vecina.figura)
+    return es_p_enemiga_mas_fuerte
+
+
 def hay_pieza_enemiga_mas_fuerte_vecina(t: Tablero, pos: Posicion) -> bool:
     raise Exception("No implementado")
 
