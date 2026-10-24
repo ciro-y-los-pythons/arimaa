@@ -1,3 +1,10 @@
 __pycache__/
+
+# Archivos temporales
 changes.*
 changes
+
+# Archivos de Coverage
+.coverage
+coverage.json
+htmlcov/

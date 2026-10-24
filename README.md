@@ -15,3 +15,27 @@ El objetivo de este trabajo es aplicar los conceptos de programación imperativa
 
 - Introducción a la Programación (ex AyED I) 2c2026
 - Plan de Estudio 2023 del Departamento de Computación, FCEyN, UBA
+
+## Comandos
+
+### Coverage
+
+[Documentación del Coverage](./doc/coverage.md)
+
+1. Ejecutar los tests con coverage:
+
+```Shell
+PYTHONPATH=src python3 -m coverage run --branch -m unittest discover -s test
+```
+
+2. Generar el archivo JSON:
+
+```Shell
+python3 -m coverage json
+```
+
+3. Ejecutar tu script de cubrimiento
+
+```Shell
+python3 template/cubrimiento.py
+```
