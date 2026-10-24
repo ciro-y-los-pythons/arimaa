@@ -374,7 +374,7 @@ def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posic
 
     return numero_de_posiciones_coincidentes == 63
 
-def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool:
+def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool: # Auxiliar
     """Verifica si t1 es el mismo tablero que t0 pero con una pieza removida en pos
     PRE:
         True
@@ -395,6 +395,24 @@ def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool:
 
 def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
     raise Exception("No implementado")
+
+
+def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
+    """Verifica si t1 es el tablero resultante de agregar (o cambiar) una pieza en la Posicion pos, de Figura f y Color col 
+    PRE:
+        True
+
+    Args:
+        t0 (Tablero): Tablero "inicial"
+        t1 (Tablero): Posible tablero con una pieza removida
+        pos (Posicion): Posicion a evaluar
+        f (Figura): Figura de la pieza en tablero t1
+        col (Color): Color de la pieza en tablero t1
+
+    Returns:
+        Si los tableros tienen el mismo valor en todas las posiciones y en t1[pos.fila][pos.columna] hay una pieza con Figura f y Color col True, sino False.
+    """
+    return tableros_coinciden_salvo_en_la_posicion(t0, t1, pos) and hay_figura_de_color(t1, pos, f, col)
 
 
 #### Ejercicio 7

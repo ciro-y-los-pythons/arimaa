@@ -1,22 +1,14 @@
-import unittest
-
-
 import sys
+import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1] 
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from arimaa import *
+from src.arimaa import *
 
-from test.ejemplos.tableros import (
-    tablero_8x8_inicial_ejemplo,
-    tablero_8x8_vacio,
-    tablero_mal_formado_columnas_ejemplo,
-    tablero_mal_formado_filas_ejemplo,
-    tablero_8x8_inicial_falta_un_conejo_dorado_en_h2
-)
+from test.ejemplos.tableros import *
 
 class test_tableros_coinciden_en_la_posicion(unittest.TestCase):
     def test_coinciden(self):
