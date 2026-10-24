@@ -400,6 +400,26 @@ def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
 #### Ejercicio 7
 
 
+def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
+    """
+    Verifica si una p_propia se encuentra en su posición inicial
+
+    Requires:
+        True
+
+    Arguments:
+        pos (in Posicion): Posición de la p_propia
+        col    (in Color): Color de la p_propia
+
+    Returns:
+        Bool: Si la pieza de cierto Color se encuentra en su fila inicial
+            { (col = Dorado → pos. fila == 0) ∧ (col = Plateado → pos. fila == 7) }
+    """
+    p_dorada_en_inicial: bool = col == DORADO and pos.fila == 0
+    p_plateada_en_inicial: bool = col == PLATEADO and pos.fila == 7
+
+    return p_dorada_en_inicial or p_plateada_en_inicial
+
 def hay_ganador_determinado(j: Juego) -> bool:
     raise Exception("No implementado")
 
