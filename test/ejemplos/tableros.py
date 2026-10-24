@@ -93,6 +93,33 @@ def tablero_8x8_ya_finalizando():
     )
 
 
+def tablero_8x8_ya_finalizando_v2():
+    """
+    Tablero Ya Finalizando (igual al anterior, con un caballo dorado en b6):
+    | - - - - - - - h | 7\n
+    | - - - - - - - R | 6\n
+    | - H - - - - - - | 5\n
+    | - - - - c - - - | 4\n
+    | - - - - R - - - | 3\n
+    | - - - - - - - - | 2\n
+    | - - - - - - - - | 1\n
+    | r - - - - - - - | 0\n
+      0 1 2 3 4 5 6 7
+    """
+    return leer_tablero(
+        [
+            "-------h",  # 7
+            "-------R",  # 6
+            "-H------",  # 5
+            "----c---",  # 4
+            "----R---",  # 3
+            "--------",  # 2
+            "r-------",  # 1
+            "--------",  # 0
+            # 01234567
+        ]
+    )
+
 def tablero_mal_formado_filas_ejemplo():
     return leer_tablero(
         [
@@ -138,3 +165,5 @@ def tablero_8x8_inicial_falta_un_conejo_dorado_en_h2():
             # 01234567
         ]
     )
+
+

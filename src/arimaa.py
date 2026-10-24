@@ -304,9 +304,7 @@ def activar_trampas(t: Tablero) -> Tablero:
     raise Exception("No implementado")
 
 
-def tableros_coinciden_en_la_posicion(
-    t1: Tablero, t2: Tablero, pos: Posicion
-) -> bool:  # Auxiliar
+def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:  # Auxiliar
     """Verifica si ambos tableros tienen la misma pieza o casilla vacia en una posicion especifica (pasada por parametro)
     PRE:
         True
@@ -322,9 +320,7 @@ def tableros_coinciden_en_la_posicion(
     return t1[pos.fila][pos.columna] == t2[pos.fila][pos.columna]
 
 
-def tableros_coinciden_salvo_en_la_posicion(
-    t1: Tablero, t2: Tablero, pos: Posicion
-) -> bool:  # Auxiliar
+def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:  # Auxiliar
     """Verifica si ambos tableros tienen los mismos valores en todas las posiciones salvo pos (pasada por parametro)
     PRE:
         True
@@ -347,6 +343,21 @@ def tableros_coinciden_salvo_en_la_posicion(
                 numero_de_posiciones_coincidentes += 1
 
     return numero_de_posiciones_coincidentes == 63
+
+def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool:
+    """Verifica si t1 es el mismo tablero que t0 pero con una pieza removida en pos
+    PRE:
+        True
+
+    Args:
+        t0 (Tablero): Tablero "inicial"
+        t1 (Tablero): Posible tablero con una pieza removida
+        pos (Posicion): Posicion a evaluar
+
+    Returns:
+        Si los tableros tienen el mismo valor en todas las posiciones y pos es una casilla vacia devuelve True, sino False.
+    """
+    return tableros_coinciden_salvo_en_la_posicion(t0, t1, pos) and hay_casilla_vacia(t1, pos)
 
 
 #### Ejercicio 6
