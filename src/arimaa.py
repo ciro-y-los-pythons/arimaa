@@ -283,7 +283,37 @@ def hay_pieza_enemiga_mas_fuerte_hacia(t: Tablero, pos: Posicion, d: Direccion) 
 
 
 def hay_pieza_enemiga_mas_fuerte_vecina(t: Tablero, pos: Posicion) -> bool:
-    raise Exception("No implementado")
+    """
+    Verifica si hay una pieza_enemiga más fuerte alrededor de cierta Posición
+
+    Requires:
+        tablero_bien_formado(t)
+        ∧ posicion_en_tablero(pos)
+        ∧ hay_pieza(t, pos)
+
+    Arguments:
+        t    (in Tablero): Tablero en el que se verifica si ∃ la p_enemiga
+        pos (in Posicion): Posición de la p_propia
+
+    Returns:
+        Bool: { res = True ←→ hay_pieza_enemiga_mas_fuerte_vecina(t, pos) }
+            V { ∃ d: Dirección. hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d) }
+    """
+    if not tablero_bien_formado(t):
+        exception_t = Exception("Requiere: Tablero bien formado")
+        raise exception_t
+    if not posicion_en_tablero(pos):
+        exception_pos = Exception("Requiere: posición Existente en el Tablero")
+        raise exception_pos
+    if not hay_pieza(t, pos):
+        exception_p = Exception("Requiere: ∃ pieza en la Posición del Tablero")
+        raise exception_p
+
+    direcciones: list[Direccion] = [NORTE, SUR, ESTE, OESTE]
+    for d in direcciones:
+        if hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d):
+            return True
+    return False
 
 
 def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
