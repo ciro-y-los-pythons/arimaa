@@ -1,7 +1,7 @@
 import sys
 import tkinter
 
-import arimaa as aa
+import src.arimaa as aa
 
 U_PX = 8
 CASILLA_PX = 10 * U_PX
@@ -372,16 +372,16 @@ TABLERO_INICIAL_POR_DEFECTO = [
 
 
 def mostrar_opciones():
-    sys.stderr.write(f"Opciones:\n")
+    sys.stderr.write("Opciones:\n")
     sys.stderr.write(
-        f"    tablero.txt : Carga el tablero desde el archivo especificado.\n"
+        "    tablero.txt : Carga el tablero desde el archivo especificado.\n"
     )
-    sys.stderr.write(f"    -d          : Empieza el dorado.\n")
-    sys.stderr.write(f"    -p          : Empieza el plateado.\n")
-    sys.stderr.write(f"    -0          : Empieza con 0 pasos consumidos.\n")
-    sys.stderr.write(f"    -1          : Empieza con un paso consumido.\n")
-    sys.stderr.write(f"    -2          : Empieza con dos pasos consumidos.\n")
-    sys.stderr.write(f"    -3          : Empieza con tres pasos consumidos.\n")
+    sys.stderr.write("    -d          : Empieza el dorado.\n")
+    sys.stderr.write("    -p          : Empieza el plateado.\n")
+    sys.stderr.write("    -0          : Empieza con 0 pasos consumidos.\n")
+    sys.stderr.write("    -1          : Empieza con un paso consumido.\n")
+    sys.stderr.write("    -2          : Empieza con dos pasos consumidos.\n")
+    sys.stderr.write("    -3          : Empieza con tres pasos consumidos.\n")
 
 
 if __name__ == "__main__":

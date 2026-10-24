@@ -3,16 +3,14 @@
 ## Última Actualización
 
 + Realizada: 23/10, 11:40
-+ Ultimo commit: `TEST #14 - Ejercicio_3 - hay_pieza_enemiga_mas_fuerte_hacia`
++ Ultimo commit: `TEST #15 - Ejercicio_3 - hay_pieza_enemiga_mas_fuerte_vecina`
 + Resultado:
 
 ```Shell
-
 === Análisis de Coverage ===
 
-➡️  Porcentaje global de líneas cubiertas (564/631): 89.38%
-➡️  Porcentaje global de ramas cubiertas (51/90): 56.67%
-
+➡️  Porcentaje global de líneas cubiertas (605/667): 90.70%
+➡️  Porcentaje global de ramas cubiertas (69/100): 69.00%
 ```
 
 ## ¿Como se genera el Coverage?

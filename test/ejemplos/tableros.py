@@ -18,6 +18,18 @@ def tablero_8x8_vacio():
 
 
 def tablero_8x8_inicial_ejemplo():
+    """
+    Tablero Inicial (0 jugadas):
+    | h c d m e d c h | 7\n
+    | r r r r r r r r | 6\n
+    | - - - - - - - - | 5\n
+    | - - - - - - - - | 4\n
+    | - - - - - - - - | 3\n
+    | - - - - - - - - | 2\n
+    | R R R R R R R R | 1\n
+    | H C D M E D C H | 0\n
+      0 1 2 3 4 5 6 7
+    """
     return leer_tablero(
         [
             "hcdmedch",  # 7
@@ -34,6 +46,18 @@ def tablero_8x8_inicial_ejemplo():
 
 
 def tablero_8x8_empezando():
+    """
+    Tablero Recién Empezando:
+    | h c d m e d c h | 7\n
+    | r r r - r r - - | 6\n
+    | - - - - - - r r | 5\n
+    | - - - r - - - - | 4\n
+    | R - - R - - - - | 3\n
+    | - - - - - - - - | 2\n
+    | - R R - R R R R | 1\n
+    | H C D M E D C H | 0\n
+      0 1 2 3 4 5 6 7
+    """
     return leer_tablero(
         [
             "hcdmedch",  # 7
@@ -50,6 +74,18 @@ def tablero_8x8_empezando():
 
 
 def tablero_8x8_ya_empezado():
+    """
+    Tablero Ya Empezado:
+    | R - e - - m R r | 7\n
+    | - - - - - - d E | 6\n
+    | h - - R r - R R | 5\n
+    | c - - R - C - - | 4\n
+    | - r C H D r r - | 3\n
+    | - - - - r c - - | 2\n
+    | h - R - M - R - | 1\n
+    | r r - D - d H - | 0\n
+      0 1 2 3 4 5 6 7
+    """
     return leer_tablero(
         [
             "R-e--mRr",  # 7
@@ -120,6 +156,7 @@ def tablero_8x8_ya_finalizando_v2():
         ]
     )
 
+
 def tablero_mal_formado_filas_ejemplo():
     return leer_tablero(
         [
@@ -165,5 +202,3 @@ def tablero_8x8_inicial_falta_un_conejo_dorado_en_h2():
             # 01234567
         ]
     )
-
-
