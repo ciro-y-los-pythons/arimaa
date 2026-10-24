@@ -447,6 +447,17 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
     return es_tablero_sacando_pieza(t0,t_intermedio,pos_origen) and es_tablero_poniendo_pieza(t_intermedio,t1,pos_destino,f,col)
 
 def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
+    """Genera a partir de un tablero t, otro tablero valido sin la pieza indicada en pos
+    PRE:
+        True
+
+    Args:
+        t (Tablero): Tablero "inicial", estado anterior
+        pos (Posicion): Posicion donde se quiere ubicar una casilla vacia
+
+    Returns:
+        Una copia de t con todas las posiciones iguales, salvo pos, cuya pieza (o vacia) es reemplazada por VACIA
+    """
     t_nuevo: Tablero = []
     for fila in t:
         t_nuevo.append(fila.copy())
@@ -454,6 +465,24 @@ def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tabl
     t_nuevo[pos.fila][pos.columna] = VACIA
 
     return t_nuevo
+
+
+def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool:
+    """Contabiliza los pasos que se hicieron en un turno y verifica si se llego a la cantidad maxima
+    PRE:
+        True
+
+    Args:
+        j (Juego): Juego actual, contiene la cantidad de pasos ya consumidos
+        m (Movimiento): Movimiento que se produce, suma la cantidad de pasos correspondiente
+
+
+    Returns:
+        Si la suma de pasos ya consumidos y la cantidad de pasos del moviemiento supera la maxima permitida por turno: True, sino False
+    """
+    pasos_totales: int = j.pasos_consumidos + len(m.pasos)
+
+    return pasos_totales == MAX_PASOS
 
     
 #### Ejercicio 7
