@@ -3,17 +3,15 @@ Archivo general de tests (Explota de Exceptions, asique no es muy recomendable e
 Ejecutable con: python3 -m unittest test.todos
 """
 
-import unittest
-
 import sys
+import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1] 
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from arimaa import *
-
+from src.arimaa import *
 from test.ejemplos.tableros import *
 
 """
@@ -189,6 +187,35 @@ class test_hay_pieza_enemiga_mas_debil_hacia(unittest.TestCase):
         self.assertTrue(hay_pieza_enemiga_mas_debil_hacia(t, Posicion(1, 3), OESTE))
 
 
+class test_hay_pieza_enemiga_mas_fuerte_hacia(unittest.TestCase):
+    def test_hay_pieza_enemiga_mas_fuerza_hacia(self):
+        t = tablero_8x8_ya_finalizando()
+        pos = Posicion(3, 4)
+        d = NORTE
+        self.assertTrue(hay_pieza(t, pos))
+        self.assertTrue(hay_pieza(t, posicion_vecina_hacia(pos, d)))
+        self.assertEqual(posicion_vecina_hacia(pos, d), Posicion(4, 4))
+        self.assertTrue(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
+
+    def test_no_hay_pieza_enemiga_hacia(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(3, 0)
+        d = NORTE
+        self.assertFalse(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
+
+    def test_hay_pieza_enemiga_de_misma_fuerza_hacia(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(3, 3)
+        d = NORTE
+        self.assertFalse(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
+
+    def test_exception_no_hay_pieza_propia(self):
+        t = tablero_8x8_ya_finalizando()
+        pos = Posicion(1, 1)
+        d = NORTE
+        self.assertFalse(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
+
+
 class test_hay_pieza_enemiga_mas_fuerte_vecina(unittest.TestCase):
     def test_hay_pieza_enemiga_mas_fuerte_vecina(self):
         t = leer_tablero(
@@ -288,26 +315,28 @@ class test_tableros_coinciden_en_la_posicion(unittest.TestCase):
     def test_coinciden(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_ejemplo()
-        pos = Posicion(0,0)
-        self.assertTrue(tableros_coinciden_en_la_posicion(t1,t2, pos))
+        pos = Posicion(0, 0)
+        self.assertTrue(tableros_coinciden_en_la_posicion(t1, t2, pos))
+
     def test_no_coinciden(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_vacio()
-        pos = Posicion(0,0)
-        self.assertFalse(tableros_coinciden_en_la_posicion(t1,t2, pos))
+        pos = Posicion(0, 0)
+        self.assertFalse(tableros_coinciden_en_la_posicion(t1, t2, pos))
 
 
 class test_tableros_coinciden_salvo_en_la_posicion(unittest.TestCase):
     def test_coinciden_salvo_en_una_posicion(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_falta_un_conejo_dorado_en_h2()
-        pos = Posicion(1,7)
-        self.assertTrue(tableros_coinciden_salvo_en_la_posicion(t1,t2, pos))
+        pos = Posicion(1, 7)
+        self.assertTrue(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
+
     def test_coinciden_en_todas_las_posiciones(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_ejemplo()
-        pos = Posicion(0,0) #Indistinto, porque coinciden en todas las pos
-        self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t1,t2, pos))
+        pos = Posicion(0, 0)  # Indistinto, porque coinciden en todas las pos
+        self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
 
 
 #### Ejercicio 6
