@@ -98,19 +98,22 @@ def juego_bien_formado(j: Juego) -> bool:
 
 def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
     """Verifico la posicion a la que quiero mover la pieza
+
     Args:
         pos (posicion): posicion actual
         d   (Dirección): dirección a la que quiero mover
-    Return:
-        Posicion (Posicion): posicion despues de mover a la dirección indicada"""
+
+    Returns:
+        Posicion (Posicion): posicion despues de mover a la dirección indicada
+    """
     movimiento: Posicion
-    if d == ESTE:
+    if d == SUR:
         movimiento = Posicion(fila=pos.fila - 1, columna=pos.columna)
-    elif d == OESTE:
-        movimiento = Posicion(fila=pos.fila + 1, columna=pos.columna)
     elif d == NORTE:
+        movimiento = Posicion(fila=pos.fila + 1, columna=pos.columna)
+    elif d == ESTE:
         movimiento = Posicion(fila=pos.fila, columna=pos.columna + 1)
-    elif d == SUR:
+    elif d == OESTE:
         movimiento = Posicion(fila=pos.fila, columna=pos.columna - 1)
     return movimiento
 
