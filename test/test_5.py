@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from arimaa import *
 
-from ejemplos.tableros import (
+from test.ejemplos.tableros import (
     tablero_8x8_inicial_ejemplo,
     tablero_8x8_vacio,
     tablero_mal_formado_columnas_ejemplo,
