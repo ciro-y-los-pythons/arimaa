@@ -42,5 +42,25 @@ class test_es_tablero_poniendo_pieza(unittest.TestCase):
         self.assertFalse(es_tablero_poniendo_pieza(t1,t2,pos,f,col))
 
 
+class test_es_tablero_trasladando_pieza(unittest.TestCase):
+    def test_mueve_conejo_dorado_h2_a_h3(self):
+        t0 = tablero_8x8_inicial_ejemplo()
+        t1 = tablero_8x8_mueve_conejo_dorado_h3()
+        pos_origen = Posicion(1,7)
+        pos_destino = Posicion(2,7)
+        self.assertTrue(es_tablero_trasladando_pieza(t0,t1,pos_origen,pos_destino))
+    def test_quita_y_no_mueve(self):
+        t0 = tablero_8x8_inicial_ejemplo()
+        t1 = tablero_8x8_inicial_falta_un_conejo_dorado_en_h2()
+        pos_origen = Posicion(1,7)
+        pos_destino = Posicion(2,7)
+        self.assertFalse(es_tablero_trasladando_pieza(t0,t1,pos_origen,pos_destino))
+    def test_no_hay_pieza_origen(self):
+        t0 = tablero_8x8_inicial_falta_un_conejo_dorado_en_h2()
+        t1 = tablero_8x8_mueve_conejo_dorado_h3()
+        pos_origen = Posicion(1,7)
+        pos_destino = Posicion(2,7)
+        self.assertFalse(es_tablero_trasladando_pieza(t0,t1,pos_origen,pos_destino))
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

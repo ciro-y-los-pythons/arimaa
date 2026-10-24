@@ -415,6 +415,47 @@ def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura
     return tableros_coinciden_salvo_en_la_posicion(t0, t1, pos) and hay_figura_de_color(t1, pos, f, col)
 
 
+def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion, pos_destino: Posicion) -> bool: # Auxiliar
+    """Verifica si t1 es el tablero resultante de mover a partir de t0 una pieza desde la pos_origen hacia pos_destino 
+    PRE:
+        True
+
+    Args:
+        t0 (Tablero): Tablero "inicial", estado anterior
+        t1 (Tablero): Tablero "sucesor", estado posterior
+        pos_origen (Posicion): Posicion desde donde parte la pieza
+        pos_destino (Posicion): Posicion donde la pieza deberia haber ido
+
+    Returns:
+        Si en pos_origen hay una pieza, t0 es un estado previo y t1 es un estado posterior: True, sino False
+        Existe f: Figura. Existe col: Color. Existe t_intermedio: Tablero. (
+        hayFiguraDeColor (t0, pos_origen , f , col)
+        ∧ esTableroSacandoPieza (t0 , t_intermedio , pos_origen )
+        ∧ esTableroPoniendoPieza (t_intermedio , t1 , pos_destino , f , col)
+
+    """
+    pieza_origen: Pieza = t0[pos_origen.fila][pos_origen.columna]
+    
+    if pieza_origen == VACIA:
+        return False
+
+    f: Figura = pieza_origen.figura
+    col: Color = pieza_origen.color
+
+    t_intermedio: Tablero = genera_tablero_quitando_pieza_en_posicion(t0,pos_origen)
+
+    return es_tablero_sacando_pieza(t0,t_intermedio,pos_origen) and es_tablero_poniendo_pieza(t_intermedio,t1,pos_destino,f,col)
+
+def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
+    t_nuevo: Tablero = []
+    for fila in t:
+        t_nuevo.append(fila.copy())
+    
+    t_nuevo[pos.fila][pos.columna] = VACIA
+
+    return t_nuevo
+
+    
 #### Ejercicio 7
 
 

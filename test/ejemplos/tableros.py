@@ -45,6 +45,34 @@ def tablero_8x8_inicial_ejemplo():
     )
 
 
+def tablero_8x8_mueve_conejo_dorado_h3():
+    """
+    Tablero Inicial (0 jugadas):
+    | h c d m e d c h | 7\n
+    | r r r r r r r r | 6\n
+    | - - - - - - - - | 5\n
+    | - - - - - - - - | 4\n
+    | - - - - - - - - | 3\n
+    | - - - - - - - R | 2\n
+    | R R R R R R R - | 1\n
+    | H C D M E D C H | 0\n
+      0 1 2 3 4 5 6 7
+    """
+    return leer_tablero(
+        [
+            "hcdmedch",  # 7
+            "rrrrrrrr",  # 6
+            "--------",  # 5
+            "--------",  # 4
+            "--------",  # 3
+            "-------R",  # 2
+            "RRRRRRR-",  # 1
+            "HCDMEDCH",  # 0
+            # 01234567
+        ]
+    )
+
+
 def tablero_8x8_empezando():
     """
     Tablero Recién Empezando:
