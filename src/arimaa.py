@@ -561,6 +561,28 @@ def es_inicio_de_turno(j: Juego, col: Color) -> bool:
     """
     return j.turno == col and j.pasos_consumidos == 0
 
+
+def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
+    """Verifica si hay al menos un conejo en el tablero
+    PRE:
+        es_juego_valido(j)
+
+    Args:
+        j (Juego): Juego a evaluar
+        col (Color): Color del conejo del cual se evalua su existencia
+
+    Returns:
+        Si en alguna posicion valida del tablero hay un conejo: True, sino False
+        Existe pos: Posición. hayFiguraDeColor (j.tablero, pos, Conejo, col)
+    """
+    for fila in range(0,8):
+        for columna in range(0,8):
+            if hay_figura_de_color(j.tablero,Posicion(fila,columna),CONEJO,col):
+                return True
+
+    return False
+
+
 def hay_ganador_determinado(j: Juego) -> bool:
     raise Exception("No implementado")
 

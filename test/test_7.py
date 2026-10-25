@@ -64,5 +64,17 @@ class test_es_inicio_de_turno(unittest.TestCase):
         self.assertFalse(es_inicio_de_turno(j, col))
 
 
+class test_hay_conejo_en_tablero(unittest.TestCase):
+    def test_hay_conejo_dorado(self):
+        j = Juego(tablero_8x8_ya_finalizando(),DORADO,0)
+        col = DORADO
+        self.assertTrue(hay_conejo_en_tablero(j, col))
+
+    def test_no_hay_conejos(self):
+        j = Juego(tablero_8x8_vacio(),DORADO,0)
+        col = DORADO
+        self.assertFalse(hay_conejo_en_tablero(j, col))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
