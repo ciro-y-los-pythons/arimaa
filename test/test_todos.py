@@ -452,6 +452,17 @@ class test_es_tablero_trasladando_pieza(unittest.TestCase):
         self.assertFalse(es_tablero_trasladando_pieza(t0,t1,pos_origen,pos_destino))
 
 
+class test_hay_que_cambiar_de_turno(unittest.TestCase):
+    def test_mover_a_secas_inicio(self):
+        j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
+        m = Movimiento(MOVER_A_SECAS,Posicion(1,1),[NORTE])
+        self.assertFalse(hay_que_cambiar_de_turno(j,m))
+    def test_camello_empuja_conejo_y_juego_tenia_2_pasos(self):
+        j = Juego(tablero_8x8_ya_finalizando(),PLATEADO,2)
+        m = Movimiento(EMPUJAR,Posicion(4,4),[SUR,SUR])
+        self.assertTrue(hay_que_cambiar_de_turno(j,m))
+
+
 #### Ejercicio 7
 
 
