@@ -1,5 +1,5 @@
 """
-Archivo general de tests (Explota de Exceptions, asique no es muy recomendable ejecutarlo)
+Archivo general de tests (Explota de Exceptions, no es muy recomendable ejecutarlo)
 Ejecutable con: python3 -m unittest test.todos
 """
 
@@ -507,6 +507,28 @@ class test_ganador_del_juego(unittest.TestCase):
         j = Juego(t, PLATEADO, 0)
         self.assertTrue(hay_ganador_determinado(j))
         self.assertEqual(ganador_del_juego(j), DORADO)
+
+
+class test_es_inicio_de_turno(unittest.TestCase):
+    def test_inicio_de_juego(self):
+        j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
+        col = DORADO
+        self.assertTrue(es_inicio_de_turno(j, col))
+
+    def test_inicio_de_juego_no_coincide_color(self):
+        j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
+        col = PLATEADO
+        self.assertFalse(es_inicio_de_turno(j, col))
+
+    def test_ya_hay_pasos_consumidos(self):
+        j = Juego(tablero_8x8_mueve_conejo_dorado_h3(),DORADO,1)
+        col = DORADO
+        self.assertFalse(es_inicio_de_turno(j, col))
+
+    def test_ya_hay_pasos_consumidos_y_no_coincide_color(self):
+        j = Juego(tablero_8x8_mueve_conejo_dorado_h3(),DORADO,1)
+        col = PLATEADO
+        self.assertFalse(es_inicio_de_turno(j, col))
 
 
 if __name__ == "__main__":

@@ -526,7 +526,6 @@ def juego_con_turno_posiblemente_avanzado(j0: Juego, j1: Juego, m: Movimiento) -
 
 #### Ejercicio 7
 
-
 def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
     """
     Verifica si una p_propia se encuentra en su posición inicial
@@ -546,6 +545,21 @@ def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
     p_plateada_en_inicial: bool = col == PLATEADO and pos.fila == 7
 
     return p_dorada_en_inicial or p_plateada_en_inicial
+
+
+def es_inicio_de_turno(j: Juego, col: Color) -> bool:
+    """Verifica si un juego (j) es el primero de un turno
+    PRE:
+        True
+
+    Args:
+        j (Juego): Juego a evaluar
+        col (Color): Color del turno
+
+    Returns:
+        Si el turno del juego coincide con el color pasado por parametro y todavia no se consumieron pasos: True, sino False
+    """
+    return j.turno == col and j.pasos_consumidos == 0
 
 def hay_ganador_determinado(j: Juego) -> bool:
     raise Exception("No implementado")
