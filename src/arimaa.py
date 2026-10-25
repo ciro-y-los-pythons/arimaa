@@ -337,10 +337,48 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
 
 #### Ejercicio 4
 
-
 def puede_realizar_movimiento(j: Juego, m: Movimiento) -> bool:
     raise Exception("No implementado")
 
+
+def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) -> bool:
+    """Verifica si en la Posicion pos hay una figura y si es CONEJO, que mueva hacia "adelante" con respecto a su color
+    PRE:
+        True
+
+    Args:
+        t (Tablero): Tablero donde deberia estar la figura
+        pos (Posicion): Posicion del tablero a verificar
+        d (Direccion): Direccion donde se quiere mover la pieza
+
+    Returns:
+        Si la figura existe en la pos y es CONEJO:
+            - Si es DORADO y d es NORTE True, sino False
+            - Si es PLATEADO y d es SUR True, sino False
+        Si la figura existe en la pos y no es CONEJO: True, sino False
+        Existe f: Figura. Existe col: Color. (hayFiguraDeColor (t, pos, f, col)
+        ∧ ((f = Conejo ∧ col = Dorado ) → d != Sur )
+        ∧ ((f = Conejo ∧ col = Plateado ) → d != Norte )
+    """
+    pieza: Pieza = t[pos.fila][pos.columna]
+
+    es_direccion_habilitada: bool = False
+    
+    if pieza == VACIA:
+        return False
+
+    f: Figura = pieza.figura
+    col: Color = pieza.color
+
+    if hay_figura_de_color(t,pos,f,col):
+        es_direccion_habilitada = True
+        
+        if f == CONEJO and col == DORADO:
+            es_direccion_habilitada = d != SUR
+        elif f == CONEJO and col == PLATEADO:
+            es_direccion_habilitada = d != NORTE
+
+    return es_direccion_habilitada
 
 #### Ejercicio 5
 
