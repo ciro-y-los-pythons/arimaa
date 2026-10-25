@@ -128,6 +128,34 @@ def tablero_8x8_ya_empezado():
         ]
     )
 
+def tablero_8x8_ya_empezado_mueve_camello_plateado_a4():
+    """
+    Tablero Ya Empezado:
+    | R - e - - m R r | 7\n
+    | - - - - - - d E | 6\n
+    | h - - R r - R R | 5\n
+    | - - - R - C - - | 4\n
+    | c r C H D r r - | 3\n
+    | - - - - r c - - | 2\n
+    | h - R - M - R - | 1\n
+    | r r - D - d H - | 0\n
+      0 1 2 3 4 5 6 7
+    """
+    return leer_tablero(
+        [
+            "R-e--mRr",  # 7
+            "------dE",  # 6
+            "h--Rr-RR",  # 5
+            "---R-C--",  # 4
+            "crCHDrr-",  # 3
+            "----rc--",  # 2
+            "h-R-M-R-",  # 1
+            "rr-D-dH-",  # 0
+            # 01234567
+        ]
+    )
+
+
 
 def tablero_8x8_ya_finalizando():
     """

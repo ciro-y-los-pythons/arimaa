@@ -467,7 +467,7 @@ def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tabl
     return t_nuevo
 
 
-def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool:
+def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
     """Contabiliza los pasos que se hicieron en un turno y verifica si se llego a la cantidad maxima
     PRE:
         True
@@ -476,7 +476,6 @@ def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool:
         j (Juego): Juego actual, contiene la cantidad de pasos ya consumidos
         m (Movimiento): Movimiento que se produce, suma la cantidad de pasos correspondiente
 
-
     Returns:
         Si la suma de pasos ya consumidos y la cantidad de pasos del moviemiento supera la maxima permitida por turno: True, sino False
     """
@@ -484,7 +483,32 @@ def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool:
 
     return pasos_totales == MAX_PASOS
 
-    
+
+def juego_con_turno_posiblemente_avanzado(j0: Juego, j1: Juego, m: Movimiento) -> bool:
+    """Verifica si un juego (j1) cambio de turno o no
+    PRE:
+        True
+
+    Args:
+        j0 (Juego): Estado del juego previo
+        j1 (Juego): Estado del juego posterior
+        m (Movimiento): Movimiento realizado, suma la cantidad de pasos correspondiente (si el turno cambia debe ser 0, sino suma la cantidad de pasos)
+
+    Returns:
+        Si j0 ya consumio sus pasos, j1 debe ser un nuevo turno y tener 0 pasos consumidos y,
+        Si j0 no consumio sus pasos, j1 debe ser del mismo turno y tener la misma cantidad de pasos consumidos que su estado previo + actual jugado
+        Caso contrario, devuelve False
+        (hayQueCambiarDeTurno (j0, m) → (j1 . turno = oponente (j0.turno) ∧ j1.pasosConsumidos = 0))
+        ∧ (¬hayQueCambiarDeTurno (j0, m) → (j1.turno = j0.turno ∧ j1.pasosConsumidos = j0.pasosConsumidos + |m.pasos|))
+
+    """
+    if hay_que_cambiar_de_turno(j0,m):
+        es_avanzado: bool = j1.turno == oponente(j0.turno) and j1.pasos_consumidos == 0
+    else:
+        es_avanzado: bool = j1.turno == j0.turno and j1.pasos_consumidos == (j0.pasos_consumidos + len(m.pasos))
+
+    return es_avanzado
+
 #### Ejercicio 7
 
 

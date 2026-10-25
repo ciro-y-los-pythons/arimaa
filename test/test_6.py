@@ -73,5 +73,29 @@ class test_hay_que_cambiar_de_turno(unittest.TestCase):
         m = Movimiento(EMPUJAR,Posicion(4,4),[SUR,SUR])
         self.assertTrue(hay_que_cambiar_de_turno(j,m))
 
+
+class test_juego_con_turno_posiblemente_avanzado(unittest.TestCase):
+    def test_cambia_de_turno_todo_ok(self):
+        j0 = Juego(tablero_8x8_ya_empezado(),DORADO,3)
+        j1 = Juego(tablero_8x8_ya_empezado_mueve_camello_plateado_a4(),PLATEADO,0)
+        m = Movimiento(MOVER_A_SECAS,Posicion(4,0),[SUR])
+        self.assertTrue(juego_con_turno_posiblemente_avanzado(j0,j1,m))
+    def test_no_cambia_de_turno_todo_ok(self):
+        j0 = Juego(tablero_8x8_ya_empezado(),PLATEADO,2)
+        j1 = Juego(tablero_8x8_ya_empezado_mueve_camello_plateado_a4(),PLATEADO,3)
+        m = Movimiento(MOVER_A_SECAS,Posicion(4,0),[SUR])
+        self.assertTrue(juego_con_turno_posiblemente_avanzado(j0,j1,m))
+    def test_cambia_de_turno_pero_no_de_jugador(self):
+        j0 = Juego(tablero_8x8_ya_empezado(),DORADO,3)
+        j1 = Juego(tablero_8x8_ya_empezado_mueve_camello_plateado_a4(),DORADO,0)
+        m = Movimiento(MOVER_A_SECAS,Posicion(4,0),[SUR])
+        self.assertFalse(juego_con_turno_posiblemente_avanzado(j0,j1,m))
+    def test_cambia_de_turno_pero_no_reinicia_pasos(self):
+        j0 = Juego(tablero_8x8_ya_empezado(),DORADO,3)
+        j1 = Juego(tablero_8x8_ya_empezado_mueve_camello_plateado_a4(),PLATEADO,4)
+        m = Movimiento(MOVER_A_SECAS,Posicion(4,0),[SUR])
+        self.assertFalse(juego_con_turno_posiblemente_avanzado(j0,j1,m))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
