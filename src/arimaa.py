@@ -90,7 +90,22 @@ def movimiento_bien_formado(m: Movimiento) -> bool:
 
 
 def juego_bien_formado(j: Juego) -> bool:
-    raise Exception("No implementado")
+    """Verifica que el tablero este bien y los pasos esten dentro del limite.
+
+    PRE: True
+
+    Args:
+        j: El estado del juego a revisar.
+
+    Returns:
+        Si el tablero y los pasos están dentro de los límites: True, Sino False
+        (tableroBienFormado (j.tablero) ∧ 0 ≤ j.pasosConsumidos < Max_pasos)
+    """
+    es_tablero_valido: bool = tablero_bien_formado(j.tablero)
+    son_pasos_validos: bool = 0 <= j.pasos_consumidos and j.pasos_consumidos < MAX_PASOS
+    
+    es_juego_valido: bool = es_tablero_valido and son_pasos_validos
+    return es_juego_valido
 
 
 #### Ejercicio 2

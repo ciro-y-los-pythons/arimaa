@@ -105,7 +105,26 @@ class test_movimiento_bien_formado(unittest.TestCase):
             movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE]))
         )
 
+class test_juego_bien_formado(unittest.TestCase):
+    def test_juego_valido_minimo(self):
+        j = Juego(tablero_8x8_vacio(), DORADO, 0)
+        self.assertTrue(juego_bien_formado(j))
 
+    def test_juego_valido_maximo(self):
+        j = Juego(tablero_8x8_vacio(), DORADO, 3)
+        self.assertTrue(juego_bien_formado(j))
+
+    def test_juego_invalido_pasos_negativos(self):
+        j = Juego(tablero_8x8_vacio(), DORADO, -1)
+        self.assertFalse(juego_bien_formado(j))
+
+    def test_juego_invalido_pasos_excedidos(self):
+        j = Juego(tablero_8x8_vacio(), DORADO, 4)
+        self.assertFalse(juego_bien_formado(j))
+
+    def test_juego_invalido_tablero_mal(self):
+        j = Juego(tablero_mal_formado_filas_ejemplo(), DORADO, 0)
+        self.assertFalse(juego_bien_formado(j))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
