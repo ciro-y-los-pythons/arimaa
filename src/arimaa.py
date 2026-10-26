@@ -622,6 +622,29 @@ def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
     return p_dorada_en_inicial or p_plateada_en_inicial
 
 
+def hay_conejo_en_fila_inicial_oponente(j: Juego, col: Color)-> bool:
+    """
+    Verifica si hay un Conejo en la fila inicial del oponente
+
+    PRE:
+        True
+
+    Args:
+        j (Juego): Juego a evaluar
+        col (Color): Color del conejo del cual se evalúa su posición
+
+    Returns:
+        bool: Si hay un Conejo en la fila inicial del oponente
+    """
+    fila_inicial_oponente: int = 0 if oponente(col) == DORADO else 7
+
+    for columna in range(0,8):
+        if hay_figura_de_color(j.tablero, Posicion(fila_inicial_oponente,columna), CONEJO, col):
+            return True
+
+    return False
+
+
 def es_inicio_de_turno(j: Juego, col: Color) -> bool:
     """Verifica si un juego (j) es el primero de un turno
     PRE:
@@ -639,6 +662,7 @@ def es_inicio_de_turno(j: Juego, col: Color) -> bool:
 
 def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
     """Verifica si hay al menos un conejo en el tablero
+
     PRE:
         es_juego_valido(j)
 
