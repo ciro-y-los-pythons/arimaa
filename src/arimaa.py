@@ -410,7 +410,27 @@ def hay_pieza_enemiga_mas_fuerte_vecina(t: Tablero, pos: Posicion) -> bool:
 
 
 def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
-    raise Exception("No implementado")
+    """
+    Verifica si hay una pieza congelada en una posicion
+
+    Requires:
+            hay_casilla_vacia(t, pos)
+            ∧ hay_pieza_enemiga_mas_fuerte_vecina(t, pos)
+            ∧ hay_pieza_amiga_vecina(t, pos)
+
+    Arguments:
+        t    (in Tablero): Tablero en el que se verifica si ∃ la p_propia se encuentra congelada o no
+        pos (in Posicion): Posición de la p_propia
+
+    Returns:
+        Bool: res = True ←→ hay_pieza_enemiga_mas_fuerte_vecina(t, pos) 
+            ∧ not hay_pieza_amiga_vecina(t, pos)"""
+    congelado: bool =False
+
+    if not hay_casilla_vacia(t, pos):
+        congelado= hay_pieza_enemiga_mas_fuerte_vecina(t, pos) and not hay_pieza_amiga_vecina(t, pos)
+
+    return congelado
 
 
 #### Ejercicio 4
