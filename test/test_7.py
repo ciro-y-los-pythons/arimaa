@@ -42,6 +42,18 @@ class test_posicion_en_fila_inicial(unittest.TestCase):
         self.assertFalse(posicion_en_fila_inicial(pos, col))
 
 
+class test_hay_conejo_en_fila_inicial_oponente(unittest.TestCase):
+    def test_hay_conejo_en_fila_inicial_oponente(self):
+        j = Juego(tablero_8x8_ya_empezado(), DORADO, 0)
+        col = DORADO
+        self.assertTrue(hay_conejo_en_fila_inicial_oponente(j, col))
+
+    def test_no_hay_conejo_en_fila_inicial_oponente(self):
+        j = Juego(tablero_8x8_inicial_ejemplo(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(hay_conejo_en_fila_inicial_oponente(j, col))
+
+
 class test_es_inicio_de_turno(unittest.TestCase):
     def test_inicio_de_juego(self):
         j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
