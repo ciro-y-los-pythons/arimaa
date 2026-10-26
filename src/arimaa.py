@@ -205,7 +205,28 @@ def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
 
 
 def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:
-    raise Exception("No implementado")
+    """
+    Verifica si hay una Pieza de determinado Color en cierta Posicion del Tablero
+
+    Pre:
+        tableroBienFormado(t) ∧ posiciónEnTablero(pos)
+
+    Args:
+        t: Tablero en el que se busca la Pieza
+        pos: Posición de la Pieza a buscar
+        col: Color con el que tiene que coincidir
+
+    Returns:
+        bool: Si hay una Pieza de cierto {col} en la {pos} del {t}
+    """
+    figuras: list[Figura] = [ELEFANTE, CAMELLO, CABALLO, PERRO, GATO, CONEJO]
+    res: bool = False
+
+    for f in figuras:
+        if hay_figura_de_color(t, pos, f, col):
+            res = True
+
+    return res
 
 
 #### Ejercicio 3
