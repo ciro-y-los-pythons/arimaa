@@ -267,7 +267,34 @@ def hay_pieza(t: Tablero, pos: Posicion) -> bool:
 
 
 def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
-    raise Exception("No implementado")
+    """Verifica si hay una pieza amiga vecina
+
+    Requires:
+        Casilla_en_posicion(t, pos)
+        ∧ posicion_vecina_hacia(pos, direccion)
+        ∧ posicion_en_tablero(vecina)
+        ∧ hay_pieza_de_color(t, vecina, color)
+
+    Arguments:
+        t    (Tablero): Tablero en el que se verifica si hay pieza amiga vecina
+        pos  (Posicion): Posición de la p_propia
+
+    Returns:
+        Bool: res = True ↔ ∃ d: Direccion.(posicion_en_tablero(posicion_vecina_hacia(pos, d))
+                ∧ hay_pieza_de_color(t, posicion_vecina_hacia(pos, d), casilla_en_posicion(t, pos).color)
+            )
+    """
+    color: Color = casilla_en_posicion(t, pos).color
+    hay_amiga: bool = False
+    direcciones: list[Direccion] = [NORTE, SUR, ESTE, OESTE]
+
+    for direccion in direcciones:
+        vecina: Posicion = posicion_vecina_hacia(pos, direccion)
+        if posicion_en_tablero(vecina):
+            if hay_pieza_de_color(t, vecina, color):
+                hay_amiga = True
+
+    return hay_amiga
 
 
 def hay_pieza_enemiga_mas_debil_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
