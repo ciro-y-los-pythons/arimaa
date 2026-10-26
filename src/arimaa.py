@@ -214,7 +214,7 @@ def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:
 def hay_casilla_vacia_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """Verifica si hay una casilla vacia en la direccion a la que se quiere mover
     requiere:
-        ableroBienFormado (t) ∧ posiciónEnTablero (pos)
+        tableroBienFormado (t) ∧ posiciónEnTablero (pos)
     Args:
         t (tablero): ablero del Juego, en él se busca la posición.
         pos (Posición): Posición en la que se busca la casilla.
@@ -379,6 +379,22 @@ def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) 
             es_direccion_habilitada = d != NORTE
 
     return es_direccion_habilitada
+
+
+def puede_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> bool:
+    """Verifica si la casilla donde se quiere mover la pieza esta vacia
+    PRE:
+        True
+
+    Args:
+        t (Tablero): Tablero a evaluar
+        pos (Posicion): Posicion origen de la pieza
+        d (Direccion): Direccion hacia donde se quiere mover la pieza
+
+    Returns:
+        Si la casilla contigua indicada esta vacia devuelve True, sino False.
+    """
+    return hay_casilla_vacia_hacia(t,pos,d)
 
 #### Ejercicio 5
 

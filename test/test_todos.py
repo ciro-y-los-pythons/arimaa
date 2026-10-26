@@ -313,6 +313,20 @@ class test_direccion_de_movimiento_habilitada(unittest.TestCase):
         self.assertFalse(direccion_de_movimiento_habilitada(t,pos,d))
 
 
+class test_puede_mover_a_secas(unittest.TestCase):
+    def test_casilla_esta_vacia(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(1,4)
+        d = NORTE
+        self.assertTrue(puede_mover_a_secas(t,pos,d))
+
+    def test_casilla_no_esta_vacia(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(0,0)
+        d = NORTE
+        self.assertFalse(puede_mover_a_secas(t,pos,d))
+
+
 #### Ejercicio 5
 
 
