@@ -267,7 +267,8 @@ def hay_pieza(t: Tablero, pos: Posicion) -> bool:
 
 
 def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
-    """Verifica si hay una pieza amiga vecina
+    """
+    Verifica si hay una pieza amiga vecina
 
     Requires:
         Casilla_en_posicion(t, pos)
@@ -298,7 +299,36 @@ def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
 
 
 def hay_pieza_enemiga_mas_debil_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
-    raise Exception("No implementado")
+    """
+    Verifica si hay una pieza enemiga mas debil hacia cierta direccion
+
+    Requires:
+        Casilla_en_posicion(t, pos)
+        ∧ posicion_vecina_hacia(pos, d)
+        ∧ posicion_en_tablero(vecina)
+        ∧ hay_casilla_vacia(t, pos)
+        ∧ hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d)
+
+    Arguments:
+        t    (Tablero): Tablero en el que se verifica si ∃ la p_enemiga
+        pos (Posicion): Posición de la p_propia
+        d  (Dirección): Dirección en la que se busca la p_enemiga
+
+    Returns:
+        Bool:
+            True ↔ hay_pieza_enemiga_mas_fuerte_hacia(t, pos_vecina, opuesta(d)))
+            ∧ hay_casilla_vacia(t, pos_vecina)
+            )
+    """
+    pos_vecina: Posicion = posicion_vecina_hacia(pos, d)
+    hay_enemiga_debil: bool = False
+
+    if posicion_en_tablero(pos_vecina):
+        if not hay_casilla_vacia(t, pos_vecina):
+            hay_enemiga_debil = hay_pieza_enemiga_mas_fuerte_hacia(t, pos_vecina, opuesta(d))
+
+    return hay_enemiga_debil
+
 
 
 def hay_pieza_enemiga_mas_fuerte_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
