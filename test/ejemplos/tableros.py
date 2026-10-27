@@ -19,16 +19,18 @@ def tablero_8x8_vacio():
 
 def tablero_8x8_inicial_ejemplo():
     """
+    ```
     Tablero Inicial (0 jugadas):
-    | h c d m e d c h | 7\n
-    | r r r r r r r r | 6\n
-    | - - - - - - - - | 5\n
-    | - - - - - - - - | 4\n
-    | - - - - - - - - | 3\n
-    | - - - - - - - - | 2\n
-    | R R R R R R R R | 1\n
-    | H C D M E D C H | 0\n
+    | h c d m e d c h | 7
+    | r r r r r r r r | 6
+    | - - - - - - - - | 5
+    | - - - - - - - - | 4
+    | - - - - - - - - | 3
+    | - - - - - - - - | 2
+    | R R R R R R R R | 1
+    | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -47,16 +49,18 @@ def tablero_8x8_inicial_ejemplo():
 
 def tablero_8x8_mueve_conejo_dorado_h3():
     """
+    ```
     Tablero Inicial (0 jugadas):
-    | h c d m e d c h | 7\n
-    | r r r r r r r r | 6\n
-    | - - - - - - - - | 5\n
-    | - - - - - - - - | 4\n
-    | - - - - - - - - | 3\n
-    | - - - - - - - R | 2\n
-    | R R R R R R R - | 1\n
-    | H C D M E D C H | 0\n
+    | h c d m e d c h | 7
+    | r r r r r r r r | 6
+    | - - - - - - - - | 5
+    | - - - - - - - - | 4
+    | - - - - - - - - | 3
+    | - - - - - - - R | 2
+    | R R R R R R R - | 1
+    | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -75,16 +79,18 @@ def tablero_8x8_mueve_conejo_dorado_h3():
 
 def tablero_8x8_empezando():
     """
+    ```
     Tablero Recién Empezando:
-    | h c d m e d c h | 7\n
-    | r r r - r r - - | 6\n
-    | - - - - - - r r | 5\n
-    | - - - r - - - - | 4\n
-    | R - - R - - - - | 3\n
-    | - - - - - - - - | 2\n
-    | - R R - R R R R | 1\n
-    | H C D M E D C H | 0\n
+    | h c d m e d c h | 7
+    | r r r - r r - - | 6
+    | - - - - - - r r | 5
+    | - - - r - - - - | 4
+    | R - - R - - - - | 3
+    | - - - - - - - - | 2
+    | - R R - R R R R | 1
+    | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -103,16 +109,18 @@ def tablero_8x8_empezando():
 
 def tablero_8x8_ya_empezado():
     """
+    ```
     Tablero Ya Empezado:
-    | R - e - - m R r | 7\n
-    | - - - - - - d E | 6\n
-    | h - - R r - R R | 5\n
-    | c - - R - C - - | 4\n
-    | - r C H D r r - | 3\n
-    | - - - - r c - - | 2\n
-    | h - R - M - R - | 1\n
-    | r r - D - d H - | 0\n
+    | R - e - - m R r | 7
+    | - - - - - - d E | 6
+    | h - - R r - R R | 5
+    | c - - R - C - - | 4
+    | - r C H D r r - | 3
+    | - - - - r c - - | 2
+    | h - R - M - R - | 1
+    | r r - D - d H - | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -130,16 +138,18 @@ def tablero_8x8_ya_empezado():
 
 def tablero_8x8_ya_empezado_mueve_camello_plateado_a4():
     """
+    ```
     Tablero Ya Empezado:
-    | R - e - - m R r | 7\n
-    | - - - - - - d E | 6\n
-    | h - - R r - R R | 5\n
-    | - - - R - C - - | 4\n
-    | c r C H D r r - | 3\n
-    | - - - - r c - - | 2\n
-    | h - R - M - R - | 1\n
-    | r r - D - d H - | 0\n
+    | R - e - - m R r | 7
+    | - - - - - - d E | 6
+    | h - - R r - R R | 5
+    | - - - R - C - - | 4
+    | c r C H D r r - | 3
+    | - - - - r c - - | 2
+    | h - R - M - R - | 1
+    | r r - D - d H - | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -159,16 +169,18 @@ def tablero_8x8_ya_empezado_mueve_camello_plateado_a4():
 
 def tablero_8x8_ya_finalizando():
     """
+    ```
     Tablero Ya Finalizando:
-    | - - - - - - - h | 7\n
-    | - - - - - - - R | 6\n
-    | - R - - - - - - | 5\n
-    | - - - - c - - - | 4\n
-    | - - - - R - - - | 3\n
-    | - - - - - - - - | 2\n
-    | - - - - - - - - | 1\n
-    | r - - - - - - - | 0\n
+    | - - - - - - - h | 7
+    | - - - - - - - R | 6
+    | - R - - - - - - | 5
+    | - - - - c - - - | 4
+    | - - - - R - - - | 3
+    | - - - - - - - - | 2
+    | - - - - - - - - | 1
+    | r - - - - - - - | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -187,16 +199,18 @@ def tablero_8x8_ya_finalizando():
 
 def tablero_8x8_ya_finalizando_v2():
     """
+    ```
     Tablero Ya Finalizando (igual al anterior, con un caballo dorado en b6):
-    | - - - - - - - h | 7\n
-    | - - - - - - - R | 6\n
-    | - H - - - - - - | 5\n
-    | - - - - c - - - | 4\n
-    | - - - - R - - - | 3\n
-    | - - - - - - - - | 2\n
-    | - - - - - - - - | 1\n
-    | r - - - - - - - | 0\n
+    | - - - - - - - h | 7
+    | - - - - - - - R | 6
+    | - H - - - - - - | 5
+    | - - - - c - - - | 4
+    | - - - - R - - - | 3
+    | - - - - - - - - | 2
+    | - - - - - - - - | 1
+    | r - - - - - - - | 0
       0 1 2 3 4 5 6 7
+    ```
     """
     return leer_tablero(
         [
@@ -255,6 +269,36 @@ def tablero_8x8_inicial_falta_un_conejo_dorado_en_h2():
             "--------",  # 2
             "RRRRRRR-",  # 1
             "HCDMEDCH",  # 0
+            # 01234567
+        ]
+    )
+
+
+def tablero_8x8_sin_conejos_dorados():
+    """
+    ```
+    Tablero Sin Conejos :
+    | - - - - - - - h | 7
+    | - - - - - - - - | 6
+    | - H - - - - - - | 5
+    | - - - - c - - - | 4
+    | - - - - - - - - | 3
+    | - - - - - - - - | 2
+    | - - - - - - - - | 1
+    | r - - - - - - - | 0
+      0 1 2 3 4 5 6 7
+    ```
+    """
+    return leer_tablero(
+        [
+            "-------h",  # 7
+            "--------",  # 6
+            "-H------",  # 5
+            "----c---",  # 4
+            "--------",  # 3
+            "--------",  # 2
+            "r-------",  # 1
+            "--------",  # 0
             # 01234567
         ]
     )

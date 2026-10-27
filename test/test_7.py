@@ -88,5 +88,17 @@ class test_hay_conejo_en_tablero(unittest.TestCase):
         self.assertFalse(hay_conejo_en_tablero(j, col))
 
 
+class test_reune_condiciones_de_ganar(unittest.TestCase):
+    def test_reune_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_ya_empezado(), DORADO, 0)
+        col = DORADO
+        self.assertTrue(reune_condiciones_de_ganar(j, col))
+
+    def test_no_reune_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_sin_conejos_dorados(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(reune_condiciones_de_ganar(j, col))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
