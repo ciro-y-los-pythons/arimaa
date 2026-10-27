@@ -758,6 +758,19 @@ def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
 
     return False
 
+def reune_condiciones_de_ganar(j: Juego, col: Color) -> bool:
+    """
+    Verifica si el Jugador de cierto Color reúne condiciones de ganar
+
+    Arguments:
+        j   (Juego):
+        col (Color):
+    
+    Returns:
+        hay_conejo_en_fila_inicial_oponente(j, col)
+        v ¬ hay_conejo_en_tablero(j, oponente (col))
+    """
+    return hay_conejo_en_fila_inicial_oponente(j, col) or not hay_conejo_en_tablero(j, oponente(col))
 
 def hay_ganador_determinado(j: Juego) -> bool:
     raise Exception("No implementado")
