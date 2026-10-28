@@ -541,6 +541,39 @@ def puede_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) 
     return hay_enemiga_debil and vacia_destino_empuje
 
 
+def puede_realizar_accion(t: Tablero, m: Movimiento) -> bool:
+    """
+    Verifica si se puede realizar la acción indicada en el movimiento.
+
+    Pre:
+        tablero_bien_formado(t) ∧ movimiento_bien_formado(m)
+
+    Args:
+        t: Tablero de juego.
+        m: Movimiento a evaluar (acción, origen y pasos).
+
+    Returns:
+        bool: True si la acción del movimiento es válida según sus reglas específicas.
+    """
+    if not tablero_bien_formado(t):
+        no_cumple_requiere = Exception("Requiere: tablero_bien_formado(t)")
+        raise no_cumple_requiere
+    if not movimiento_bien_formado(m):
+        no_cumple_requiere = Exception("Requiere: movimiento_bien_formado(m)")
+        raise no_cumple_requiere
+
+    es_valida: bool = False
+
+    if m.accion == MOVER_A_SECAS:
+        es_valida = puede_mover_a_secas(t, m.origen, m.pasos[0])
+    elif m.accion == ARRASTRAR:
+        es_valida = puede_arrastrar(t, m.origen, m.pasos[0], m.pasos[1])
+    elif m.accion == EMPUJAR:
+        es_valida = puede_empujar(t, m.origen, m.pasos[0], m.pasos[1])
+
+    return es_valida
+
+
 #### Ejercicio 5
 
 
