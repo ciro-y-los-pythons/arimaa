@@ -494,6 +494,29 @@ def puede_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
     return hay_casilla_vacia_hacia(t,pos,d)
 
+
+def puede_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direccion) -> bool:
+    """
+    Verifica si una pieza en la posición pos puede arrastrar a una pieza enemiga.
+
+    Pre:
+        tablero_bien_formado(t) ∧ posicion_en_tablero(pos)
+
+    Args:
+        t: Tablero de juego.
+        pos: Posición de la pieza propia que arrastra.
+        d: Dirección hacia la que se mueve la pieza propia.
+        d_arrastre: Dirección del arrastre.
+
+    Returns:
+        bool: True si hay casilla vacía hacia d y hay una pieza enemiga más débil hacia opuesta(d_arrastre).
+    """
+    vacia_en_destino: bool = hay_casilla_vacia_hacia(t, pos, d)
+    enemiga_debil_en_origen_arrastre: bool = hay_pieza_enemiga_mas_debil_hacia(t, pos, opuesta(d_arrastre))
+
+    return vacia_en_destino and enemiga_debil_en_origen_arrastre
+
+
 #### Ejercicio 5
 
 
@@ -804,3 +827,4 @@ def hay_ganador_determinado(j: Juego) -> bool:
 
 def ganador_del_juego(j: Juego) -> Color:
     raise Exception("No implementado")
+
