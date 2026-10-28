@@ -719,6 +719,34 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
 
     return es_tablero_sacando_pieza(t0,t_intermedio,pos_origen) and es_tablero_poniendo_pieza(t_intermedio,t1,pos_destino,f,col)
 
+
+def tableroPostMoverASecas (t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion) -> bool:
+    """
+    Verifica si ambos tableros tienen los mismos valores en todas las posiciones salvo pos (pasada por parametro)
+
+    PRE:
+        True
+
+    Args:
+        t1 (Tablero): Tablero a comparar
+        t2 (Tablero): Tablero a comparar
+        pos (Posicion): Posicion a evaluar
+
+    Returns:
+        Si los tableros tienen el mismo valor en todas las posiciones menos la indicada devuelve True, sino False.
+    """
+    if tableros_coinciden_en_la_posicion(t0, t1, pos):
+        return False
+
+    numero_de_posiciones_coincidentes: int = 0
+    for fila in range(0, 8):
+        for columna in range(0, 8):
+            if tableros_coinciden_en_la_posicion(t0, t1, Posicion(fila, columna)):
+                numero_de_posiciones_coincidentes += 1
+
+    return numero_de_posiciones_coincidentes == 63
+
+
 def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
     """Genera a partir de un tablero t, otro tablero valido sin la pieza indicada en pos
     PRE:
