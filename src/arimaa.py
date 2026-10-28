@@ -517,6 +517,30 @@ def puede_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direcci
     return vacia_en_destino and enemiga_debil_en_origen_arrastre
 
 
+def puede_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) -> bool:
+    """
+    Verifica si la pieza en pos puede empujar a una pieza enemiga hacia d_empuje.
+
+    Pre:
+        tablero_bien_formado(t) ∧ posicion_en_tablero(pos)
+
+    Args:
+        t : Tablero de juego.
+        pos: Posición de la pieza propia que realiza el empuje.
+        d : Dirección hacia la que se encuentra la pieza enemiga.
+        d_empuje: Dirección hacia la que se desplaza a la pieza enemiga.
+
+    Returns:
+        bool: True si hay una pieza enemiga más débil en la dirección d 
+              y dicha posición vecina tiene una casilla vacía hacia d_empuje.
+    """
+    hay_enemiga_debil: bool = hay_pieza_enemiga_mas_debil_hacia(t, pos, d)
+    pos_enemiga: Posicion = posicion_vecina_hacia(pos, d)
+    vacia_destino_empuje: bool = hay_casilla_vacia_hacia(t, pos_enemiga, d_empuje)
+
+    return hay_enemiga_debil and vacia_destino_empuje
+
+
 #### Ejercicio 5
 
 
