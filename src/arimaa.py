@@ -557,6 +557,32 @@ def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool: #
     return tableros_coinciden_salvo_en_la_posicion(t0, t1, pos) and hay_casilla_vacia(t1, pos)
 
 
+def es_tablero_despues_de_activar_trampa(t0: Tablero, t1: Tablero, pos_trampa: Posicion) -> bool:
+    """Verifica si t1 es el resultado de activar correctamente la trampa indicada por parametro sobre t0
+    PRE:
+        t0, t1 son tableros validos
+        pos_trampa es una posicion trampa valida del juego: (2,2), (2,5), (5,2), (5,5)
+
+    Args:
+        t0 (Tablero): Tablero inicial a comparar
+        t1 (Tablero): Tablero que se quiere verificar como posterior
+        pos_trampa (Posicion): Posicion trampa a evaluar
+
+    Returns:
+        bool: True si se cumple alguna de las condiciones
+            - Hay una pieza amiga en pos_trampa y t1 es igual a t0
+            - NO hay una pieza amiga en pos_trampa y t1 es el resultado de quitar la pieza ubicada en pos_trampa
+    """
+    se_activaron_trampas_en_pos: bool = False
+
+    if hay_pieza_amiga_vecina(t0,pos_trampa):
+        se_activaron_trampas_en_pos = t0 == t1
+    else:
+        se_activaron_trampas_en_pos = es_tablero_sacando_pieza(t0,t1,pos_trampa)
+
+    return se_activaron_trampas_en_pos
+
+
 #### Ejercicio 6
 
 

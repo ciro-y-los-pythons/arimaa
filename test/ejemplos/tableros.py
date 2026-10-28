@@ -302,3 +302,66 @@ def tablero_8x8_sin_conejos_dorados():
             # 01234567
         ]
     )
+
+
+def tablero_8x8_camello_plateado_en_trampa():
+    """
+    ```
+    Camello en (2,5) casilla trampa,
+    debe ser quitado del tablero:
+    | R - e - - m R r | 7
+    | - - - - - - d E | 6
+    | h - - R r - R R | 5
+    | c - - R - C - - | 4
+    | - r C H D - - - | 3
+    | - - - - - c - - | 2
+    | h - R - M - R - | 1
+    | r r - D - d H - | 0
+      0 1 2 3 4 5 6 7
+    (basado en tablero_8x8_ya_empezado)
+    ```
+    """
+    return leer_tablero(
+        [
+            "R-e--mRr",  # 7
+            "------dE",  # 6
+            "h--Rr-RR",  # 5
+            "c--R-C--",  # 4
+            "-rCHD---",  # 3
+            "-----c--",  # 2
+            "h-R-M-R-",  # 1
+            "rr-D-dH-",  # 0
+            # 01234567
+        ]
+    )
+
+def tablero_8x8_camello_plateado_en_trampa_quitado():
+    """
+    ```
+    Camello en (2,5) casilla trampa,
+    ya fue quitado del tablero:
+    | R - e - - m R r | 7
+    | - - - - - - d E | 6
+    | h - - R r - R R | 5
+    | c - - R - C - - | 4
+    | - r C H D - - - | 3
+    | - - - - - - - - | 2
+    | h - R - M - R - | 1
+    | r r - D - d H - | 0
+      0 1 2 3 4 5 6 7
+    (basado en tablero_8x8_ya_empezado)
+    ```
+    """
+    return leer_tablero(
+        [
+            "R-e--mRr",  # 7
+            "------dE",  # 6
+            "h--Rr-RR",  # 5
+            "c--R-C--",  # 4
+            "-rCHD---",  # 3
+            "--------",  # 2
+            "h-R-M-R-",  # 1
+            "rr-D-dH-",  # 0
+            # 01234567
+        ]
+    )
