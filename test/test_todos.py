@@ -390,6 +390,7 @@ class test_tableros_coinciden_salvo_en_la_posicion(unittest.TestCase):
         pos = Posicion(0, 0)  # Indistinto, porque coinciden en todas las pos
         self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
 
+
 class test_es_tablero_sacando_pieza(unittest.TestCase):
     def test_es_tablero_sacando_una_pieza_en_pos(self):
         t0 = tablero_8x8_inicial_ejemplo()
@@ -411,6 +412,32 @@ class test_es_tablero_sacando_pieza(unittest.TestCase):
         t1 = tablero_8x8_vacio()
         pos = Posicion(0,0) # Cualquier pos evaluada da False porque son iguales
         self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t0,t1, pos))
+
+
+class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
+    def test_hay_amiga_y_tableros_iguales(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado()
+        pos_trampa = Posicion(2,5)
+        self.assertTrue(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
+
+    def test_hay_amiga_y_tableros_distintos(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_mueve_camello_plateado_a4()
+        pos_trampa = Posicion(2,5)
+        self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
+
+    def test_no_hay_amiga_y_se_quita_pieza(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa()
+        t1 = tablero_8x8_camello_plateado_en_trampa_quitado()
+        pos_trampa = Posicion(2,5)
+        self.assertTrue(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
+
+    def test_no_hay_amiga_y_no_Se_quita_pieza(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa()
+        t1 = tablero_8x8_camello_plateado_en_trampa()
+        pos_trampa = Posicion(2,5)
+        self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
 
 
 class test_es_tablero_despues_de_activar_todas_las_trampas(unittest.TestCase):
