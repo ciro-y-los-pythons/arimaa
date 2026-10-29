@@ -664,13 +664,25 @@ def es_tablero_despues_de_activar_trampa(t0: Tablero, t1: Tablero, pos_trampa: P
 
 
 def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) -> bool:
+    """Verifica que existan cuatro tableros que sean el resultado de activar correctamente todas las trampas (una por una) y si el ultimo de ellos es igual a t1
+    PRE:
+        t0, t1 son tableros validos
+
+    Args:
+        t0 (Tablero): Tablero inicial a comparar, puede tener piezas en trampa como no
+        t1 (Tablero): Tablero que se quiere verificar con todas las trampas activadas
+
+    Returns:
+        bool: True si el ultimo tablero generado en la iteracion es igual al tablero t1 pasado por parametro
+    """
     tablero_a_comparar: Tablero = t0.copy()
     
     for posicion_trampa in POSICIONES_TRAMPA:
-        if not hay_pieza_amiga_vecina(tablero_a_comparar,posicion_trampa):
+        casilla_en_posicion_trampa: Casilla = tablero_a_comparar[posicion_trampa.fila][posicion_trampa.columna]
+        if casilla_en_posicion_trampa != VACIA and not hay_pieza_amiga_vecina(tablero_a_comparar,posicion_trampa):
             tablero_a_comparar = genera_tablero_quitando_pieza_en_posicion(tablero_a_comparar,posicion_trampa)
                 
-    return tablero_intermedio == t1
+    return tablero_a_comparar == t1
 
 #### Ejercicio 6
 
