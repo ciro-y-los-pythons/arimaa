@@ -50,7 +50,7 @@ def tablero_8x8_inicial_ejemplo():
 def tablero_8x8_mueve_conejo_dorado_h3():
     """
     ```
-    Tablero Inicial (0 jugadas):
+    Tablero Inicial (1 jugada):
     | h c d m e d c h | 7
     | r r r r r r r r | 6
     | - - - - - - - - | 5
@@ -362,6 +362,97 @@ def tablero_8x8_camello_plateado_en_trampa_quitado():
             "--------",  # 2
             "h-R-M-R-",  # 1
             "rr-D-dH-",  # 0
+            # 01234567
+        ]
+    )
+
+def tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas():
+    """
+    ```
+    | h c d m e d c h | 7
+    | r - - r r - - r | 6
+    | - r r - - r r - | 5
+    | - - - - - - - - | 4
+    | - - - - - - - - | 3
+    | - R R - - R R - | 2
+    | R - - R R - - R | 1
+    | H C D M E D C H | 0
+      0 1 2 3 4 5 6 7
+    
+    Las cuatro trampas ((2,2), (2,5), (5,2), (5,5)) tienen piezas, pero hay piezas amigas al lado de cada una.
+    ```
+    """
+    return leer_tablero(
+        [
+            "hcdmedch",  # 7
+            "r--rr--r",  # 6
+            "-rr--rr-",  # 5
+            "--------",  # 4
+            "--------",  # 3
+            "-RR--RR-",  # 2
+            "R--RR--R",  # 1
+            "HCDMEDCH",  # 0
+            # 01234567
+        ]
+    )
+
+def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1():
+    """
+    ```
+    | h c d m e d c h | 7
+    | r - - r r - - r | 6
+    | - - r - - r - - | 5
+    | - - - - - - - - | 4
+    | - - - - - - - - | 3
+    | - - R - - R - - | 2
+    | R - - R R - - R | 1
+    | H C D M E D C H | 0
+      0 1 2 3 4 5 6 7
+    
+    Las cuatro trampas ((2,2), (2,5), (5,2), (5,5)) tienen piezas, no hay amigas contiguas
+    Es una situacion hipotetica un poco ridicula, pero sirve para el test de activar todas las trampas
+    ```
+    """
+    return leer_tablero(
+        [
+            "hcdmedch",  # 7
+            "r--rr--r",  # 6
+            "--r--r--",  # 5
+            "--------",  # 4
+            "--------",  # 3
+            "--R--R--",  # 2
+            "R--RR--R",  # 1
+            "HCDMEDCH",  # 0
+            # 01234567
+        ]
+    )
+
+def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_2():
+    """
+    ```
+    | h c d m e d c h | 7
+    | r - - r r - - r | 6
+    | - - - - - - - - | 5
+    | - - - - - - - - | 4
+    | - - - - - - - - | 3
+    | - - - - - - - - | 2
+    | R - - R R - - R | 1
+    | H C D M E D C H | 0
+      0 1 2 3 4 5 6 7
+    
+    Estado posterior a tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1
+    ```
+    """
+    return leer_tablero(
+        [
+            "hcdmedch",  # 7
+            "r--rr--r",  # 6
+            "--------",  # 5
+            "--------",  # 4
+            "--------",  # 3
+            "--------",  # 2
+            "R--RR--R",  # 1
+            "HCDMEDCH",  # 0
             # 01234567
         ]
     )

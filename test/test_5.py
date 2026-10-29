@@ -84,5 +84,42 @@ class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
         pos_trampa = Posicion(2,5)
         self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
 
+
+class test_es_tablero_despues_de_activar_todas_las_trampas(unittest.TestCase):
+    def test_no_hay_piezas_en_trampa_tableros_correctos(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa_quitado()
+        t1 = tablero_8x8_camello_plateado_en_trampa_quitado()
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
+    def test_no_hay_piezas_en_trampa_tableros_incorrectos(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa_quitado()
+        t1 = tablero_8x8_camello_plateado_en_trampa()
+        self.assertFalse(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
+    def test_todas_tienen_amiga_vecina_y_tableros_iguales(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas()
+        t1 = tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas()
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
+    def test_piezas_en_todas_las_trampas_sin_amigas_y_activa_todas_las_trampas(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        t1 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_2()
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
+    def test_piezas_en_todas_las_trampas_sin_amigas_y_no_activa_trampas(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        t1 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        self.assertFalse(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
+    def test_una_sola_pieza_en_trampa_y_se_activa(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa()
+        t1 = tablero_8x8_camello_plateado_en_trampa_quitado()
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
+    def test_una_sola_pieza_en_trampa_y_no_se_activa(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa()
+        t1 = tablero_8x8_camello_plateado_en_trampa()
+        self.assertFalse(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
