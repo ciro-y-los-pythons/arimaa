@@ -10,6 +10,77 @@ from src.arimaa import *
 
 from test.ejemplos.tableros import *
 
+class test_activar_trampas(unittest.TestCase):
+    def test_activar_trampas_ok(self):
+        t0 = leer_tablero(
+            [
+                "-eRD--rd",  # 7
+                "--------",  # 6
+                "H-r--E--",  # 5
+                "-H--r-Cr",  # 4
+                "R-------",  # 3
+                "R-H--m--",  # 2
+                "R-------",  # 1
+                "c-D---R-",  # 0
+                # 01234567
+            ]
+        )
+        t1 = leer_tablero(
+            [
+                "-eRD--rd",  # 7
+                "--------",  # 6
+                "H-------",  # 5
+                "-H--r-Cr",  # 4
+                "R-------",  # 3
+                "R-------",  # 2
+                "R-------",  # 1
+                "c-D---R-",  # 0
+                # 01234567
+            ]
+        )
+        t2 = activar_trampas(t0)
+        self.assertNotEqual(t0, t1)
+        self.assertEqual(t2, t1)
+        self.assertTrue(tablero_bien_formado(t2))
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t2))
+
+    def test_no_hay_piezas_en_trampa(self):
+        t0 = tablero_8x8_inicial_ejemplo()
+        t1 = tablero_8x8_inicial_ejemplo()
+        t2 = activar_trampas(t0)
+        self.assertEqual(t0,t1)
+        self.assertEqual(t2,t1)
+        self.assertTrue(tablero_bien_formado(t2))
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t2))
+
+    def test_todas_tienen_amiga_vecina(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas()
+        t1 = tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas()
+        t2 = activar_trampas(t0)
+        self.assertEqual(t0,t1)
+        self.assertEqual(t2,t1)
+        self.assertTrue(tablero_bien_formado(t2))
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t2))
+
+    def test_piezas_en_todas_las_trampas_sin_amigas(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        t1 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_2()
+        t2 = activar_trampas(t0)
+        self.assertNotEqual(t0,t1)
+        self.assertEqual(t2,t1)
+        self.assertTrue(tablero_bien_formado(t2))
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t2))
+
+    def test_una_sola_pieza_en_trampa(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa()
+        t1 = tablero_8x8_camello_plateado_en_trampa_quitado()
+        t2 = activar_trampas(t0)
+        self.assertNotEqual(t0,t1)
+        self.assertEqual(t2,t1)
+        self.assertTrue(tablero_bien_formado(t2))
+        self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t2))
+
+
 class test_tableros_coinciden_en_la_posicion(unittest.TestCase):
     def test_coinciden(self):
         t1 = tablero_8x8_inicial_ejemplo()

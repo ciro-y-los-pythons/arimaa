@@ -578,7 +578,25 @@ def puede_realizar_accion(t: Tablero, m: Movimiento) -> bool:
 
 
 def activar_trampas(t: Tablero) -> Tablero:
-    raise Exception("No implementado")
+    """Genera un tablero valido nuevo, en el cual se activan todas las trampas segun condiciones de eliminacion de pieza
+    PRE:
+        tablero_bien_formado(t)
+
+    Args:
+        t0 (Tablero): Tablero inicial que puede tener piezas en posiciones trampa
+
+    Returns:
+        res (Tablero): Tablero valido con todas las trampas activadas. 
+    """
+    tablero_con_trampas_activadas: Tablero = t.copy()
+
+    for posicion_trampa in POSICIONES_TRAMPA:
+        casilla_en_posicion_trampa: Casilla = tablero_con_trampas_activadas[posicion_trampa.fila][posicion_trampa.columna]
+        if casilla_en_posicion_trampa != VACIA and not hay_pieza_amiga_vecina(tablero_con_trampas_activadas,posicion_trampa):
+            tablero_con_trampas_activadas = genera_tablero_quitando_pieza_en_posicion(tablero_con_trampas_activadas,posicion_trampa)
+
+    if es_tablero_despues_de_activar_todas_las_trampas(t,tablero_con_trampas_activadas):
+        return tablero_con_trampas_activadas
 
 
 def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:  # Auxiliar
@@ -771,7 +789,7 @@ def tableroPostMoverASecas (t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion
 def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
     """Genera a partir de un tablero t, otro tablero valido sin la pieza indicada en pos
     PRE:
-        True
+        tablero_bien_formado(t)
 
     Args:
         t (Tablero): Tablero "inicial", estado anterior
