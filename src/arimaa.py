@@ -663,6 +663,15 @@ def es_tablero_despues_de_activar_trampa(t0: Tablero, t1: Tablero, pos_trampa: P
     return se_activaron_trampas_en_pos
 
 
+def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) -> bool:
+    tablero_a_comparar: Tablero = t0.copy()
+    
+    for posicion_trampa in POSICIONES_TRAMPA:
+        if not hay_pieza_amiga_vecina(tablero_a_comparar,posicion_trampa):
+            tablero_a_comparar = genera_tablero_quitando_pieza_en_posicion(tablero_a_comparar,posicion_trampa)
+                
+    return tablero_intermedio == t1
+
 #### Ejercicio 6
 
 
