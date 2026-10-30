@@ -439,7 +439,7 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
 
 #### Ejercicio 4
 
-
+# FEAT #17 - Auxiliar
 def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
     Verifica si en la Posicion pos hay una figura y si es CONEJO, que mueva hacia "adelante" con respecto a su color
@@ -481,7 +481,7 @@ def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) 
 
     return es_direccion_habilitada
 
-
+# FEAT #18 - Auxiliar
 def puede_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """Verifica si la casilla donde se quiere mover la pieza esta vacia
     PRE:
@@ -497,7 +497,7 @@ def puede_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
     return hay_casilla_vacia_hacia(t,pos,d)
 
-
+# FEAT #19 - Auxiliar
 def puede_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direccion) -> bool:
     """
     Verifica si una pieza en la posición pos puede arrastrar a una pieza enemiga.
@@ -519,7 +519,7 @@ def puede_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direcci
 
     return vacia_en_destino and enemiga_debil_en_origen_arrastre
 
-
+# FEAT #20 - Auxiliar
 def puede_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) -> bool:
     """
     Verifica si la pieza en pos puede empujar a una pieza enemiga hacia d_empuje.
@@ -543,7 +543,7 @@ def puede_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) 
 
     return hay_enemiga_debil and vacia_destino_empuje
 
-
+# FEAT #21 - Auxiliar
 def puede_realizar_accion(t: Tablero, m: Movimiento) -> bool:
     """
     Verifica si se puede realizar la acción indicada en el movimiento.
