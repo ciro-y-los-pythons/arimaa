@@ -435,9 +435,6 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
 
 #### Ejercicio 4
 
-def puede_realizar_movimiento(j: Juego, m: Movimiento) -> bool:
-    raise Exception("No implementado")
-
 
 def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """Verifica si en la Posicion pos hay una figura y si es CONEJO, que mueva hacia "adelante" con respecto a su color
@@ -572,6 +569,30 @@ def puede_realizar_accion(t: Tablero, m: Movimiento) -> bool:
         es_valida = puede_empujar(t, m.origen, m.pasos[0], m.pasos[1])
 
     return es_valida
+
+
+# FEAT #22 - Problema
+def puede_realizar_movimiento(j: Juego, m: Movimiento) -> bool:
+    """
+    Verifica si se puede realizar el movimiento indicado en el estado actual del juego.
+
+    PRE:
+        juego_bien_formado(j) ∧ movimiento_bien_formado(m)
+
+    Args:
+        j : Estado actual del juego.
+        m : Movimiento a evaluar.
+
+    Returns:
+        bool: True si el movimiento es legal para el turno actual, False sino.
+    """
+    return (
+        hay_pieza_de_color(j.tablero, m.origen, j.turno)
+        and not hay_pieza_congelada(j.tablero, m.origen)
+        and direccion_de_movimiento_habilitada(j.tablero, m.origen, m.pasos[0])
+        and (j.pasos_consumidos + len(m.pasos)) <= MAX_PASOS
+        and puede_realizar_accion(j.tablero, m)
+    )
 
 
 #### Ejercicio 5
@@ -774,7 +795,7 @@ def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tabl
     t_nuevo: Tablero = []
     for fila in t:
         t_nuevo.append(fila.copy())
-    
+
     t_nuevo[pos.fila][pos.columna] = VACIA
 
     return t_nuevo
@@ -843,7 +864,7 @@ def genera_tablero_poniendo_pieza_en_posicion(t: Tablero, p: Pieza, pos: Posicio
     t_nuevo: Tablero = []
     for fila in t:
         t_nuevo.append(fila.copy())
-    
+
     t_nuevo[pos.fila][pos.columna] = p
 
     return t_nuevo
@@ -869,10 +890,10 @@ def tablero_post_empujar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, 
     """
     pos_enemiga: Posicion = posicion_vecina_hacia(pos,d)
     pos_hueco: Posicion = posicion_vecina_hacia(pos_enemiga,d_empuje)
-    
+
     if not posicion_en_tablero(pos_enemiga) or not posicion_en_tablero(pos_hueco):
         return False
-    
+
     pieza_propia: Pieza = t0[pos.fila][pos.columna]
     pieza_enemiga: Pieza = t0[pos_enemiga.fila][pos_enemiga.columna]
 
