@@ -100,5 +100,22 @@ class test_reune_condiciones_de_ganar(unittest.TestCase):
         self.assertFalse(reune_condiciones_de_ganar(j, col))
 
 
+class test_reune_condiciones_de_ganar_exclusivas(unittest.TestCase):
+    def test_reune_condiciones_de_ganar_exclusivas(self):
+        j = Juego(tablero_8x8_sin_conejos_dorados(), PLATEADO, 0)
+        col = PLATEADO
+        self.assertTrue(reune_condiciones_de_ganar_exclusivas(j, col))
+
+    def test_ambos_reunen_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_ya_empezado(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(reune_condiciones_de_ganar_exclusivas(j, col))
+
+    def test_no_reune_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_sin_conejos_dorados(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(reune_condiciones_de_ganar_exclusivas(j, col))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
