@@ -979,6 +979,45 @@ def tablero_post_empujar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, 
 
     return es_movimiento_empujar and es_tablero_despues_de_activar_todas_las_trampas(tablero_intermedio_2,t1)
 
+# FEAT #33 - Auxiliar
+def tablero_post_movimiento(t0: Tablero, t1: Tablero, m: Movimiento) -> bool:
+    """
+    Verifica si t1 es el tablero resultante de realizar el movimiento m sobre el tablero t0.
+
+    PRE:
+        es_tablero_valido(t0)
+        ∧ es_tablero_valido(t1)
+        ∧ movimiento_bien_formado(m)
+
+    Args:
+        t0 (Tablero): Tablero inicial.
+        t1 (Tablero): Tablero posterior a verificar.
+        m (Movimiento): Movimiento que se quiere realizar.
+
+    Returns:
+        bool: True si y solo si t1 es el tablero resultante de realizar el movimiento m sobre t0, cumpliendo alguna de las siguientes condiciones:
+        -Si m.accion = MOVER_A_SECAS, entonces
+        tablero_post_mover_a_secas(t0, t1, m.origen, m.pasos[0]).
+        -Si m.accion = ARRASTRAR, entonces
+        tablero_post_arrastrar(
+          t0, t1, m.origen, m.pasos[0], m.pasos[1]).
+        -Si m.accion = EMPUJAR, entonces
+        tablero_post_empujar(t0, t1, m.origen, m.pasos[0], m.pasos[1]).
+
+        False en caso contrario
+    """
+    resultado: bool = False
+
+    #Evaluo el tipo de accion del movimiento y evaluo el tablero posterior
+    if m.accion == MOVER_A_SECAS:
+        resultado = tablero_post_mover_a_secas(t0, t1, m.origen, m.pasos[0])
+    elif m.accion == ARRASTRAR:
+        resultado = tablero_post_arrastrar(t0, t1, m.origen, m.pasos[0], m.pasos[1])
+    elif m.accion == EMPUJAR:
+        resultado = tablero_post_empujar(t0, t1, m.origen, m.pasos[0], m.pasos[1])
+
+    return resultado
+
 
 def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
     """Contabiliza los pasos que se hicieron en un turno y verifica si se llego a la cantidad maxima
