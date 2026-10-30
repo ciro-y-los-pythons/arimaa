@@ -177,8 +177,8 @@ def tablero_8x8_ya_finalizando():
     | - - - - c - - - | 4
     | - - - - R - - - | 3
     | - - - - - - - - | 2
-    | - - - - - - - - | 1
-    | r - - - - - - - | 0
+    | r - - - - - - - | 1
+    | - - - - - - - - | 0
       0 1 2 3 4 5 6 7
     ```
     """
@@ -207,8 +207,8 @@ def tablero_8x8_ya_finalizando_v2():
     | - - - - c - - - | 4
     | - - - - R - - - | 3
     | - - - - - - - - | 2
-    | - - - - - - - - | 1
-    | r - - - - - - - | 0
+    | r - - - - - - - | 1
+    | - - - - - - - - | 0
       0 1 2 3 4 5 6 7
     ```
     """
@@ -450,6 +450,37 @@ def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_2():
             "--------",  # 5
             "--------",  # 4
             "--------",  # 3
+            "--------",  # 2
+            "R--RR--R",  # 1
+            "HCDMEDCH",  # 0
+            # 01234567
+        ]
+    )
+
+def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo():
+    """
+    ```
+    | h c d m e d c h | 7
+    | r - - r r - - r | 6
+    | - - - - - - - - | 5
+    | - - - - - - - - | 4
+    | - - - - - R - - | 3
+    | - - - - - - - - | 2
+    | R - - R R - - R | 1
+    | H C D M E D C H | 0
+      0 1 2 3 4 5 6 7
+    
+    Estado posterior a tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1
+    Asume que mueve el conejo de la trampa (2,5) y sacrifica el de (2,2)
+    ```
+    """
+    return leer_tablero(
+        [
+            "hcdmedch",  # 7
+            "r--rr--r",  # 6
+            "--------",  # 5
+            "--------",  # 4
+            "-----R--",  # 3
             "--------",  # 2
             "R--RR--R",  # 1
             "HCDMEDCH",  # 0

@@ -1051,6 +1051,50 @@ class test_es_tablero_trasladando_pieza(unittest.TestCase):
         self.assertFalse(es_tablero_trasladando_pieza(t0,t1,pos_origen,pos_destino))
 
 
+class test_tablero_post_mover_a_secas(unittest.TestCase):
+    def test_mueve_y_no_habia_piezas_en_trampa(self):
+        t0 = tablero_8x8_inicial_ejemplo()
+        t1 = tablero_8x8_mueve_conejo_dorado_h3()
+        pos = Posicion(1,7)
+        d = NORTE
+        self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
+
+
+    def test_mueve_y_habia_piezas_en_trampa(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        t1 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo()
+        pos = Posicion(2,5)
+        d = NORTE
+        # Mueve y se activan las trampas
+        self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
+        
+        # Mueve y no se activan las trampas
+        t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos)
+        t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos.fila][pos.columna],posicion_vecina_hacia(pos,NORTE))
+        self.assertFalse(tablero_post_mover_a_secas(t0,t2,pos,d))
+
+    def test_mueve_fuera_del_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_mueve_camello_plateado_a4()
+        pos = Posicion(4,0)
+        d = OESTE
+        self.assertFalse(tablero_post_mover_a_secas(t0,t1,pos,d))
+
+    def test_no_puede_mover_a_secas(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado() # Indistinto, corta cuando puede_mover_a_secas(t0,pos,d) == False
+        pos = Posicion(3,5)
+        d = SUR
+        self.assertFalse(tablero_post_mover_a_secas(t0,t1,pos,d))
+
+    def test_pieza_mueve_a_pos_distinta(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_mueve_camello_plateado_a4()
+        pos = Posicion(4,0)
+        d = ESTE
+        self.assertFalse(tablero_post_mover_a_secas(t0,t1,pos,d))
+
+
 class test_hay_que_cambiar_de_turno(unittest.TestCase):
     def test_mover_a_secas_inicio(self):
         j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
