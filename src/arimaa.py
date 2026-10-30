@@ -1072,6 +1072,30 @@ def reune_condiciones_de_ganar_exclusivas(j: Juego, col: Color) -> bool:
     return puede_ganar_el_jugador and no_puede_ganar_el_oponente
 
 
+# FEAT #44 - Auxiliar
+def es_jugador_ganador(j: Juego , col: Color) -> bool:
+    """
+    Verifica si el jugador del tal color es el ganador del juego
+
+    Args:
+        j   (Juego): juego en el que se verifica
+        col (Color): color del jugador a verficar
+
+    Returns:
+        bool: Si el jugador de cierto Color es el ganador
+    """
+    es_turno_del_oponente: bool = es_inicio_de_turno(j, oponente(col))
+    puede_ganar_el_jugador: bool = reune_condiciones_de_ganar(j, col)
+
+    es_turno_del_jugador: bool = es_inicio_de_turno(j, col)
+    solo_puede_ganar_el_jugador: bool = reune_condiciones_de_ganar_exclusivas(j, col)
+
+    condicion_de_ganar_1: bool = es_turno_del_oponente and puede_ganar_el_jugador
+    condicion_de_ganar_2: bool = es_turno_del_jugador and solo_puede_ganar_el_jugador
+
+    return condicion_de_ganar_1 or condicion_de_ganar_2
+
+
 def hay_ganador_determinado(j: Juego) -> bool:
     raise Exception("No implementado")
 
