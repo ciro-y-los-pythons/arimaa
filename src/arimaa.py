@@ -859,6 +859,67 @@ def genera_tablero_poniendo_pieza_en_posicion(t: Tablero, p: Pieza, pos: Posicio
 
     return t_nuevo
 
+def tablero_post_arrastrar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direccion) -> bool:
+    """
+    Verifica si t1 es el tablero posterior a arrastrar
+    una pieza desde t0.
+
+    PRE:
+        es_tablero_valido(t0)
+        ∧ es_tablero_valido(t1)
+        ∧ posicion_en_tablero(pos)
+
+    Args:
+        t0 (Tablero): Tablero inicial.
+        t1 (Tablero): Tablero posterior a verificar.
+        pos (Posicion): Posicion origen de la pieza propia.
+        d (Direccion): Direccion del movimiento propio.
+        d_arrastre (Direccion): Direccion del arrastre enemigo.
+
+    Returns:
+        bool: res = True ↔
+            ∃ pos_hueco, pos_enemiga: Posicion.
+            ∃ t_intermedio_1, t_intermedio_2: Tablero.
+
+            esPosicionVecinaHacia(pos, d, pos_hueco)
+            ∧ esPosicionVecinaHacia(
+                pos, opuesta(d_arrastre), pos_enemiga
+            )
+            ∧ esTableroTrasladandoPieza(
+                t0, t_intermedio_1, pos, pos_hueco
+            )
+            ∧ esTableroTrasladandoPieza(
+                t_intermedio_1, t_intermedio_2,
+                pos_enemiga, pos
+            )
+            ∧ esTableroDespuesDeActivarTodasLasTrampas(
+                t_intermedio_2, t1
+            )
+    """
+
+    pos_hueco: Posicion = posicion_vecina_hacia(pos, d)
+    pos_enemiga: Posicion = posicion_vecina_hacia(pos, opuesta(d_arrastre))
+
+    if not posicion_en_tablero(pos_hueco) or not posicion_en_tablero(pos_enemiga):
+        return False
+
+    if hay_casilla_vacia(t0, pos) or hay_casilla_vacia(t0, pos_enemiga):
+        return False
+
+    pieza_propia: Pieza = t0[pos.fila][pos.columna]
+    pieza_enemiga: Pieza = t0[pos_enemiga.fila][pos_enemiga.columna]
+
+    t_intermedio_1: Tablero = genera_tablero_poniendo_pieza_en_posicion(t0, pieza_propia, pos_hueco)
+    t_intermedio_1 = genera_tablero_quitando_pieza_en_posicion(t_intermedio_1, pos)
+    t_intermedio_2: Tablero = genera_tablero_poniendo_pieza_en_posicion(t_intermedio_1, pieza_enemiga, pos)
+    t_intermedio_2 = genera_tablero_quitando_pieza_en_posicion(t_intermedio_2, pos_enemiga)
+
+    # Verificar ambos traslados
+    traslado_propio: bool = es_tablero_trasladando_pieza(t0, t_intermedio_1, pos, pos_hueco)
+    traslado_enemigo: bool = es_tablero_trasladando_pieza(t_intermedio_1, t_intermedio_2, pos_enemiga, pos)
+    trampas_correctas: bool = es_tablero_despues_de_activar_todas_las_trampas(t_intermedio_2, t1)
+
+    return traslado_propio and traslado_enemigo and trampas_correctas
 
 def tablero_post_empujar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) -> bool:
     """Verifica si t1 es el resultado de mover una pieza en Direccion d y empujar enemiga en Direccion d_empuje
