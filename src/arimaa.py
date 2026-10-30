@@ -1104,4 +1104,18 @@ def hay_ganador_determinado(j: Juego) -> bool:
 
 
 def ganador_del_juego(j: Juego) -> Color:
-    raise Exception("No implementado")
+    """
+    Devuelve el Color del jugador que ganó el juego.
+
+    Arguments:
+        j: Estado actual del juego.
+
+    Returns:
+        Color: DORADO si el jugador dorado es el ganador, PLATEADO en caso contrario.
+    """
+    gana_dorado: bool = es_jugador_ganador(j, DORADO)
+
+    if gana_dorado:
+        return DORADO
+    else:
+        return PLATEADO
