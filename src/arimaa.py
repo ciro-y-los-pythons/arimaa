@@ -231,30 +231,34 @@ def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:
 
 #### Ejercicio 3
 
-
+# FEAT #09 - Problema
 def hay_casilla_vacia_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
-    """Verifica si hay una casilla vacia en la direccion a la que se quiere mover
-    requiere:
+    """
+    Verifica si hay una casilla vacia en la direccion a la que se quiere mover
+
+    PRE:
         tableroBienFormado (t) ∧ posiciónEnTablero (pos)
+
     Args:
         t (tablero): ablero del Juego, en él se busca la posición.
         pos (Posición): Posición en la que se busca la casilla.
         d   (Dirección): direccion a la que se quiere hacer el movimiento
+
     Returns:
         Bool: retorna True si"""
     posicion_vecina: Posicion = posicion_vecina_hacia(pos, d)
     verificar: bool = hay_casilla_vacia(t, posicion_vecina)
     return verificar
 
-
+# FEAT #10 - Auxiliar
 def hay_pieza(t: Tablero, pos: Posicion) -> bool:
     """
     Verfica si hay una {Pieza} en cierta {Posicion} del {Tablero}
 
-    Requires:
+    PRE:
         True
 
-    Arguments:
+    Args:
         t    (Tablero): Tablero en el que se busca la Pieza
         pos (Posicion): Posición de la Pieza a buscar
 
@@ -265,18 +269,21 @@ def hay_pieza(t: Tablero, pos: Posicion) -> bool:
     es_una_pieza: bool = casilla_encontrada != VACIA
     return es_una_pieza
 
+# FEAT #11 - Auxiliar
+# 30/10: no subida
 
+# FEAT #12 - Problema
 def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
     """
     Verifica si hay una pieza amiga vecina
 
-    Requires:
+    PRE:
         Casilla_en_posicion(t, pos)
         ∧ posicion_vecina_hacia(pos, direccion)
         ∧ posicion_en_tablero(vecina)
         ∧ hay_pieza_de_color(t, vecina, color)
 
-    Arguments:
+    Args:
         t    (Tablero): Tablero en el que se verifica si hay pieza amiga vecina
         pos  (Posicion): Posición de la p_propia
 
@@ -291,25 +298,24 @@ def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
 
     for direccion in direcciones:
         vecina: Posicion = posicion_vecina_hacia(pos, direccion)
-        if posicion_en_tablero(vecina):
-            if hay_pieza_de_color(t, vecina, color):
-                hay_amiga = True
+        if posicion_en_tablero(vecina) and hay_pieza_de_color(t, vecina, color):
+            hay_amiga = True
 
     return hay_amiga
 
-
+# FEAT #13 - Problema
 def hay_pieza_enemiga_mas_debil_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
     Verifica si hay una pieza enemiga mas debil hacia cierta direccion
 
-    Requires:
+    PRE:
         Casilla_en_posicion(t, pos)
         ∧ posicion_vecina_hacia(pos, d)
         ∧ posicion_en_tablero(vecina)
         ∧ hay_casilla_vacia(t, pos)
         ∧ hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d)
 
-    Arguments:
+    Args:
         t    (Tablero): Tablero en el que se verifica si ∃ la p_enemiga
         pos (Posicion): Posición de la p_propia
         d  (Dirección): Dirección en la que se busca la p_enemiga
@@ -323,22 +329,20 @@ def hay_pieza_enemiga_mas_debil_hacia(t: Tablero, pos: Posicion, d: Direccion) -
     pos_vecina: Posicion = posicion_vecina_hacia(pos, d)
     hay_enemiga_debil: bool = False
 
-    if posicion_en_tablero(pos_vecina):
-        if not hay_casilla_vacia(t, pos_vecina):
+    if posicion_en_tablero(pos_vecina) and not hay_casilla_vacia(t, pos_vecina):
             hay_enemiga_debil = hay_pieza_enemiga_mas_fuerte_hacia(t, pos_vecina, opuesta(d))
 
     return hay_enemiga_debil
 
-
-
+# FEAT #14 - Auxiliar
 def hay_pieza_enemiga_mas_fuerte_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
     Verifica si hay una pieza_enemiga más fuerte hacia cierta dirección
 
-    Requires:
+    PRE:
         True
 
-    Arguments:
+    Args:
         t    (Tablero): Tablero en el que se verifica si ∃ la p_enemiga
         pos (Posicion): Posición de la p_propia
         d  (Dirección): Dirección en la que se busca la p_enemiga
@@ -374,17 +378,17 @@ def hay_pieza_enemiga_mas_fuerte_hacia(t: Tablero, pos: Posicion, d: Direccion) 
     es_p_enemiga_mas_fuerte: bool = fuerza(p_propia.figura) < fuerza(p_vecina.figura)
     return es_p_enemiga_mas_fuerte
 
-
+# FEAT #15 - Problema
 def hay_pieza_enemiga_mas_fuerte_vecina(t: Tablero, pos: Posicion) -> bool:
     """
     Verifica si hay una pieza_enemiga más fuerte alrededor de cierta Posición
 
-    Requires:
+    PRE:
         tablero_bien_formado(t)
         ∧ posicion_en_tablero(pos)
         ∧ hay_pieza(t, pos)
 
-    Arguments:
+    Args:
         t    (in Tablero): Tablero en el que se verifica si ∃ la p_enemiga
         pos (in Posicion): Posición de la p_propia
 
@@ -408,17 +412,17 @@ def hay_pieza_enemiga_mas_fuerte_vecina(t: Tablero, pos: Posicion) -> bool:
             return True
     return False
 
-
+# FEAT #16 - Problema
 def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
     """
     Verifica si hay una pieza congelada en una posicion
 
-    Requires:
+    PRE:
             hay_casilla_vacia(t, pos)
             ∧ hay_pieza_enemiga_mas_fuerte_vecina(t, pos)
             ∧ hay_pieza_amiga_vecina(t, pos)
 
-    Arguments:
+    Args:
         t    (in Tablero): Tablero en el que se verifica si ∃ la p_propia se encuentra congelada o no
         pos (in Posicion): Posición de la p_propia
 

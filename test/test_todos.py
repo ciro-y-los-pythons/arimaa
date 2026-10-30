@@ -230,60 +230,45 @@ class test_hay_pieza_de_color(unittest.TestCase):
 
 
 #### Ejercicio 3
+# test_cases: 18/18
+# date_checked: 30/10, 11:17
 
 
 class test_hay_casilla_vacia_hacia(unittest.TestCase):
     def test_hay_casilla_vacia_hacia(self):
-        t = leer_tablero(
-            [
-                "-r----rr",  # 7
-                "-mrh----",  # 6
-                "-r---r--",  # 5
-                "d-EH---c",  # 4
-                "-M--hD-d",  # 3
-                "-R-e----",  # 2
-                "---H-R-C",  # 1
-                "R-R---RR",  # 0
-                # 01234567
-            ]
-        )
-        self.assertTrue(hay_casilla_vacia_hacia(t, Posicion(0, 0), NORTE))
+        t = tablero_8x8_empezando()
+        pos = Posicion(0, 0)
+        self.assertTrue(hay_casilla_vacia_hacia(t, pos, NORTE))
+    def test_no_hay_casilla_vacia_hacia(self):
+        t = tablero_8x8_empezando()
+        pos = Posicion(2, 0)
+        self.assertFalse(hay_casilla_vacia_hacia(t, pos, NORTE))
 
 
 class test_hay_pieza_amiga_vecina(unittest.TestCase):
     def test_hay_pieza_amiga_vecina(self):
-        t = leer_tablero(
-            [
-                "R-hRD-Rr",  # 7
-                "M----d--",  # 6
-                "-h-rrCR-",  # 5
-                "R-rcE---",  # 4
-                "--drRR--",  # 3
-                "-HD-H--m",  # 2
-                "--r-RCc-",  # 1
-                "re---r--",  # 0
-                # 01234567
-            ]
-        )
-        self.assertTrue(hay_pieza_amiga_vecina(t, Posicion(4, 3)))
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(2, 5)
+        self.assertTrue(hay_pieza_amiga_vecina(t, pos))
+    def test_no_hay_pieza_amiga_vecina(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(7, 0)
+        self.assertFalse(hay_pieza_amiga_vecina(t, pos))
 
 
 class test_hay_pieza_enemiga_mas_debil_hacia(unittest.TestCase):
     def test_hay_pieza_enemiga_mas_debil_hacia(self):
-        t = leer_tablero(
-            [
-                "--Hdm---",  # 7
-                "r--HhC--",  # 6
-                "e---R-C-",  # 5
-                "ME--d---",  # 4
-                "h--RDcRr",  # 3
-                "R-R-r--r",  # 2
-                "-RRcrRD-",  # 1
-                "--r---rr",  # 0
-                # 01234567
-            ]
-        )
-        self.assertTrue(hay_pieza_enemiga_mas_debil_hacia(t, Posicion(1, 3), OESTE))
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(4, 5)
+        self.assertTrue(hay_pieza_enemiga_mas_debil_hacia(t, pos, SUR))
+    def test_no_hay_pieza_enemiga_mas_debil_hacia(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(3, 5)
+        self.assertFalse(hay_pieza_enemiga_mas_debil_hacia(t, pos, NORTE))
+    def test_hay_pieza_enemiga_igual_de_fuerte_hacia(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(5, 3)
+        self.assertFalse(hay_pieza_enemiga_mas_debil_hacia(t, pos, OESTE))
 
 
 class test_hay_pieza_enemiga_mas_fuerte_hacia(unittest.TestCase):
@@ -291,23 +276,21 @@ class test_hay_pieza_enemiga_mas_fuerte_hacia(unittest.TestCase):
         t = tablero_8x8_ya_finalizando()
         pos = Posicion(3, 4)
         d = NORTE
+        pos_norte = posicion_vecina_hacia(pos, d)
         self.assertTrue(hay_pieza(t, pos))
-        self.assertTrue(hay_pieza(t, posicion_vecina_hacia(pos, d)))
-        self.assertEqual(posicion_vecina_hacia(pos, d), Posicion(4, 4))
+        self.assertTrue(hay_pieza(t, pos_norte))
+        self.assertEqual(pos_norte, Posicion(4, 4))
         self.assertTrue(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
-
     def test_no_hay_pieza_enemiga_hacia(self):
-        t = tablero_8x8_ya_empezado()
+        t = tablero_8x8_empezando()
         pos = Posicion(3, 0)
         d = NORTE
         self.assertFalse(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
-
     def test_hay_pieza_enemiga_de_misma_fuerza_hacia(self):
-        t = tablero_8x8_ya_empezado()
+        t = tablero_8x8_empezando()
         pos = Posicion(3, 3)
         d = NORTE
         self.assertFalse(hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d))
-
     def test_exception_no_hay_pieza_propia(self):
         t = tablero_8x8_ya_finalizando()
         pos = Posicion(1, 1)
@@ -317,20 +300,26 @@ class test_hay_pieza_enemiga_mas_fuerte_hacia(unittest.TestCase):
 
 class test_hay_pieza_enemiga_mas_fuerte_vecina(unittest.TestCase):
     def test_hay_pieza_enemiga_mas_fuerte_vecina(self):
-        t = leer_tablero(
-            [
-                "R-e--mRr",  # 7
-                "------dE",  # 6
-                "h--Rr-RR",  # 5
-                "c--R-C--",  # 4
-                "-rCHDrr-",  # 3
-                "----rc--",  # 2
-                "h-R-M-R-",  # 1
-                "rr-D-dH-",  # 0
-                # 01234567
-            ]
-        )
-        self.assertTrue(hay_pieza_enemiga_mas_fuerte_vecina(t, Posicion(3, 1)))
+        t = tablero_8x8_ya_finalizando()
+        pos = Posicion(3, 4)
+        d = NORTE
+        pos_norte = posicion_vecina_hacia(pos, d)
+        self.assertTrue(hay_pieza(t, pos))
+        self.assertTrue(hay_pieza(t, pos_norte))
+        self.assertEqual(pos_norte, Posicion(4, 4))
+        self.assertTrue(hay_pieza_enemiga_mas_fuerte_vecina(t, pos))
+    def test_no_hay_pieza_enemiga_vecina(self):
+        t = tablero_8x8_empezando()
+        pos = Posicion(3, 0)
+        self.assertFalse(hay_pieza_enemiga_mas_fuerte_vecina(t, pos))
+    def test_hay_pieza_enemiga_vecina_de_misma_fuerza(self):
+        t = tablero_8x8_empezando()
+        pos = Posicion(3, 3)
+        self.assertFalse(hay_pieza_enemiga_mas_fuerte_vecina(t, pos))
+    def test_hay_pieza_enemiga_vecina_de_menor_fuerza(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(1, 4)
+        self.assertFalse(hay_pieza_enemiga_mas_fuerte_vecina(t, pos))
 
 
 class test_hay_pieza_congelada(unittest.TestCase):
