@@ -759,6 +759,27 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
     return es_tablero_sacando_pieza(t0,t_intermedio,pos_origen) and es_tablero_poniendo_pieza(t_intermedio,t1,pos_destino,f,col)
 
 
+def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
+    """Genera a partir de un tablero t, otro tablero valido sin la pieza indicada en pos
+    PRE:
+        tablero_bien_formado(t)
+
+    Args:
+        t (Tablero): Tablero "inicial", estado anterior
+        pos (Posicion): Posicion donde se quiere ubicar una casilla vacia
+
+    Returns:
+        Una copia de t con todas las posiciones iguales, salvo pos, cuya pieza (o vacia) es reemplazada por VACIA
+    """
+    t_nuevo: Tablero = []
+    for fila in t:
+        t_nuevo.append(fila.copy())
+    
+    t_nuevo[pos.fila][pos.columna] = VACIA
+
+    return t_nuevo
+
+
 def tableroPostMoverASecas (t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
     Verifica si ambos tableros tienen los mismos valores en todas las posiciones salvo pos (pasada por parametro)
@@ -786,6 +807,7 @@ def tableroPostMoverASecas (t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion
     return numero_de_posiciones_coincidentes == 63
 
 
+<<<<<<< Updated upstream
 def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
     """Genera a partir de un tablero t, otro tablero valido sin la pieza indicada en pos
     PRE:
@@ -807,6 +829,8 @@ def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tabl
     return t_nuevo
 
 
+=======
+>>>>>>> Stashed changes
 def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
     """Contabiliza los pasos que se hicieron en un turno y verifica si se llego a la cantidad maxima
     PRE:
