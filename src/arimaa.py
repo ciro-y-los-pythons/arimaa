@@ -437,7 +437,9 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
 
 
 def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) -> bool:
-    """Verifica si en la Posicion pos hay una figura y si es CONEJO, que mueva hacia "adelante" con respecto a su color
+    """
+    Verifica si en la Posicion pos hay una figura y si es CONEJO, que mueva hacia "adelante" con respecto a su color
+
     PRE:
         True
 
@@ -455,7 +457,7 @@ def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) 
         ∧ ((f = Conejo ∧ col = Dorado ) → d != Sur )
         ∧ ((f = Conejo ∧ col = Plateado ) → d != Norte )
     """
-    pieza: Pieza = t[pos.fila][pos.columna]
+    pieza: Casilla = t[pos.fila][pos.columna]
 
     es_direccion_habilitada: bool = False
 
