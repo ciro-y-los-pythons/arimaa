@@ -848,6 +848,53 @@ def genera_tablero_poniendo_pieza_en_posicion(t: Tablero, p: Pieza, pos: Posicio
 
     return t_nuevo
 
+
+def tablero_post_empujar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) -> bool:
+    """Verifica si t1 es el resultado de mover una pieza en Direccion d y empujar enemiga en Direccion d_empuje
+
+    PRE:
+        es_tablero_valido(t0)
+        ∧ es_tablero_valido(t1)
+        ∧ posicion_en_tablero(pos)
+
+    Args:
+        t0 (Tablero): Tablero inicial a verificar
+        t1 (Tablero): Tablero que se quiere verificar como posterior
+        pos (Posicion): Posicion origen donde esta la pieza propia
+        d (Direccion): Direccion hacia donde se quiere mover la pieza propia
+        d_empuje (Direccion): Direccion hacia donde se quiere empujar la pieza enemiga
+
+    Returns:
+    bool: True si se puede empujar una pieza enemiga y t1 coincide con el tablero resultante de trasladar ambas piezas y activar todas las trampas.
+    """
+    pos_enemiga: Posicion = posicion_vecina_hacia(pos,d)
+    pos_hueco: Posicion = posicion_vecina_hacia(pos_enemiga,d_empuje)
+    
+    if not posicion_en_tablero(pos_enemiga) or not posicion_en_tablero(pos_hueco):
+        return False
+    
+    pieza_propia: Pieza = t0[pos.fila][pos.columna]
+    pieza_enemiga: Pieza = t0[pos_enemiga.fila][pos_enemiga.columna]
+
+    # Genera un tablero nuevo que tiene la pieza enemiga en la posicion donde se la quiere mover, sobreescribiendo lo que haya
+    tablero_intermedio_1: Tablero = genera_tablero_poniendo_pieza_en_posicion(t0,pieza_enemiga,pos_hueco)
+    # Actualiza el tablero, quitando la pieza enemiga que se empujo de su posicion inicial
+    tablero_intermedio_1: Tablero = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio_1,pos_enemiga)
+
+    # Genera un tablero que tiene la pieza que se quiere mover, sobreescribiendo la posicion enemiga
+    tablero_intermedio_2 : Tablero = genera_tablero_poniendo_pieza_en_posicion(tablero_intermedio_1,pieza_propia,pos_enemiga)
+    # Actualiza el tablero, quitando la pieza que se movio de la posicion inicial
+    tablero_intermedio_2 : Tablero = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio_2,pos)
+
+    # Verifica si los movimientos son correctos
+    se_empujo_pieza_enemiga: bool = es_tablero_trasladando_pieza(t0,tablero_intermedio_1,pos_enemiga,pos_hueco)
+    se_traslado_pieza_propia: bool = es_tablero_trasladando_pieza(tablero_intermedio_1,tablero_intermedio_2,pos,pos_enemiga)
+
+    es_movimiento_empujar: bool = puede_empujar(t0,pos,d,d_empuje) and se_empujo_pieza_enemiga and se_traslado_pieza_propia
+
+    return es_movimiento_empujar and es_tablero_despues_de_activar_todas_las_trampas(tablero_intermedio_2,t1)
+
+
 def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
     """Contabiliza los pasos que se hicieron en un turno y verifica si se llego a la cantidad maxima
     PRE:
