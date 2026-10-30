@@ -780,31 +780,36 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
     return es_tablero_sacando_pieza(t0,t_intermedio,pos_origen) and es_tablero_poniendo_pieza(t_intermedio,t1,pos_destino,f,col)
 
 
-def tableroPostMoverASecas (t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion) -> bool:
-    """
-    Verifica si ambos tableros tienen los mismos valores en todas las posiciones salvo pos (pasada por parametro)
+def tablero_post_mover_a_secas(t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion) -> bool:
+    """Verifica si t1 es el resultado de mover la pieza indicada en pos a la direccion d y si se activaron todas las trampas
 
     PRE:
         True
 
     Args:
-        t1 (Tablero): Tablero a comparar
-        t2 (Tablero): Tablero a comparar
-        pos (Posicion): Posicion a evaluar
+        t0 (Tablero): Tablero origen
+        t1 (Tablero): Tablero posterior que se quiere validar
+        pos (Posicion): Posicion origen de la pieza
+        d (Direccion): Direccion hacia la cual se mueve la pieza
 
     Returns:
-        Si los tableros tienen el mismo valor en todas las posiciones menos la indicada devuelve True, sino False.
+        bool: True si t1 es el resultado de mover la pieza en direccion d y se activaron todas las trampas
     """
-    if tableros_coinciden_en_la_posicion(t0, t1, pos):
+    pos_destino: Posicion = posicion_vecina_hacia(pos,d)
+    pieza_a_mover: Pieza = t0[pos.fila][pos.columna]
+
+    if not posicion_en_tablero(pos_destino):
         return False
 
-    numero_de_posiciones_coincidentes: int = 0
-    for fila in range(0, 8):
-        for columna in range(0, 8):
-            if tableros_coinciden_en_la_posicion(t0, t1, Posicion(fila, columna)):
-                numero_de_posiciones_coincidentes += 1
+    tablero_intermedio: Tablero = genera_tablero_poniendo_pieza_en_posicion(t0,pieza_a_mover,pos_destino)
 
-    return numero_de_posiciones_coincidentes == 63
+    tablero_intermedio: Tablero = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio,pos)
+
+    se_traslado_pieza: bool = es_tablero_trasladando_pieza(t0,tablero_intermedio,pos,pos_destino)
+
+    es_mover_a_secas: bool = puede_mover_a_secas(t0,pos,d) and se_traslado_pieza
+
+    return es_mover_a_secas and es_tablero_despues_de_activar_todas_las_trampas(tablero_intermedio,t1)
 
 
 def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
