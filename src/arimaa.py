@@ -110,7 +110,7 @@ def juego_bien_formado(j: Juego) -> bool:
 
 #### Ejercicio 2
 
-
+# FEAT #04 - Problema
 def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
     """Verifico la posicion a la que quiero mover la pieza
 
@@ -132,7 +132,7 @@ def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
         movimiento = Posicion(fila=pos.fila, columna=pos.columna - 1)
     return movimiento
 
-
+# FEAT #05 - Auxiliar
 def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
     """
     Args:
@@ -148,7 +148,7 @@ def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
     casilla = t[p.fila][p.columna]
     return casilla
 
-
+# FEAT #06 - Auxiliar
 def hay_figura_de_color(t: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
     """
     Verfica si hay una {Pieza} de determinada {Figura} y {Color} en cierta {Posicion} del {Tablero}
@@ -177,7 +177,7 @@ def hay_figura_de_color(t: Tablero, pos: Posicion, f: Figura, col: Color) -> boo
 
     return es_la_misma_figura and es_el_mismo_color
 
-
+# FEAT #07 - Problema
 def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
     """Verifica si la casilla del {t} ubicada en la {pos} está vacía
 
@@ -203,7 +203,7 @@ def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
     casilla_esta_vacia: bool = casilla == CasillaVacia.VACIA
     return casilla_esta_vacia
 
-
+# FEAT #08 - Problema
 def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:
     """
     Verifica si hay una Pieza de determinado Color en cierta Posicion del Tablero
