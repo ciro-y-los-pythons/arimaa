@@ -29,7 +29,7 @@ def pasar_turno(j: Juego) -> Juego:  # pragma: no cover
 
 #### Ejercicio 1
 
-
+# FEAT #00 - Problema
 def tablero_bien_formado(t: Tablero) -> bool:
     """Verifica si el Tablero se encuentra con las medidas correspondientes (8 x 8)
 
@@ -47,7 +47,7 @@ def tablero_bien_formado(t: Tablero) -> bool:
             return False
     return True
 
-
+# FEAT #01 - Problema
 def posicion_en_tablero(pos: Posicion) -> bool:
     """Verifica si la posición ingresada Existe dentro del Tablero (8 x 8)
 
@@ -63,7 +63,7 @@ def posicion_en_tablero(pos: Posicion) -> bool:
     es_posicion_valida: bool = es_fila_valida and es_columna_valida
     return es_posicion_valida
 
-
+# FEAT #02 - Problema
 def movimiento_bien_formado(m: Movimiento) -> bool:
     """Verifica si el movimiento parte de un origen valido y si la cantidad de pasos coincide con la accion
 
@@ -88,7 +88,7 @@ def movimiento_bien_formado(m: Movimiento) -> bool:
 
     return False
 
-
+# FEAT #03 - Problema
 def juego_bien_formado(j: Juego) -> bool:
     """Verifica que el tablero este bien y los pasos esten dentro del limite.
 
