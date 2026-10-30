@@ -1096,8 +1096,21 @@ def es_jugador_ganador(j: Juego , col: Color) -> bool:
     return condicion_de_ganar_1 or condicion_de_ganar_2
 
 
+# FEAT #45 - Problema
 def hay_ganador_determinado(j: Juego) -> bool:
-    raise Exception("No implementado")
+    """
+    Verifica si existe un jugador ganador en el estado actual del juego.
+
+    PRE:
+        juego_bien_formado(j)
+
+    Args:
+        j: Estado actual del juego.
+
+    Returns:
+        bool: True si el jugador DORADO o el PLATEADO es ganador, False en caso contrario.
+    """
+    return es_jugador_ganador(j, DORADO) or es_jugador_ganador(j, PLATEADO)
 
 
 def ganador_del_juego(j: Juego) -> Color:
