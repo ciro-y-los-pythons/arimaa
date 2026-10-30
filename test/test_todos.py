@@ -774,8 +774,11 @@ class test_puede_realizar_movimiento(unittest.TestCase):
 
 
 #### Ejercicio 5
+# test_cases: 24/24
+# date_checked: 30/10, 20:27
 
 
+# TEST #27 - Problema
 class test_activar_trampas(unittest.TestCase):
     def test_activar_trampas_ok(self):
         t0 = leer_tablero(
@@ -846,35 +849,33 @@ class test_activar_trampas(unittest.TestCase):
         self.assertTrue(tablero_bien_formado(t2))
         self.assertTrue(es_tablero_despues_de_activar_todas_las_trampas(t0,t2))
 
-
+# TEST #23 - Auxiliar
 class test_tableros_coinciden_en_la_posicion(unittest.TestCase):
     def test_coinciden(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_ejemplo()
         pos = Posicion(0, 0)
         self.assertTrue(tableros_coinciden_en_la_posicion(t1, t2, pos))
-
     def test_no_coinciden(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_vacio()
         pos = Posicion(0, 0)
         self.assertFalse(tableros_coinciden_en_la_posicion(t1, t2, pos))
 
-
+# TEST #24 - Auxiliar
 class test_tableros_coinciden_salvo_en_la_posicion(unittest.TestCase):
     def test_coinciden_salvo_en_una_posicion(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_falta_un_conejo_dorado_en_h2()
-        pos = Posicion(1, 7)
-        self.assertTrue(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
-
+        pos = Posicion(1,7)
+        self.assertTrue(tableros_coinciden_salvo_en_la_posicion(t1,t2, pos))
     def test_coinciden_en_todas_las_posiciones(self):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_ejemplo()
-        pos = Posicion(0, 0)  # Indistinto, porque coinciden en todas las pos
+        pos = Posicion(0, 0) # Indistinto, porque coinciden en todas las pos
         self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
 
-
+# TEST #25 - Auxiliar
 class test_es_tablero_sacando_pieza(unittest.TestCase):
     def test_es_tablero_sacando_una_pieza_en_pos(self):
         t0 = tablero_8x8_inicial_ejemplo()
@@ -897,7 +898,7 @@ class test_es_tablero_sacando_pieza(unittest.TestCase):
         pos = Posicion(0,0) # Cualquier pos evaluada da False porque son iguales
         self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t0,t1, pos))
 
-
+# TEST #26A - Auxiliar
 class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
     def test_hay_amiga_y_tableros_iguales(self):
         t0 = tablero_8x8_ya_empezado()
@@ -923,7 +924,7 @@ class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
         pos_trampa = Posicion(2,5)
         self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
 
-
+# TEST #26B - Auxiliar
 class test_es_tablero_despues_de_activar_todas_las_trampas(unittest.TestCase):
     def test_no_hay_piezas_en_trampa_tableros_correctos(self):
         t0 = tablero_8x8_camello_plateado_en_trampa_quitado()
@@ -959,6 +960,7 @@ class test_es_tablero_despues_de_activar_todas_las_trampas(unittest.TestCase):
         t0 = tablero_8x8_camello_plateado_en_trampa()
         t1 = tablero_8x8_camello_plateado_en_trampa()
         self.assertFalse(es_tablero_despues_de_activar_todas_las_trampas(t0,t1))
+
 
 #### Ejercicio 6
 
@@ -1067,7 +1069,7 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         d = NORTE
         # Mueve y se activan las trampas
         self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
-        
+
         # Mueve y no se activan las trampas
         t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos)
         t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos.fila][pos.columna],posicion_vecina_hacia(pos,NORTE))

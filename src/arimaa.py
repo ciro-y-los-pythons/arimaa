@@ -29,6 +29,7 @@ def pasar_turno(j: Juego) -> Juego:  # pragma: no cover
 
 #### Ejercicio 1
 
+
 # FEAT #00 - Problema
 def tablero_bien_formado(t: Tablero) -> bool:
     """Verifica si el Tablero se encuentra con las medidas correspondientes (8 x 8)
@@ -230,6 +231,7 @@ def hay_pieza_de_color(t: Tablero, pos: Posicion, col: Color) -> bool:
 
 
 #### Ejercicio 3
+
 
 # FEAT #09 - Problema
 def hay_casilla_vacia_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
@@ -439,6 +441,7 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
 
 #### Ejercicio 4
 
+
 # FEAT #17 - Auxiliar
 def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) -> bool:
     """
@@ -604,28 +607,36 @@ def puede_realizar_movimiento(j: Juego, m: Movimiento) -> bool:
 #### Ejercicio 5
 
 
+# FEAT #27 - Problema
 def activar_trampas(t: Tablero) -> Tablero:
-    """Genera un tablero valido nuevo, en el cual se activan todas las trampas segun condiciones de eliminacion de pieza
+    """
+    Genera un tablero válido nuevo, en el cual se activan todas las trampas
+    según las condiciones de eliminación de pieza.
+
     PRE:
         tablero_bien_formado(t)
 
     Args:
-        t0 (Tablero): Tablero inicial que puede tener piezas en posiciones trampa
+        t (Tablero): Tablero inicial que puede tener piezas en posiciones trampa.
 
     Returns:
-        res (Tablero): Tablero valido con todas las trampas activadas.
+        Tablero: Tablero válido con todas las trampas activadas.
     """
-    tablero_con_trampas_activadas: Tablero = t.copy()
+    tablero_con_trampas_activadas: Tablero = []
+
+    for fila in t:
+        tablero_con_trampas_activadas.append(fila.copy())
 
     for posicion_trampa in POSICIONES_TRAMPA:
-        casilla_en_posicion_trampa: Casilla = tablero_con_trampas_activadas[posicion_trampa.fila][posicion_trampa.columna]
-        if casilla_en_posicion_trampa != VACIA and not hay_pieza_amiga_vecina(tablero_con_trampas_activadas,posicion_trampa):
-            tablero_con_trampas_activadas = genera_tablero_quitando_pieza_en_posicion(tablero_con_trampas_activadas,posicion_trampa)
+        casilla: Casilla = tablero_con_trampas_activadas[posicion_trampa.fila][posicion_trampa.columna]
+        if casilla != VACIA and not hay_pieza_amiga_vecina(tablero_con_trampas_activadas, posicion_trampa):
+            tablero_con_trampas_activadas = genera_tablero_quitando_pieza_en_posicion(
+                tablero_con_trampas_activadas, posicion_trampa
+            )
 
-    if es_tablero_despues_de_activar_todas_las_trampas(t,tablero_con_trampas_activadas):
-        return tablero_con_trampas_activadas
+    return tablero_con_trampas_activadas
 
-
+# FEAT #23 - Auxiliar
 def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:  # Auxiliar
     """Verifica si ambos tableros tienen la misma pieza o casilla vacia en una posicion especifica (pasada por parametro)
     PRE:
@@ -641,7 +652,7 @@ def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -
     """
     return t1[pos.fila][pos.columna] == t2[pos.fila][pos.columna]
 
-
+# FEAT #24 - Auxiliar
 def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:  # Auxiliar
     """Verifica si ambos tableros tienen los mismos valores en todas las posiciones salvo pos (pasada por parametro)
     PRE:
@@ -666,6 +677,7 @@ def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posic
 
     return numero_de_posiciones_coincidentes == 63
 
+# FEAT #25 - Auxiliar
 def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool: # Auxiliar
     """Verifica si t1 es el mismo tablero que t0 pero con una pieza removida en pos
     PRE:
@@ -681,7 +693,7 @@ def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool: #
     """
     return tableros_coinciden_salvo_en_la_posicion(t0, t1, pos) and hay_casilla_vacia(t1, pos)
 
-
+# FEAT #26A - Auxiliar
 def es_tablero_despues_de_activar_trampa(t0: Tablero, t1: Tablero, pos_trampa: Posicion) -> bool:
     """Verifica si t1 es el resultado de activar correctamente la trampa indicada por parametro sobre t0
     PRE:
@@ -707,7 +719,7 @@ def es_tablero_despues_de_activar_trampa(t0: Tablero, t1: Tablero, pos_trampa: P
 
     return se_activaron_trampas_en_pos
 
-
+# FEAT #26B - Auxiliar
 def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) -> bool:
     """Verifica que existan cuatro tableros que sean el resultado de activar correctamente todas las trampas (una por una) y si el ultimo de ellos es igual a t1
     PRE:
@@ -728,6 +740,7 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
             tablero_a_comparar = genera_tablero_quitando_pieza_en_posicion(tablero_a_comparar,posicion_trampa)
 
     return tablero_a_comparar == t1
+
 
 #### Ejercicio 6
 
