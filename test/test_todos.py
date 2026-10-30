@@ -1095,6 +1095,35 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         self.assertFalse(tablero_post_mover_a_secas(t0,t1,pos,d))
 
 
+class test_tablero_post_empujar(unittest.TestCase):
+    def test_empuja_y_no_habia_piezas_en_trampa(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        pos = Posicion(1,4)
+        d = NORTE
+        d_empuje = OESTE
+
+        self.assertTrue(tablero_post_empujar(t0,t1,pos,d,d_empuje))
+
+
+    def test_empuja_y_habia_piezas_en_trampa(self):
+        t0 = tablero_8x8_camello_plateado_en_trampa()
+        t1 = tablero_8x8_camello_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa()
+        pos = Posicion(6,6)
+        d = SUR
+        d_empuje = OESTE
+
+        # Se activan las trampas
+        self.assertTrue(tablero_post_empujar(t0,t1,pos,d,d_empuje))
+
+        # No se activan las trampas
+        pos_enemiga = posicion_vecina_hacia(pos,d)
+        pos_hueco = posicion_vecina_hacia(pos_enemiga,d_empuje)
+        t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos_enemiga)
+        t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos_enemiga.fila][pos_enemiga.columna],pos_hueco)
+        self.assertFalse(tablero_post_empujar(t0,t2,pos,d,d_empuje))
+
+
 class test_hay_que_cambiar_de_turno(unittest.TestCase):
     def test_mover_a_secas_inicio(self):
         j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
