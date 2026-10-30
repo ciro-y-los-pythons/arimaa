@@ -103,7 +103,7 @@ def juego_bien_formado(j: Juego) -> bool:
     """
     es_tablero_valido: bool = tablero_bien_formado(j.tablero)
     son_pasos_validos: bool = 0 <= j.pasos_consumidos and j.pasos_consumidos < MAX_PASOS
-    
+
     es_juego_valido: bool = es_tablero_valido and son_pasos_validos
     return es_juego_valido
 
@@ -423,7 +423,7 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
         pos (in Posicion): Posición de la p_propia
 
     Returns:
-        Bool: res = True ←→ hay_pieza_enemiga_mas_fuerte_vecina(t, pos) 
+        Bool: res = True ←→ hay_pieza_enemiga_mas_fuerte_vecina(t, pos)
             ∧ not hay_pieza_amiga_vecina(t, pos)"""
     congelado: bool =False
 
@@ -461,7 +461,7 @@ def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) 
     pieza: Pieza = t[pos.fila][pos.columna]
 
     es_direccion_habilitada: bool = False
-    
+
     if pieza == VACIA:
         return False
 
@@ -470,7 +470,7 @@ def direccion_de_movimiento_habilitada(t: Tablero, pos: Posicion, d: Direccion) 
 
     if hay_figura_de_color(t,pos,f,col):
         es_direccion_habilitada = True
-        
+
         if f == CONEJO and col == DORADO:
             es_direccion_habilitada = d != SUR
         elif f == CONEJO and col == PLATEADO:
@@ -531,7 +531,7 @@ def puede_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) 
         d_empuje: Dirección hacia la que se desplaza a la pieza enemiga.
 
     Returns:
-        bool: True si hay una pieza enemiga más débil en la dirección d 
+        bool: True si hay una pieza enemiga más débil en la dirección d
               y dicha posición vecina tiene una casilla vacía hacia d_empuje.
     """
     hay_enemiga_debil: bool = hay_pieza_enemiga_mas_debil_hacia(t, pos, d)
@@ -586,7 +586,7 @@ def activar_trampas(t: Tablero) -> Tablero:
         t0 (Tablero): Tablero inicial que puede tener piezas en posiciones trampa
 
     Returns:
-        res (Tablero): Tablero valido con todas las trampas activadas. 
+        res (Tablero): Tablero valido con todas las trampas activadas.
     """
     tablero_con_trampas_activadas: Tablero = t.copy()
 
@@ -694,12 +694,12 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
         bool: True si el ultimo tablero generado en la iteracion es igual al tablero t1 pasado por parametro
     """
     tablero_a_comparar: Tablero = t0.copy()
-    
+
     for posicion_trampa in POSICIONES_TRAMPA:
         casilla_en_posicion_trampa: Casilla = tablero_a_comparar[posicion_trampa.fila][posicion_trampa.columna]
         if casilla_en_posicion_trampa != VACIA and not hay_pieza_amiga_vecina(tablero_a_comparar,posicion_trampa):
             tablero_a_comparar = genera_tablero_quitando_pieza_en_posicion(tablero_a_comparar,posicion_trampa)
-                
+
     return tablero_a_comparar == t1
 
 #### Ejercicio 6
@@ -710,7 +710,7 @@ def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
 
 
 def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
-    """Verifica si t1 es el tablero resultante de agregar (o cambiar) una pieza en la Posicion pos, de Figura f y Color col 
+    """Verifica si t1 es el tablero resultante de agregar (o cambiar) una pieza en la Posicion pos, de Figura f y Color col
     PRE:
         True
 
@@ -728,7 +728,7 @@ def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura
 
 
 def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion, pos_destino: Posicion) -> bool: # Auxiliar
-    """Verifica si t1 es el tablero resultante de mover a partir de t0 una pieza desde la pos_origen hacia pos_destino 
+    """Verifica si t1 es el tablero resultante de mover a partir de t0 una pieza desde la pos_origen hacia pos_destino
     PRE:
         True
 
@@ -747,7 +747,7 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
 
     """
     pieza_origen: Pieza = t0[pos_origen.fila][pos_origen.columna]
-    
+
     if pieza_origen == VACIA:
         return False
 
@@ -801,7 +801,7 @@ def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tabl
     t_nuevo: Tablero = []
     for fila in t:
         t_nuevo.append(fila.copy())
-    
+
     t_nuevo[pos.fila][pos.columna] = VACIA
 
     return t_nuevo
@@ -938,12 +938,30 @@ def reune_condiciones_de_ganar(j: Juego, col: Color) -> bool:
     Arguments:
         j   (Juego):
         col (Color):
-    
+
     Returns:
         hay_conejo_en_fila_inicial_oponente(j, col)
         v ¬ hay_conejo_en_tablero(j, oponente (col))
     """
     return hay_conejo_en_fila_inicial_oponente(j, col) or not hay_conejo_en_tablero(j, oponente(col))
+
+
+def reune_condiciones_de_ganar_exclusivas(j: Juego, col: Color) -> bool:
+    """
+    Verifica si el jugador de cierto Color puede ganar y su oponente no
+
+    Arguments:
+        j   (Juego): Juego actual
+        col (Color): color del Jugador a verificar condiciones
+
+    Returns:
+        bool: Si el jugador del Color puede ganar y su oponente no
+    """
+    puede_ganar_el_jugador: bool = reune_condiciones_de_ganar(j, col)
+    no_puede_ganar_el_oponente: bool = not reune_condiciones_de_ganar(j, oponente(col))
+
+    return puede_ganar_el_jugador and no_puede_ganar_el_oponente
+
 
 def hay_ganador_determinado(j: Juego) -> bool:
     raise Exception("No implementado")
@@ -951,4 +969,3 @@ def hay_ganador_determinado(j: Juego) -> bool:
 
 def ganador_del_juego(j: Juego) -> Color:
     raise Exception("No implementado")
-
