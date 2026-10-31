@@ -747,7 +747,43 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
 
 # FEAT #37 - Problema
 def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
-    raise Exception("No implementado")
+    """
+    Devuelve un Juego valido a partir del Juego j que es el resultado de realizar el Movimiento m.
+    
+    PRE:
+        { juegoBienFormado (j) ∧ movimientoBienFormado (m) }
+        { puedeRealizarMovimiento (j, m) }
+
+    Args:
+        j (Juego): Juego en el estado previo
+        m (Movimiento): Movimiento a realizar, que modifica el Juego j
+
+    Returns:
+        Juego: Juego valido bien formado que es el estado post movimiento.
+        { juegoBienFormado (res) ∧ juegoPostMovimiento (j, res, m) }
+
+    """
+    if m.accion == MOVER_A_SECAS:
+        tablero_nuevo = generar_tablero_mover_a_secas(
+            j.tablero, m.origen, m.pasos[0]
+        )
+
+    elif m.accion == ARRASTRAR:
+        tablero_nuevo = generar_tablero_arrastrar(
+            j.tablero, m.origen, m.pasos[0], m.pasos[1]
+        )
+
+    elif m.accion == EMPUJAR:
+        tablero_nuevo = generar_tablero_empujar(
+            j.tablero, m.origen, m.pasos[0], m.pasos[1]
+        )
+
+    pasos_nuevos = j.pasos_consumidos + len(m.pasos)
+
+    if pasos_nuevos == MAX_PASOS:
+        return Juego(tablero_nuevo, oponente(j.turno), 0)
+
+    return Juego(tablero_nuevo, j.turno, pasos_nuevos)
 
 
 # FEAT #49 - Auxiliar
