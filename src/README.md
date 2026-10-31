@@ -75,9 +75,9 @@ Por ejemplo:
 rrrrrrrr
 ccddhhme
 --------
----
----
----
+--------
+--------
+--------
 EMHHDDCC
 RRRRRRRR
 ```
