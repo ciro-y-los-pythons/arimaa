@@ -745,10 +745,11 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
 #### Ejercicio 6
 
 
+# FEAT #37 - Problema
 def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
     raise Exception("No implementado")
 
-
+# FEAT #28 - Auxiliar
 def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
     """Verifica si t1 es el tablero resultante de agregar (o cambiar) una pieza en la Posicion pos, de Figura f y Color col
     PRE:
@@ -766,7 +767,7 @@ def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura
     """
     return tableros_coinciden_salvo_en_la_posicion(t0, t1, pos) and hay_figura_de_color(t1, pos, f, col)
 
-
+# FEAT #29 - Auxiliar
 def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion, pos_destino: Posicion) -> bool: # Auxiliar
     """Verifica si t1 es el tablero resultante de mover a partir de t0 una pieza desde la pos_origen hacia pos_destino
     PRE:
@@ -798,7 +799,7 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
 
     return es_tablero_sacando_pieza(t0,t_intermedio,pos_origen) and es_tablero_poniendo_pieza(t_intermedio,t1,pos_destino,f,col)
 
-
+# FEAT #30 - Auxiliar
 def tablero_post_mover_a_secas(t0:Tablero, t1: Tablero, pos: Posicion, d: Direccion) -> bool:
     """Verifica si t1 es el resultado de mover la pieza indicada en pos a la direccion d y si se activaron todas las trampas
 
@@ -830,7 +831,7 @@ def tablero_post_mover_a_secas(t0:Tablero, t1: Tablero, pos: Posicion, d: Direcc
 
     return es_mover_a_secas and es_tablero_despues_de_activar_todas_las_trampas(tablero_intermedio,t1)
 
-
+# FEAT #31 - Auxiliar
 def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tablero: # Auxiliar
     """Genera a partir de un tablero t, otro tablero valido sin la pieza indicada en pos
     PRE:
@@ -851,6 +852,7 @@ def genera_tablero_quitando_pieza_en_posicion(t: Tablero, pos: Posicion) -> Tabl
 
     return t_nuevo
 
+# FEAT #31 - Auxiliar
 def genera_tablero_poniendo_pieza_en_posicion(t: Tablero, p: Pieza, pos: Posicion) -> Tablero:
     """Genera a partir de un tablero t, otro tablero valido insertando una pieza en pos
     PRE:
@@ -872,6 +874,7 @@ def genera_tablero_poniendo_pieza_en_posicion(t: Tablero, p: Pieza, pos: Posicio
 
     return t_nuevo
 
+# FEAT #31 - Auxiliar
 def tablero_post_arrastrar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direccion) -> bool:
     """
     Verifica si t1 es el tablero posterior a arrastrar
@@ -934,6 +937,7 @@ def tablero_post_arrastrar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion
 
     return traslado_propio and traslado_enemigo and trampas_correctas
 
+# FEAT #32 - Auxiliar
 def tablero_post_empujar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) -> bool:
     """Verifica si t1 es el resultado de mover una pieza en Direccion d y empujar enemiga en Direccion d_empuje
 
@@ -1018,7 +1022,7 @@ def tablero_post_movimiento(t0: Tablero, t1: Tablero, m: Movimiento) -> bool:
 
     return resultado
 
-
+# FEAT #34 - Auxiliar
 def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
     """Contabiliza los pasos que se hicieron en un turno y verifica si se llego a la cantidad maxima
     PRE:
@@ -1035,7 +1039,7 @@ def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
 
     return pasos_totales == MAX_PASOS
 
-
+# FEAT #35 - Auxiliar
 def juego_con_turno_posiblemente_avanzado(j0: Juego, j1: Juego, m: Movimiento) -> bool:
     """Verifica si un juego (j1) cambio de turno o no
     PRE:
@@ -1074,6 +1078,7 @@ def juego_post_movimiento(j0, j1: Juego, m: Movimiento) -> bool:
 
 
 #### Ejercicio 7
+
 
 def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
     """
@@ -1154,6 +1159,7 @@ def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
                 return True
 
     return False
+
 
 def reune_condiciones_de_ganar(j: Juego, col: Color) -> bool:
     """

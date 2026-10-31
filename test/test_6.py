@@ -2,14 +2,50 @@ import sys
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1] 
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
 from src.arimaa import *
-
 from test.ejemplos.tableros import *
 
+
+# TEST #37 - Problema
+class test_realizar_movimiento(unittest.TestCase):
+    def test_mover_a_secas(self):
+        t0 = leer_tablero(
+            [
+                "rrrrrrrr",  # 7
+                "ccddhh-e",  # 6
+                "--------",  # 5
+                "---m----",  # 4
+                "--------",  # 3
+                "--------",  # 2
+                "EMHHDDCC",  # 1
+                "RRRRRRRR",  # 0
+                # 01234567
+            ]
+        )
+        tN = leer_tablero(
+            [
+                "rrrrrrrr",  # 7
+                "ccddhh-e",  # 6
+                "---m----",  # 5
+                "--------",  # 4
+                "--------",  # 3
+                "--------",  # 2
+                "EMHHDDCC",  # 1
+                "RRRRRRRR",  # 0
+                # 01234567
+            ]
+        )
+        j0 = Juego(t0, PLATEADO, 0)
+        jN = Juego(tN, PLATEADO, 1)
+        mN = Movimiento(MOVER_A_SECAS, Posicion(4, 3), [NORTE])
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+# TEST #28 - Auxiliar
 class test_es_tablero_poniendo_pieza(unittest.TestCase):
     def test_se_agrega_pieza(self):
         t0 = tablero_8x8_inicial_falta_un_conejo_dorado_en_h2()
@@ -41,7 +77,7 @@ class test_es_tablero_poniendo_pieza(unittest.TestCase):
         col = DORADO
         self.assertFalse(es_tablero_poniendo_pieza(t1,t2,pos,f,col))
 
-
+# TEST #29 - Auxiliar
 class test_es_tablero_trasladando_pieza(unittest.TestCase):
     def test_mueve_conejo_dorado_h2_a_h3(self):
         t0 = tablero_8x8_inicial_ejemplo()
@@ -62,7 +98,7 @@ class test_es_tablero_trasladando_pieza(unittest.TestCase):
         pos_destino = Posicion(2,7)
         self.assertFalse(es_tablero_trasladando_pieza(t0,t1,pos_origen,pos_destino))
 
-
+# TEST #30 - Auxiliar
 class test_tablero_post_mover_a_secas(unittest.TestCase):
     def test_mueve_y_no_habia_piezas_en_trampa(self):
         t0 = tablero_8x8_inicial_ejemplo()
@@ -71,6 +107,7 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         d = NORTE
         self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
 
+
     def test_mueve_y_habia_piezas_en_trampa(self):
         t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
         t1 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo()
@@ -78,10 +115,10 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         d = NORTE
         # Mueve y se activan las trampas
         self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
-        
+
         # Mueve y no se activan las trampas
         t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos)
-        t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos.fila][pos.columna],posicion_vecina_hacia(pos,NORTE))
+        t2 = genera_tablero_poniendo_pieza_en_posicion(t2, t0[pos.fila][pos.columna], posicion_vecina_hacia(pos,NORTE))
         self.assertFalse(tablero_post_mover_a_secas(t0,t2,pos,d))
 
     def test_mueve_fuera_del_tablero(self):
@@ -105,7 +142,12 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         d = ESTE
         self.assertFalse(tablero_post_mover_a_secas(t0,t1,pos,d))
 
+# TEST #31 - Auxiliar
+# class test_tablero_post_arrastrar(unittest.TestCase):
+#     def test_tablero_post_arrastrar_ok(self):
+#         self.assertEqual(tablero_post_arrastrar())
 
+# TEST #32 - Auxiliar
 class test_tablero_post_empujar(unittest.TestCase):
     def test_empuja_y_no_habia_piezas_en_trampa(self):
         t0 = tablero_8x8_ya_empezado()
@@ -118,8 +160,8 @@ class test_tablero_post_empujar(unittest.TestCase):
 
 
     def test_empuja_y_habia_piezas_en_trampa(self):
-        t0 = tablero_8x8_camello_plateado_en_trampa()
-        t1 = tablero_8x8_camello_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa()
+        t0 = tablero_8x8_gato_plateado_en_trampa()
+        t1 = tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa()
         pos = Posicion(6,6)
         d = SUR
         d_empuje = OESTE
@@ -134,7 +176,7 @@ class test_tablero_post_empujar(unittest.TestCase):
         t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos_enemiga.fila][pos_enemiga.columna],pos_hueco)
         self.assertFalse(tablero_post_empujar(t0,t2,pos,d,d_empuje))
 
-
+# TEST #34 - Auxiliar
 class test_hay_que_cambiar_de_turno(unittest.TestCase):
     def test_mover_a_secas_inicio(self):
         j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
@@ -145,7 +187,7 @@ class test_hay_que_cambiar_de_turno(unittest.TestCase):
         m = Movimiento(EMPUJAR,Posicion(4,4),[SUR,SUR])
         self.assertTrue(hay_que_cambiar_de_turno(j,m))
 
-
+# TEST #35 - Auxiliar
 class test_juego_con_turno_posiblemente_avanzado(unittest.TestCase):
     def test_cambia_de_turno_todo_ok(self):
         j0 = Juego(tablero_8x8_ya_empezado(),DORADO,3)
@@ -167,6 +209,11 @@ class test_juego_con_turno_posiblemente_avanzado(unittest.TestCase):
         j1 = Juego(tablero_8x8_ya_empezado_mueve_camello_plateado_a4(),PLATEADO,4)
         m = Movimiento(MOVER_A_SECAS,Posicion(4,0),[SUR])
         self.assertFalse(juego_con_turno_posiblemente_avanzado(j0,j1,m))
+
+# TEST #36 - Auxiliar
+# class test_juego_post_movimiento(unittest.TestCase):
+#     def test_juego_post_movimiento_ok(self):
+#         self.assertEqual(juego_post_movimiento())
 
 
 if __name__ == "__main__":

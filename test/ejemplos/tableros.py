@@ -136,6 +136,7 @@ def tablero_8x8_ya_empezado():
         ]
     )
 
+
 def tablero_8x8_ya_empezado_mueve_camello_plateado_a4():
     """
     ```
@@ -194,6 +195,7 @@ def tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado():
             # 01234567
         ]
     )
+
 
 def tablero_8x8_ya_finalizando():
     """
@@ -332,7 +334,7 @@ def tablero_8x8_sin_conejos_dorados():
     )
 
 
-def tablero_8x8_camello_plateado_en_trampa():
+def tablero_8x8_gato_plateado_en_trampa():
     """
     ```
     Camello en (2,5) casilla trampa,
@@ -364,7 +366,7 @@ def tablero_8x8_camello_plateado_en_trampa():
     )
 
 
-def tablero_8x8_camello_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa():
+def tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa():
     """
     ```
     Camello en (2,5) casilla trampa,
@@ -395,7 +397,7 @@ def tablero_8x8_camello_plateado_en_trampa_quitado_y_perro_plateado_empuja_conej
         ]
     )
 
-def tablero_8x8_camello_plateado_en_trampa_quitado():
+def tablero_8x8_gato_plateado_en_trampa_quitado():
     """
     ```
     Camello en (2,5) casilla trampa,
@@ -438,7 +440,7 @@ def tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas():
     | R - - R R - - R | 1
     | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
-    
+
     Las cuatro trampas ((2,2), (2,5), (5,2), (5,5)) tienen piezas, pero hay piezas amigas al lado de cada una.
     ```
     """
@@ -468,7 +470,7 @@ def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1():
     | R - - R R - - R | 1
     | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
-    
+
     Las cuatro trampas ((2,2), (2,5), (5,2), (5,5)) tienen piezas, no hay amigas contiguas
     Es una situacion hipotetica un poco ridicula, pero sirve para el test de activar todas las trampas
     ```
@@ -499,7 +501,7 @@ def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_2():
     | R - - R R - - R | 1
     | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
-    
+
     Estado posterior a tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1
     ```
     """
@@ -529,7 +531,7 @@ def tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo():
     | R - - R R - - R | 1
     | H C D M E D C H | 0
       0 1 2 3 4 5 6 7
-    
+
     Estado posterior a tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1
     Asume que mueve el conejo de la trampa (2,5) y sacrifica el de (2,2)
     ```
