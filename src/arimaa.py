@@ -777,6 +777,40 @@ def generar_tablero_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> Ta
     return activar_trampas(tablero_nuevo)
 
 
+# FEAT #50 - Auxiliar
+def generar_tablero_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direccion) -> Tablero:
+    """
+    Genera a partir de un tablero t, otro tablero valido moviendo la pieza propia en direccion d y la enemiga en direccion d_arrastre
+    
+    PRE:
+        tablero_bien_formado(t) ∧
+        t[pos.fila][pos.columna] != VACIA ∧
+        puede_arrastrar(t,pos,d,d_arrastre)
+
+    Args:
+        t (Tablero): Tablero "inicial", estado anterior
+        pos (Posicion): Posicion desde la cual se mueve la pieza propia
+        d (Direccion): Direccion en la que se quiere mover la pieza propia
+        d_arrastre (Direccion): Direccion hacia la que se arrastra la pieza enemiga
+
+    Returns:
+        Una copia de t con todas las posiciones iguales, moviendo la pieza propia en pos hacia direccion d y la enemiga en d_arrastre
+    """
+    pos_hueco: Posicion = posicion_vecina_hacia(pos, d)
+    pos_enemiga: Posicion = posicion_vecina_hacia(pos, opuesta(d_arrastre))
+
+    pieza_propia: Pieza = t[pos.fila][pos.columna]
+    pieza_enemiga: Pieza = t[pos_enemiga.fila][pos_enemiga.columna]
+
+    tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(t, pieza_propia, pos_hueco)
+    tablero_nuevo = genera_tablero_quitando_pieza_en_posicion(tablero_nuevo, pos)
+
+    tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(tablero_nuevo, pieza_enemiga, pos)
+    tablero_nuevo = genera_tablero_quitando_pieza_en_posicion(tablero_nuevo, pos_enemiga)
+
+    return activar_trampas(tablero_nuevo)
+
+
 # FEAT #28 - Auxiliar
 def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
     """Verifica si t1 es el tablero resultante de agregar (o cambiar) una pieza en la Posicion pos, de Figura f y Color col
