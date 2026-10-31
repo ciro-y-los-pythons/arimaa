@@ -1061,6 +1061,18 @@ def juego_con_turno_posiblemente_avanzado(j0: Juego, j1: Juego, m: Movimiento) -
 
     return es_avanzado
 
+# FEAT #36 - Auxiliar
+def juego_post_movimiento(j0, j1: Juego, m: Movimiento) -> bool:
+    tablero_correcto: bool = tablero_post_movimiento(j0.tablero, j1.tablero, m)
+    pasos_totales: int = j0.pasos_consumidos + len(m.pasos)
+    turno_correcto: bool = False
+    if pasos_totales == MAX_PASOS:
+        turno_correcto = (j1.turno == oponente(j0.turno)and j1.pasos_consumidos == 0)
+    else:
+        turno_correcto = (j1.turno == j0.turno and j1.pasos_consumidos == pasos_totales)
+    return tablero_correcto and turno_correcto
+
+
 #### Ejercicio 7
 
 def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
