@@ -272,7 +272,28 @@ def hay_pieza(t: Tablero, pos: Posicion) -> bool:
     return es_una_pieza
 
 # FEAT #11 - Auxiliar
-# 30/10: no subida
+def hay_pieza_amiga_hacia(t: Tablero, pos: Posicion, d: Direccion) -> bool:
+    """
+    Verifica si hay una pieza amiga en la dirección indicada.
+    PRE:
+        tablero_bien_formado(t)
+        ∧ posicion_en_tablero(pos)
+    Args:
+        t (Tablero): Tablero en el que se busca la pieza amiga.
+        pos (Posicion): Posición de la pieza de origen.
+        d (Direccion): Dirección en la que se busca una pieza amiga.
+    Returns:
+        bool: True si existe una pieza del mismo color en la
+        posición vecina hacia d. False en caso contrario.
+    """
+    if hay_casilla_vacia(t, pos):
+        return False
+    pos_amiga: Posicion = posicion_vecina_hacia(pos, d)
+    if not posicion_en_tablero(pos_amiga):
+        return False
+    color: Color = casilla_en_posicion(t, pos).color
+
+    return hay_pieza_de_color(t, pos_amiga, color)
 
 # FEAT #12 - Problema
 def hay_pieza_amiga_vecina(t: Tablero, pos: Posicion) -> bool:
@@ -1210,7 +1231,7 @@ def juego_post_movimiento(j0, j1: Juego, m: Movimiento) -> bool:
 
 #### Ejercicio 7
 
-
+# FEAT #38 - Auxiliar
 def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
     """
     Verifica si una p_propia se encuentra en su posición inicial
@@ -1231,7 +1252,7 @@ def posicion_en_fila_inicial(pos: Posicion, col: Color) -> bool:
 
     return p_dorada_en_inicial or p_plateada_en_inicial
 
-
+# FEAT #39 - Auxiliar
 def hay_conejo_en_fila_inicial_oponente(j: Juego, col: Color)-> bool:
     """
     Verifica si hay un Conejo en la fila inicial del oponente
@@ -1254,7 +1275,7 @@ def hay_conejo_en_fila_inicial_oponente(j: Juego, col: Color)-> bool:
 
     return False
 
-
+# FEAT #40 - Auxiliar
 def es_inicio_de_turno(j: Juego, col: Color) -> bool:
     """Verifica si un juego (j) es el primero de un turno
     PRE:
@@ -1269,7 +1290,7 @@ def es_inicio_de_turno(j: Juego, col: Color) -> bool:
     """
     return j.turno == col and j.pasos_consumidos == 0
 
-
+# FEAT #41 - Auxiliar
 def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
     """Verifica si hay al menos un conejo en el tablero
 
@@ -1291,7 +1312,7 @@ def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
 
     return False
 
-
+# FEAT #42 - Auxiliar
 def reune_condiciones_de_ganar(j: Juego, col: Color) -> bool:
     """
     Verifica si el Jugador de cierto Color reúne condiciones de ganar
@@ -1306,7 +1327,7 @@ def reune_condiciones_de_ganar(j: Juego, col: Color) -> bool:
     """
     return hay_conejo_en_fila_inicial_oponente(j, col) or not hay_conejo_en_tablero(j, oponente(col))
 
-
+# FEAT #43 - Auxiliar
 def reune_condiciones_de_ganar_exclusivas(j: Juego, col: Color) -> bool:
     """
     Verifica si el jugador de cierto Color puede ganar y su oponente no
@@ -1322,7 +1343,6 @@ def reune_condiciones_de_ganar_exclusivas(j: Juego, col: Color) -> bool:
     no_puede_ganar_el_oponente: bool = not reune_condiciones_de_ganar(j, oponente(col))
 
     return puede_ganar_el_jugador and no_puede_ganar_el_oponente
-
 
 # FEAT #44 - Auxiliar
 def es_jugador_ganador(j: Juego , col: Color) -> bool:
@@ -1347,7 +1367,6 @@ def es_jugador_ganador(j: Juego , col: Color) -> bool:
 
     return condicion_de_ganar_1 or condicion_de_ganar_2
 
-
 # FEAT #45 - Problema
 def hay_ganador_determinado(j: Juego) -> bool:
     """
@@ -1364,7 +1383,7 @@ def hay_ganador_determinado(j: Juego) -> bool:
     """
     return es_jugador_ganador(j, DORADO) or es_jugador_ganador(j, PLATEADO)
 
-
+# FEAT #46 - Problema
 def ganador_del_juego(j: Juego) -> Color:
     """
     Devuelve el Color del jugador que ganó el juego.

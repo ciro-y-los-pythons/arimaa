@@ -3,14 +3,14 @@
 ## Última Actualización
 
 + Realizada: 30/10, 21:36
-+ Ultimo commit: `REFACTOR #07 - tests del ejercicio_6`
++ Ultimo commit: `REFACTOR #08 - tests del ejercicio_7`
 + Resultado:
 
 ```Shell
 === Análisis de Coverage ===
 
-➡️  Porcentaje global de líneas cubiertas (1956/2045): 95.65%
-➡️  Porcentaje global de ramas cubiertas (137/184): 74.46%
+➡️  Porcentaje global de líneas cubiertas (2262/2349): 96.30%
+➡️  Porcentaje global de ramas cubiertas (145/192): 75.52%
 ```
 
 ## ¿Como se genera el Coverage?
