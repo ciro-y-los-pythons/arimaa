@@ -749,6 +749,34 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
 def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
     raise Exception("No implementado")
 
+
+# FEAT #49 - Auxiliar
+def generar_tablero_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> Tablero:
+    """
+    Genera a partir de un tablero t, otro tablero valido moviendo la pieza de pos en direccion d
+    
+    PRE:
+        tablero_bien_formado(t) ∧
+        t[pos.fila][pos.columna] != VACIA ∧
+        puede_mover_a_secas(t,pos,d)
+
+    Args:
+        t (Tablero): Tablero "inicial", estado anterior
+        pos (Posicion): Posicion desde la cual se mueve la pieza
+        d (Direccion): Direccion en la que se quiere mover la pieza
+
+    Returns:
+        Una copia de t con todas las posiciones iguales, moviendo la pieza en pos hacia direccion d
+    """
+    destino: Posicion = posicion_vecina_hacia(pos, d)
+    pieza: Pieza = t[pos.fila][pos.columna]
+
+    tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(t, pieza, destino)
+    tablero_nuevo = genera_tablero_quitando_pieza_en_posicion(tablero_nuevo, pos)
+
+    return activar_trampas(tablero_nuevo)
+
+
 # FEAT #28 - Auxiliar
 def es_tablero_poniendo_pieza(t0: Tablero, t1: Tablero, pos: Posicion, f: Figura, col: Color) -> bool:
     """Verifica si t1 es el tablero resultante de agregar (o cambiar) una pieza en la Posicion pos, de Figura f y Color col
