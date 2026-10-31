@@ -1002,7 +1002,7 @@ class test_realizar_movimiento(unittest.TestCase):
     def test_mover_a_secas_con_trampa(self):
         t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
         tN = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo()
-        
+
         j0 = Juego(t0, DORADO, 0)
         jN = Juego(tN, DORADO, 1)
         mN = Movimiento(MOVER_A_SECAS, Posicion(2, 5), [NORTE])
@@ -1037,7 +1037,7 @@ class test_realizar_movimiento(unittest.TestCase):
                 # 01234567
             ]
         )
-        
+
         j0 = Juego(t0, DORADO, 0)
         jN = Juego(tN, DORADO, 2)
         mN = Movimiento(ARRASTRAR, Posicion(4, 4), [NORTE,NORTE])
@@ -1071,7 +1071,7 @@ class test_realizar_movimiento(unittest.TestCase):
                 # 01234567
             ]
         )
-        
+
         j0 = Juego(t0, DORADO, 0)
         jN = Juego(tN, DORADO, 2)
         mN = Movimiento(ARRASTRAR, Posicion(4, 4), [NORTE,NORTE])
@@ -1082,7 +1082,7 @@ class test_realizar_movimiento(unittest.TestCase):
     def test_empujar_correctamente(self):
         t0 = tablero_8x8_ya_empezado()
         tN = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
-        
+
         j0 = Juego(t0, DORADO, 0)
         jN = Juego(tN, DORADO, 2)
         mN = Movimiento(EMPUJAR, Posicion(1, 4), [NORTE,OESTE])
@@ -1093,7 +1093,7 @@ class test_realizar_movimiento(unittest.TestCase):
     def test_empujar_con_trampa(self):
         t0 = tablero_8x8_gato_plateado_en_trampa()
         tN = tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa()
-        
+
         j0 = Juego(t0, PLATEADO, 0)
         jN = Juego(tN, PLATEADO, 2)
         mN = Movimiento(EMPUJAR, Posicion(6, 6), [SUR,OESTE])
@@ -1107,18 +1107,18 @@ class test_realizar_movimiento(unittest.TestCase):
         j0 = Juego(t0, DORADO, 0)
         jN = Juego(tN, DORADO, 1)
         mN = Movimiento(MOVER_A_SECAS, Posicion(3, 0), [NORTE])
-    
+
         self.assertTrue(puede_realizar_movimiento(j0, mN))
         self.assertEqual(realizar_movimiento(j0, mN), jN)
-    
-    
+
+
     def test_cambio_de_turno(self):
         t0 = tablero_8x8_empezando()
         tN = tablero_8x8_empezando_mueve_conejo_dorado_a5()
         j0 = Juego(t0, DORADO, 3)
         jN = Juego(tN, PLATEADO, 0)
         mN = Movimiento(MOVER_A_SECAS, Posicion(3, 0), [NORTE])
-    
+
         self.assertTrue(puede_realizar_movimiento(j0, mN))
         self.assertEqual(realizar_movimiento(j0, mN), jN)
 
@@ -1297,7 +1297,16 @@ class test_juego_con_turno_posiblemente_avanzado(unittest.TestCase):
 #### Ejercicio 7
 
 
+# TEST #46 - Auxiliar
 class test_ganador_del_juego(unittest.TestCase):
+    def test_ganador_es_dorado(self):
+        t = tablero_8x8_ya_empezado()
+        j = Juego(t,DORADO,0)
+        self.assertEqual(ganador_del_juego(j),DORADO)
+    def test_ganador_es_plateado(self):
+        t = tablero_8x8_sin_conejos_dorados()
+        j = Juego(t,PLATEADO,0)
+        self.assertEqual(ganador_del_juego(j),PLATEADO)
     def test_promueve_conejo_dorado_turno_del_oponente(self):
         t = leer_tablero(
             [
@@ -1316,7 +1325,7 @@ class test_ganador_del_juego(unittest.TestCase):
         self.assertTrue(hay_ganador_determinado(j))
         self.assertEqual(ganador_del_juego(j), DORADO)
 
-
+# TEST #38 - Auxiliar
 class test_es_inicio_de_turno(unittest.TestCase):
     def test_inicio_de_juego(self):
         j = Juego(tablero_8x8_inicial_ejemplo(),DORADO,0)
@@ -1337,6 +1346,129 @@ class test_es_inicio_de_turno(unittest.TestCase):
         j = Juego(tablero_8x8_mueve_conejo_dorado_h3(),DORADO,1)
         col = PLATEADO
         self.assertFalse(es_inicio_de_turno(j, col))
+
+# TEST #39 - Auxiliar
+class test_posicion_en_fila_inicial(unittest.TestCase):
+    def test_dorado_en_posicion_en_fila_inicial(self):
+        pos = Posicion(0, 0)
+        col = DORADO
+        self.assertTrue(posicion_en_fila_inicial(pos, col))
+
+    def test_plateado_en_posicion_en_fila_inicial(self):
+        pos = Posicion(7, 0)
+        col = PLATEADO
+        self.assertTrue(posicion_en_fila_inicial(pos, col))
+
+    def test_dorado_fuera_de_posicion_en_fila_inicial(self):
+        pos = Posicion(3, 0)
+        col = DORADO
+        self.assertFalse(posicion_en_fila_inicial(pos, col))
+
+    def test_plateado_fuera_de_posicion_en_fila_inicial(self):
+        pos = Posicion(5, 0)
+        col = PLATEADO
+        self.assertFalse(posicion_en_fila_inicial(pos, col))
+
+    def test_dorado_en_posicion_en_fila_inicial_enemiga(self):
+        pos = Posicion(7, 0)
+        col = DORADO
+        self.assertFalse(posicion_en_fila_inicial(pos, col))
+
+    def test_plateado_en_posicion_en_fila_inicial_enemiga(self):
+        pos = Posicion(0, 0)
+        col = PLATEADO
+        self.assertFalse(posicion_en_fila_inicial(pos, col))
+
+# TEST #40 - Auxiliar
+class test_hay_conejo_en_fila_inicial_oponente(unittest.TestCase):
+    def test_hay_conejo_en_fila_inicial_oponente(self):
+        j = Juego(tablero_8x8_ya_empezado(), DORADO, 0)
+        col = DORADO
+        self.assertTrue(hay_conejo_en_fila_inicial_oponente(j, col))
+
+    def test_no_hay_conejo_en_fila_inicial_oponente(self):
+        j = Juego(tablero_8x8_inicial_ejemplo(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(hay_conejo_en_fila_inicial_oponente(j, col))
+
+# TEST #41 - Auxiliar
+class test_hay_conejo_en_tablero(unittest.TestCase):
+    def test_hay_conejo_dorado(self):
+        j = Juego(tablero_8x8_ya_finalizando(),DORADO,0)
+        col = DORADO
+        self.assertTrue(hay_conejo_en_tablero(j, col))
+
+    def test_no_hay_conejos(self):
+        j = Juego(tablero_8x8_vacio(),DORADO,0)
+        col = DORADO
+        self.assertFalse(hay_conejo_en_tablero(j, col))
+
+# TEST #42 - Auxiliar
+class test_reune_condiciones_de_ganar(unittest.TestCase):
+    def test_reune_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_ya_empezado(), DORADO, 0)
+        col = DORADO
+        self.assertTrue(reune_condiciones_de_ganar(j, col))
+
+    def test_no_reune_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_sin_conejos_dorados(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(reune_condiciones_de_ganar(j, col))
+
+# TEST #43 - Auxiliar
+class test_reune_condiciones_de_ganar_exclusivas(unittest.TestCase):
+    def test_reune_condiciones_de_ganar_exclusivas(self):
+        j = Juego(tablero_8x8_sin_conejos_dorados(), PLATEADO, 0)
+        col = PLATEADO
+        self.assertTrue(reune_condiciones_de_ganar_exclusivas(j, col))
+
+    def test_ambos_reunen_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_ya_empezado(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(reune_condiciones_de_ganar_exclusivas(j, col))
+
+    def test_no_reune_condiciones_de_ganar(self):
+        j = Juego(tablero_8x8_sin_conejos_dorados(), DORADO, 0)
+        col = DORADO
+        self.assertFalse(reune_condiciones_de_ganar_exclusivas(j, col))
+
+# TEST #44 - Auxiliar
+class test_es_jugador_ganador(unittest.TestCase):
+    def test_gana_en_turno_del_oponente(self):
+        t = tablero_8x8_sin_conejos_dorados()
+        j = Juego(t,DORADO,0)
+        col = PLATEADO
+        self.assertTrue(es_jugador_ganador(j,col))
+    def test_gana_en_turno_propio_exclusivamente(self):
+        t = tablero_8x8_sin_conejos_dorados()
+        j = Juego(t,PLATEADO,0)
+        col = PLATEADO
+        self.assertTrue(es_jugador_ganador(j,col))
+    def test_no_gana_en_inicio_turno_propio(self):
+        t = tablero_8x8_inicial_ejemplo()
+        j = Juego(t,DORADO,0)
+        col = DORADO
+        self.assertFalse(es_jugador_ganador(j,col))
+    def test_no_gana_en_inicio_turno_oponente(self):
+        t = tablero_8x8_inicial_ejemplo()
+        j = Juego(t,DORADO,0)
+        col = PLATEADO
+        self.assertFalse(es_jugador_ganador(j,col))
+
+# TEST #45 - Problema
+class test_hay_ganador_determinado(unittest.TestCase):
+    def test_hay_ganador_dorado(self):
+        t = tablero_8x8_ya_empezado()
+        j = Juego(t,DORADO,0)
+        self.assertTrue(hay_ganador_determinado(j))
+    def test_hay_ganador_plateado(self):
+        t = tablero_8x8_sin_conejos_dorados()
+        j = Juego(t,PLATEADO,0)
+        self.assertTrue(hay_ganador_determinado(j))
+    def test_no_hay_ganador_determinado(self):
+        t = tablero_8x8_inicial_ejemplo()
+        j = Juego(t,DORADO,0)
+        self.assertFalse(hay_ganador_determinado(j))
 
 
 if __name__ == "__main__":

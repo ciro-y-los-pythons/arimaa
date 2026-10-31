@@ -1,5 +1,10 @@
 import sys
 import tkinter
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
 
 import src.arimaa as aa
 
@@ -85,7 +90,7 @@ class GTablero(tkinter.Canvas):
     ## Métodos para dibujar el tablero
 
     def cargar_imagen(self, pieza):
-        fn = "piezas/" + FIGURAS[pieza.figura] + COLORES[pieza.color] + ".png"
+        fn = "template/piezas/" + FIGURAS[pieza.figura] + COLORES[pieza.color] + ".png"
         return tkinter.PhotoImage(file=fn)
 
     def cargar_imagenes(self):

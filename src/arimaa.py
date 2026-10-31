@@ -748,7 +748,7 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
 def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
     """
     Devuelve un Juego valido a partir del Juego j que es el resultado de realizar el Movimiento m.
-    
+
     PRE:
         { juegoBienFormado (j) ∧ movimientoBienFormado (m) }
         { puedeRealizarMovimiento (j, m) }
@@ -789,7 +789,7 @@ def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
 def generar_tablero_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> Tablero:
     """
     Genera a partir de un tablero t, otro tablero valido moviendo la pieza de pos en direccion d
-    
+
     PRE:
         tablero_bien_formado(t) ∧
         t[pos.fila][pos.columna] != VACIA ∧
@@ -816,7 +816,7 @@ def generar_tablero_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> Ta
 def generar_tablero_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastre: Direccion) -> Tablero:
     """
     Genera a partir de un tablero t, otro tablero valido moviendo la pieza propia en direccion d y la enemiga en direccion d_arrastre
-    
+
     PRE:
         tablero_bien_formado(t) ∧
         t[pos.fila][pos.columna] != VACIA ∧
@@ -850,7 +850,7 @@ def generar_tablero_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastr
 def generar_tablero_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: Direccion) -> Tablero:
     """
     Genera a partir de un tablero t, otro tablero valido moviendo la pieza propia en direccion d y la enemiga en direccion d_empuje
-    
+
     PRE:
         tablero_bien_formado(t) ∧
         t[pos.fila][pos.columna] != VACIA ∧
