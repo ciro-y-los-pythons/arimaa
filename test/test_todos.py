@@ -999,6 +999,130 @@ class test_realizar_movimiento(unittest.TestCase):
         self.assertTrue(puede_realizar_movimiento(j0, mN))
         self.assertEqual(realizar_movimiento(j0, mN), jN)
 
+    def test_mover_a_secas_con_trampa(self):
+        t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        tN = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo()
+        
+        j0 = Juego(t0, DORADO, 0)
+        jN = Juego(tN, DORADO, 1)
+        mN = Movimiento(MOVER_A_SECAS, Posicion(2, 5), [NORTE])
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+    # ARRASTRAR
+    def test_arrastrar_correctamente(self):
+        t0 = leer_tablero(
+            [
+                "--------",  # 7
+                "--------",  # 6
+                "--------",  # 5
+                "----E---",  # 4
+                "----r---",  # 3
+                "--------",  # 2
+                "--------",  # 1
+                "--------",  # 0
+                # 01234567
+            ]
+        )
+        tN = leer_tablero(
+            [
+                "--------",  # 7
+                "--------",  # 6
+                "----E---",  # 5
+                "----r---",  # 4
+                "--------",  # 3
+                "--------",  # 2
+                "--------",  # 1
+                "--------",  # 0
+                # 01234567
+            ]
+        )
+        
+        j0 = Juego(t0, DORADO, 0)
+        jN = Juego(tN, DORADO, 2)
+        mN = Movimiento(ARRASTRAR, Posicion(4, 4), [NORTE,NORTE])
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+    def test_arrastrar_con_trampa(self):
+        t0 = leer_tablero(
+            [
+                "--------",  # 7
+                "--------",  # 6
+                "--------",  # 5
+                "----E---",  # 4
+                "----r---",  # 3
+                "-----c--",  # 2
+                "--------",  # 1
+                "--------",  # 0
+                # 01234567
+            ]
+        )
+        tN = leer_tablero(
+            [
+                "--------",  # 7
+                "--------",  # 6
+                "----E---",  # 5
+                "----r---",  # 4
+                "--------",  # 3
+                "--------",  # 2
+                "--------",  # 1
+                "--------",  # 0
+                # 01234567
+            ]
+        )
+        
+        j0 = Juego(t0, DORADO, 0)
+        jN = Juego(tN, DORADO, 2)
+        mN = Movimiento(ARRASTRAR, Posicion(4, 4), [NORTE,NORTE])
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+    # EMPUJAR
+    def test_empujar_correctamente(self):
+        t0 = tablero_8x8_ya_empezado()
+        tN = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        
+        j0 = Juego(t0, DORADO, 0)
+        jN = Juego(tN, DORADO, 2)
+        mN = Movimiento(EMPUJAR, Posicion(1, 4), [NORTE,OESTE])
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+
+    def test_empujar_con_trampa(self):
+        t0 = tablero_8x8_gato_plateado_en_trampa()
+        tN = tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa()
+        
+        j0 = Juego(t0, PLATEADO, 0)
+        jN = Juego(tN, PLATEADO, 2)
+        mN = Movimiento(EMPUJAR, Posicion(6, 6), [SUR,OESTE])
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+    # CAMBIO DE TURNO
+    def test_mismo_turno(self):
+        t0 = tablero_8x8_empezando()
+        tN = tablero_8x8_empezando_mueve_conejo_dorado_a5()
+        j0 = Juego(t0, DORADO, 0)
+        jN = Juego(tN, DORADO, 1)
+        mN = Movimiento(MOVER_A_SECAS, Posicion(3, 0), [NORTE])
+    
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+    
+    
+    def test_cambio_de_turno(self):
+        t0 = tablero_8x8_empezando()
+        tN = tablero_8x8_empezando_mueve_conejo_dorado_a5()
+        j0 = Juego(t0, DORADO, 3)
+        jN = Juego(tN, PLATEADO, 0)
+        mN = Movimiento(MOVER_A_SECAS, Posicion(3, 0), [NORTE])
+    
+        self.assertTrue(puede_realizar_movimiento(j0, mN))
+        self.assertEqual(realizar_movimiento(j0, mN), jN)
+
+
 # TEST #28 - Auxiliar
 class test_es_tablero_poniendo_pieza(unittest.TestCase):
     def test_se_agrega_pieza(self):

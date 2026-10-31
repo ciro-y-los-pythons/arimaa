@@ -744,7 +744,6 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
 
 #### Ejercicio 6
 
-
 # FEAT #37 - Problema
 def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
     """

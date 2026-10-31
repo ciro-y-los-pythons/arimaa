@@ -106,6 +106,35 @@ def tablero_8x8_empezando():
         ]
     )
 
+def tablero_8x8_empezando_mueve_conejo_dorado_a5():
+    """
+    ```
+    Tablero Recién Empezando:
+    | h c d m e d c h | 7
+    | r r r - r r - - | 6
+    | - - - - - - r r | 5
+    | R - - r - - - - | 4
+    | - - - R - - - - | 3
+    | - - - - - - - - | 2
+    | - R R - R R R R | 1
+    | H C D M E D C H | 0
+      0 1 2 3 4 5 6 7
+    ```
+    """
+    return leer_tablero(
+        [
+            "hcdmedch",  # 7
+            "rrr-rr--",  # 6
+            "------rr",  # 5
+            "R--r----",  # 4
+            "---R----",  # 3
+            "--------",  # 2
+            "-RR-RRRR",  # 1
+            "HCDMEDCH",  # 0
+            # 01234567
+        ]
+    )
+
 
 def tablero_8x8_ya_empezado():
     """
@@ -337,10 +366,10 @@ def tablero_8x8_sin_conejos_dorados():
 def tablero_8x8_gato_plateado_en_trampa():
     """
     ```
-    Camello en (2,5) casilla trampa,
+    Gato en (2,5) casilla trampa,
     debe ser quitado del tablero:
     | R - e - - m R r | 7
-    | - - - - - - d E | 6
+    | - - - - - - d - | 6
     | h - - R r - R R | 5
     | c - - R - C - - | 4
     | - r C H D - - - | 3
@@ -354,7 +383,7 @@ def tablero_8x8_gato_plateado_en_trampa():
     return leer_tablero(
         [
             "R-e--mRr",  # 7
-            "------dE",  # 6
+            "------d-",  # 6
             "h--Rr-RR",  # 5
             "c--R-C--",  # 4
             "-rCHD---",  # 3
@@ -369,10 +398,10 @@ def tablero_8x8_gato_plateado_en_trampa():
 def tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa():
     """
     ```
-    Camello en (2,5) casilla trampa,
+    Gato en (2,5) casilla trampa, perro empujo a conejo dorado pero no se quita porque tiene amiga vecina
     debe ser quitado del tablero:
     | R - e - - m R r | 7
-    | - - - - - - - E | 6
+    | - - - - - - - - | 6
     | h - - R r R d R | 5
     | c - - R - C - - | 4
     | - r C H D - - - | 3
@@ -386,7 +415,7 @@ def tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_d
     return leer_tablero(
         [
             "R-e--mRr",  # 7
-            "-------E",  # 6
+            "--------",  # 6
             "h--RrRdR",  # 5
             "c--R-C--",  # 4
             "-rCHD---",  # 3
@@ -400,7 +429,7 @@ def tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_d
 def tablero_8x8_gato_plateado_en_trampa_quitado():
     """
     ```
-    Camello en (2,5) casilla trampa,
+    Gato en (2,5) casilla trampa,
     ya fue quitado del tablero:
     | R - e - - m R r | 7
     | - - - - - - d E | 6
