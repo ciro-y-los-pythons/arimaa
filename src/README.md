@@ -9,7 +9,7 @@ python -m mypy arimaa.py
 2. Para correr los casos de test:
 
 ```Shell
-python -m unittest test.tests.py
+python -m unittest test/tests.py
 ```
 
 3. Para evaluar el cubrimiento del código por los casos de test:
@@ -23,13 +23,13 @@ python -m coverage json
 ```
 
 ```Shell
-python cubrimiento.py
+python template/cubrimiento.py
 ```
 
 4. Para correr la interfaz gráfica:
 
 ```Shell
-python interfaz.py
+python template/interfaz.py
 ```
 
 Para cargar el tablero desde el archivo especificado, se le puede pasar
@@ -46,7 +46,7 @@ Además, se aceptan las siguientes opciones:
 Por ejemplo:
 
 ```Shell
-python interfaz.py tablero.txt -p -1
+python template/interfaz.py tablero.txt -p -1
 ```
 
 Inicia el juego desde el tablero dado, donde comienzan las plateadas

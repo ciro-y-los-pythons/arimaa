@@ -50,19 +50,19 @@ python3 template/cubrimiento.py
 1. Para hacer chequeo de tipos del código:
 
 ```Shell
-python -m mypy src.arimaa.py
+python -m mypy src/arimaa.py
 ```
 
 2. Para correr los casos de test:
 
 ```Shell
-python -m unittest test.test_todos.py
+python -m unittest test/test_todos.py
 ```
 
 3. Para evaluar el cubrimiento del código por los casos de test:
 
 ```Shell
-python -m coverage run --include arimaa.py --branch -m unittest test.tests.py
+python -m coverage run --include arimaa.py --branch -m unittest test/tests.py
 ```
 
 ```Shell
@@ -76,7 +76,7 @@ python cubrimiento.py
 4. Para correr la interfaz gráfica:
 
 ```Shell
-python template.interfaz.py
+python template/interfaz.py
 ```
 
 Para cargar el tablero desde el archivo especificado, se le puede pasar

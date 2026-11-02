@@ -3,6 +3,9 @@ import tkinter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TEMPLATE_DIR = Path(__file__).resolve().parent
+PIEZAS_DIR = TEMPLATE_DIR / "piezas"
+
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -43,6 +46,16 @@ COLORES = {
 }
 
 PIEZAS = [aa.Pieza(f, col) for f in FIGURAS.keys() for col in COLORES.keys()]
+
+
+def ruta_imagen_pieza(pieza):
+    nombre = FIGURAS[pieza.figura] + COLORES[pieza.color] + ".png"
+    return PIEZAS_DIR / nombre
+
+
+def ruta_imagen_turno(color):
+    nombre = "turno_" + COLORES[color] + ".png"
+    return PIEZAS_DIR / nombre
 
 
 class GTablero(tkinter.Canvas):
@@ -90,8 +103,7 @@ class GTablero(tkinter.Canvas):
     ## Métodos para dibujar el tablero
 
     def cargar_imagen(self, pieza):
-        fn = "template/piezas/" + FIGURAS[pieza.figura] + COLORES[pieza.color] + ".png"
-        return tkinter.PhotoImage(file=fn)
+        return tkinter.PhotoImage(file=str(ruta_imagen_pieza(pieza)))
 
     def cargar_imagenes(self):
         self.imgs = {}
@@ -181,8 +193,7 @@ class GStatus(tkinter.Frame):
             self.imgs[color] = self.cargar_imagen(color)
 
     def cargar_imagen(self, color):
-        fn = "piezas/" + "turno_" + COLORES[color] + ".png"
-        return tkinter.PhotoImage(file=fn)
+        return tkinter.PhotoImage(file=str(ruta_imagen_turno(color)))
 
     def dibujar_status(self, status):
         if status.ganador is None:
