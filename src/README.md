@@ -9,7 +9,7 @@ python -m mypy arimaa.py
 2. Para correr los casos de test:
 
 ```Shell
-python -m unittest test/tests.py
+python -m unittest test/test_todos.py
 ```
 
 3. Para evaluar el cubrimiento del código por los casos de test:

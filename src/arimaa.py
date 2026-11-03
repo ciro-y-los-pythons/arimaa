@@ -1379,3 +1379,54 @@ def ganador_del_juego(j: Juego) -> Color:
         return DORADO
     else:
         return PLATEADO
+
+
+#### Extras
+
+# FEAT #53 - Extras
+def todos_los_movimientos_posibles (j: Juego) -> list[Movimiento]:
+    """
+    Devuelve una lista con todos los movimientos posibles que puede realizar el jugador del turno actual en el estado actual del juego.
+
+    PRE: juego_bien_formado(j)
+    asegura: 
+        sin_repetidos(res)
+        ∧ para todo m: Movimiento. (
+            m ∈ res ←→ (movimiento_bien_formado(m) ∧ puede_realizar_movimiento(j, m))
+        )
+}
+"""
+    movimientos_posibles: list[Movimiento] = []
+
+    for fila in range(0, 8):
+        for columna in range(0, 8):
+            pos: Posicion = Posicion(fila, columna)
+            casilla: Casilla = j.tablero[fila][columna]
+            if hay_pieza(j.tablero, pos) and hay_pieza_de_color(j.tablero, pos, j.turno):
+                movimientos_posibles += movimientos_posibles_desde(j, pos)
+    return movimientos_posibles
+
+# FEAT #53 - Extras
+def movimientos_posibles_desde (j: Juego, pos: Posicion) -> list[Movimiento]:
+    """
+    Devuelve una lista con todos los movimientos posibles que puede realizar el jugador del turno actual desde la posición indicada en el estado actual del juego.
+
+    PRE: juego_bien_formado(j)
+
+    Returns:
+        list[Movimiento]: Lista de movimientos posibles desde la posición indicada.
+    """
+
+    direcciones: list[Direccion] = [NORTE, SUR, ESTE, OESTE]
+    acciones: list[Accion] = [MOVER_A_SECAS, ARRASTRAR, EMPUJAR]
+
+    movimientos_posibles: list[Movimiento] = []
+
+    for d in direcciones:
+        for accion in acciones:
+            posible_movimiento: Movimiento = Movimiento(accion, pos, [d])
+            
+            if puede_realizar_movimiento(j, posible_movimiento):
+                movimientos_posibles.append(posible_movimiento)
+
+    return movimientos_posibles

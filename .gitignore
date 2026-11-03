@@ -6,5 +6,5 @@ changes
 
 # Archivos de Coverage
 .coverage
-coverage.json
+coverage.*
 htmlcov/
