@@ -13,7 +13,7 @@ from test.ejemplos.tableros import *
 # TEST #46 - Auxiliar
 class test_ganador_del_juego(unittest.TestCase):
     def test_ganador_es_dorado(self):
-        t = tablero_8x8_ya_empezado()
+        t = tablero_8x8_gana_dorado()
         j = Juego(t,DORADO,0)
         self.assertEqual(ganador_del_juego(j), DORADO)
     def test_ganador_es_plateado(self):

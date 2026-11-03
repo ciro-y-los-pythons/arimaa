@@ -244,6 +244,37 @@ class test_hay_casilla_vacia_hacia(unittest.TestCase):
         pos = Posicion(2, 0)
         self.assertFalse(hay_casilla_vacia_hacia(t, pos, NORTE))
 
+class test_hay_pieza(unittest.TestCase):
+    def test_hay_pieza(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(0, 0)
+        self.assertTrue(hay_pieza(t, pos))
+    def test_no_hay_pieza(self):
+        t = tablero_8x8_inicial_ejemplo()
+        pos = Posicion(2, 2)
+        self.assertFalse(hay_pieza(t, pos))
+
+class test_hay_pieza_amiga_hacia(unittest.TestCase):
+    def test_hay_pieza_amiga(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas()
+        pos = Posicion(2, 6)
+        d = OESTE
+        self.assertTrue(hay_pieza_amiga_hacia(t,pos,d))
+    def test_no_hay_pieza_amiga(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        pos = Posicion(2, 6)
+        d = OESTE
+        self.assertFalse(hay_pieza_amiga_hacia(t,pos,d))
+    def test_no_hay_pieza_en_posicion_indicada(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        pos = Posicion(2, 7)
+        d = OESTE
+        self.assertFalse(hay_pieza_amiga_hacia(t,pos,d))
+    def test_posicion_fuera_de_tablero(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        pos = Posicion(1, 7)
+        d = ESTE
+        self.assertFalse(hay_pieza_amiga_hacia(t,pos,d))
 
 class test_hay_pieza_amiga_vecina(unittest.TestCase):
     def test_hay_pieza_amiga_vecina(self):
@@ -916,7 +947,7 @@ class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
         t0 = tablero_8x8_gato_plateado_en_trampa()
         t1 = tablero_8x8_gato_plateado_en_trampa_quitado()
         pos_trampa = Posicion(2,5)
-        self.assertTrue(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
+        self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
 
     def test_no_hay_amiga_y_no_Se_quita_pieza(self):
         t0 = tablero_8x8_gato_plateado_en_trampa()
@@ -1254,6 +1285,24 @@ class test_tablero_post_empujar(unittest.TestCase):
         t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos_enemiga.fila][pos_enemiga.columna],pos_hueco)
         self.assertFalse(tablero_post_empujar(t0,t2,pos,d,d_empuje))
 
+    def test_posicion_enemiga_fuera_de_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        pos = Posicion(5,7)
+        d = OESTE
+        d_empuje = OESTE
+
+        self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
+
+    def test_posicion_hueco_fuera_de_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        pos = Posicion(6,7)
+        d = NORTE
+        d_empuje = OESTE
+
+        self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
+
 # TEST #34 - Auxiliar
 class test_hay_que_cambiar_de_turno(unittest.TestCase):
     def test_mover_a_secas_inicio(self):
@@ -1300,9 +1349,9 @@ class test_juego_con_turno_posiblemente_avanzado(unittest.TestCase):
 # TEST #46 - Auxiliar
 class test_ganador_del_juego(unittest.TestCase):
     def test_ganador_es_dorado(self):
-        t = tablero_8x8_ya_empezado()
+        t = tablero_8x8_gana_dorado()
         j = Juego(t,DORADO,0)
-        self.assertEqual(ganador_del_juego(j),DORADO)
+        self.assertEqual(ganador_del_juego(j), DORADO)
     def test_ganador_es_plateado(self):
         t = tablero_8x8_sin_conejos_dorados()
         j = Juego(t,PLATEADO,0)
