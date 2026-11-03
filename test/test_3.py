@@ -31,6 +31,28 @@ class test_hay_pieza(unittest.TestCase):
         pos = Posicion(2, 2)
         self.assertFalse(hay_pieza(t, pos))
 
+class test_hay_pieza_amiga_hacia(unittest.TestCase):
+    def test_hay_pieza_amiga(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_pero_con_amigas()
+        pos = Posicion(2, 6)
+        d = OESTE
+        self.assertTrue(hay_pieza_amiga_hacia(t,pos,d))
+    def test_no_hay_pieza_amiga(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        pos = Posicion(2, 6)
+        d = OESTE
+        self.assertFalse(hay_pieza_amiga_hacia(t,pos,d))
+    def test_no_hay_pieza_en_posicion_indicada(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        pos = Posicion(2, 7)
+        d = OESTE
+        self.assertFalse(hay_pieza_amiga_hacia(t,pos,d))
+    def test_posicion_fuera_de_tablero(self):
+        t = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
+        pos = Posicion(1, 7)
+        d = ESTE
+        self.assertFalse(hay_pieza_amiga_hacia(t,pos,d))
+
 
 class test_hay_pieza_amiga_vecina(unittest.TestCase):
     def test_hay_pieza_amiga_vecina(self):

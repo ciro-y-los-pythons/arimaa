@@ -300,6 +300,24 @@ class test_tablero_post_empujar(unittest.TestCase):
         t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos_enemiga.fila][pos_enemiga.columna],pos_hueco)
         self.assertFalse(tablero_post_empujar(t0,t2,pos,d,d_empuje))
 
+    def test_posicion_enemiga_fuera_de_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        pos = Posicion(5,7)
+        d = OESTE
+        d_empuje = OESTE
+
+        self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
+
+    def test_posicion_hueco_fuera_de_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        pos = Posicion(6,7)
+        d = NORTE
+        d_empuje = OESTE
+
+        self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
+
 # TEST #34 - Auxiliar
 class test_hay_que_cambiar_de_turno(unittest.TestCase):
     def test_mover_a_secas_inicio(self):

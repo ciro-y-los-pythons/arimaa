@@ -193,13 +193,6 @@ def hay_casilla_vacia(t: Tablero, pos: Posicion) -> bool:
     Requires:
         bool: {tablero_bien_formado(t) ∧ posicion_en_tablero(pos)}
     """
-    if not tablero_bien_formado(t):
-        no_cumple_requiere = Exception("Requiere: tablero_bien_formado(t)")
-        raise no_cumple_requiere
-    if not posicion_en_tablero(pos):
-        no_cumple_requiere = Exception("Requiere: posicion_en_tablero(pos)")
-        raise no_cumple_requiere
-
     casilla: Casilla = t[pos.fila][pos.columna]
     casilla_esta_vacia: bool = casilla == CasillaVacia.VACIA
     return casilla_esta_vacia
@@ -419,16 +412,6 @@ def hay_pieza_enemiga_mas_fuerte_vecina(t: Tablero, pos: Posicion) -> bool:
         Bool: { res = True ←→ hay_pieza_enemiga_mas_fuerte_vecina(t, pos) }
             V { ∃ d: Dirección. hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d) }
     """
-    if not tablero_bien_formado(t):
-        exception_t = Exception("Requiere: Tablero bien formado")
-        raise exception_t
-    if not posicion_en_tablero(pos):
-        exception_pos = Exception("Requiere: posición Existente en el Tablero")
-        raise exception_pos
-    if not hay_pieza(t, pos):
-        exception_p = Exception("Requiere: ∃ pieza en la Posición del Tablero")
-        raise exception_p
-
     direcciones: list[Direccion] = [NORTE, SUR, ESTE, OESTE]
     for d in direcciones:
         if hay_pieza_enemiga_mas_fuerte_hacia(t, pos, d):
@@ -582,13 +565,6 @@ def puede_realizar_accion(t: Tablero, m: Movimiento) -> bool:
     Returns:
         bool: True si la acción del movimiento es válida según sus reglas específicas.
     """
-    if not tablero_bien_formado(t):
-        no_cumple_requiere = Exception("Requiere: tablero_bien_formado(t)")
-        raise no_cumple_requiere
-    if not movimiento_bien_formado(m):
-        no_cumple_requiere = Exception("Requiere: movimiento_bien_formado(m)")
-        raise no_cumple_requiere
-
     es_valida: bool = False
 
     if m.accion == MOVER_A_SECAS:
@@ -753,7 +729,10 @@ def es_tablero_despues_de_activar_todas_las_trampas(t0: Tablero, t1: Tablero) ->
     Returns:
         bool: True si el ultimo tablero generado en la iteracion es igual al tablero t1 pasado por parametro
     """
-    tablero_a_comparar: Tablero = t0.copy()
+    tablero_a_comparar: Tablero = []
+
+    for fila in t0:
+        tablero_a_comparar.append(fila.copy())
 
     for posicion_trampa in POSICIONES_TRAMPA:
         casilla_en_posicion_trampa: Casilla = tablero_a_comparar[posicion_trampa.fila][posicion_trampa.columna]

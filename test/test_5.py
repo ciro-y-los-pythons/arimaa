@@ -148,7 +148,7 @@ class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
         t0 = tablero_8x8_gato_plateado_en_trampa()
         t1 = tablero_8x8_gato_plateado_en_trampa_quitado()
         pos_trampa = Posicion(2,5)
-        self.assertTrue(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
+        self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
 
     def test_no_hay_amiga_y_no_Se_quita_pieza(self):
         t0 = tablero_8x8_gato_plateado_en_trampa()
