@@ -1383,31 +1383,6 @@ def ganador_del_juego(j: Juego) -> Color:
 
 #### Extras
 
-# FEAT #52 - Extra
-def posiciones_de_las_piezas(j: Juego) -> dict[str,list[Posicion]]:
-    """ 
-    
-    Arguments:
-        J: Estado actual del juego
-    Returns:
-        dict: clave: 
-        pieza valor: posiciones en las que esta la figura dentro del tablero
-    """
-    # piezas: list = [""r", "h", "c", "d", "m", "e", "R", "H", "C", "D", "M", "E""]
-    diccionario: dict[str,list[Posicion]]= {}
-    # "r": [], "h": [], "c":[], "d":[], "m":[], "e":[], "R":[], "H":[], "C":[], "D":[], "M":[], "E":[]
-    for fila in range(0,8):
-        for columna in range(0,8):
-            if j.tablero[fila][columna] != VACIA:
-
-                casilla_act = mostrar_casilla(j.tablero[fila][columna])
-
-                if not casilla_act in diccionario.keys():
-                    diccionario[casilla_act] = []
-
-                diccionario[casilla_act].append(Posicion(fila,columna))
-    return diccionario
-
 # FEAT #53 - Extras
 def todos_los_movimientos_posibles (j: Juego) -> list[Movimiento]:
     """
@@ -1449,9 +1424,9 @@ def movimientos_posibles_desde (j: Juego, pos: Posicion) -> list[Movimiento]:
 
     for d in direcciones:
         for accion in acciones:
-            posible_movimiento: Movimiento = Movimiento(accion, pos, [d])
-            
-            if puede_realizar_movimiento(j, posible_movimiento):
-                movimientos_posibles.append(posible_movimiento)
+            posible_movimiento: Movimiento = Movimiento(accion, pos, [d, d])
+            if posicion_en_tablero(posicion_vecina_hacia(pos, d)):
+                if puede_realizar_movimiento(j, posible_movimiento):
+                    movimientos_posibles.append(posible_movimiento)
 
     return movimientos_posibles
