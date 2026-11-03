@@ -1519,6 +1519,14 @@ class test_hay_ganador_determinado(unittest.TestCase):
         j = Juego(t,DORADO,0)
         self.assertFalse(hay_ganador_determinado(j))
 
+# TEST #52 - Extra
+class test_posiciones_de_las_piezas(unittest.TestCase):
+    def test_posiciones_de_las_piezas(self):
+        t = tablero_8x8_sin_conejos_dorados()
+        j = Juego(t,DORADO,0)
+        
+        res = {"r": [(0,0)], "h": [(7,7)], "c":[(4,4)], "d":[], "m":[], "e":[], "R":[], "H":[(1,5)], "C":[], "D":[], "M":[], "E":[]}
+        self.assertEqual(posiciones_de_las_piezas(j), res)
 
 # TEST #53 - Extras
 class test_todos_los_movimientos_posibles(unittest.TestCase):

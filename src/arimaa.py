@@ -1383,6 +1383,31 @@ def ganador_del_juego(j: Juego) -> Color:
 
 #### Extras
 
+# FEAT #52 - Extra
+def posiciones_de_las_piezas(j: Juego) -> dict[str,list[Posicion]]:
+    """ 
+    
+    Arguments:
+        J: Estado actual del juego
+    Returns:
+        dict: clave: 
+        pieza valor: posiciones en las que esta la figura dentro del tablero
+    """
+    # piezas: list = [""r", "h", "c", "d", "m", "e", "R", "H", "C", "D", "M", "E""]
+    diccionario: dict[str,list[Posicion]]= {}
+    # "r": [], "h": [], "c":[], "d":[], "m":[], "e":[], "R":[], "H":[], "C":[], "D":[], "M":[], "E":[]
+    for fila in range(0,8):
+        for columna in range(0,8):
+            if j.tablero[fila][columna] != VACIA:
+
+                casilla_act = mostrar_casilla(j.tablero[fila][columna])
+
+                if not casilla_act in diccionario.keys():
+                    diccionario[casilla_act] = []
+
+                diccionario[casilla_act].append(Posicion(fila,columna))
+    return diccionario
+
 # FEAT #53 - Extras
 def todos_los_movimientos_posibles (j: Juego) -> list[Movimiento]:
     """
