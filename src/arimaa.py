@@ -1395,13 +1395,13 @@ def posiciones_de_las_piezas(j: Juego) -> dict[str,list[Posicion]]:
     # piezas: list = [""r", "h", "c", "d", "m", "e", "R", "H", "C", "D", "M", "E""]
     diccionario: dict[str,list[Posicion]]= {}
     # "r": [], "h": [], "c":[], "d":[], "m":[], "e":[], "R":[], "H":[], "C":[], "D":[], "M":[], "E":[]
-    for fila in range(0,8):
-        for columna in range(0,8):
+    for fila in range(ALTO):
+        for columna in range(ANCHO):
             if j.tablero[fila][columna] != VACIA:
 
                 casilla_act = mostrar_casilla(j.tablero[fila][columna])
 
-                if not casilla_act in diccionario.keys():
+                if casilla_act not in diccionario:
                     diccionario[casilla_act] = []
 
                 diccionario[casilla_act].append(Posicion(fila,columna))
