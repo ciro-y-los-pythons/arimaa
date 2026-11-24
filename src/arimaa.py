@@ -651,8 +651,10 @@ def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -
     return t1[pos.fila][pos.columna] == t2[pos.fila][pos.columna]
 
 # FEAT #24 - Auxiliar
-def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:  # Auxiliar
-    """Verifica si ambos tableros tienen los mismos valores en todas las posiciones salvo pos (pasada por parametro)
+def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:
+    """
+    Verifica si ambos tableros tienen los mismos valores en todas las posiciones sin importar pos (pasada por parametro)
+    
     PRE:
         True
 
@@ -662,18 +664,16 @@ def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posic
         pos (Posicion): Posicion a evaluar
 
     Returns:
-        Si los tableros tienen el mismo valor en todas las posiciones menos la indicada devuelve True, sino False.
+        Si los tableros tienen el mismo valor en todas las posiciones, sin importar la indicada devuelve True, sino False.
     """
-    if tableros_coinciden_en_la_posicion(t1, t2, pos):
-        return False
+    for fila in range(ALTO):
+        for columna in range(ANCHO):
+            posicion_evaluada: Posicion = Posicion(fila, columna)
+            if posicion_evaluada != pos and not tableros_coinciden_en_la_posicion(t1, t2, posicion_evaluada):
+                return False
 
-    numero_de_posiciones_coincidentes: int = 0
-    for fila in range(0, 8):
-        for columna in range(0, 8):
-            if tableros_coinciden_en_la_posicion(t1, t2, Posicion(fila, columna)):
-                numero_de_posiciones_coincidentes += 1
+    return True
 
-    return numero_de_posiciones_coincidentes == 63
 
 # FEAT #25 - Auxiliar
 def es_tablero_sacando_pieza(t0: Tablero, t1: Tablero, pos: Posicion) -> bool: # Auxiliar
