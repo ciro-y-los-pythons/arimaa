@@ -66,7 +66,8 @@ def posicion_en_tablero(pos: Posicion) -> bool:
 
 # FEAT #02 - Problema
 def movimiento_bien_formado(m: Movimiento) -> bool:
-    """Verifica si el movimiento parte de un origen valido y si la cantidad de pasos coincide con la accion
+    """
+    Verifica si el movimiento parte de un origen valido y si la cantidad de pasos coincide con la accion
 
     PRE: True
 
@@ -81,7 +82,7 @@ def movimiento_bien_formado(m: Movimiento) -> bool:
         ∧ (m.acción = Empujar → |m.pasos| = 2)}
 
     """
-    while posicion_en_tablero(m.origen):
+    if posicion_en_tablero(m.origen):
         if len(m.pasos) == 1:
             return m.accion == MOVER_A_SECAS
         elif len(m.pasos) == 2:
