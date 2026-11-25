@@ -460,7 +460,7 @@ def tablero_8x8_gato_plateado_en_trampa_quitado():
     Gato en (2,5) casilla trampa,
     ya fue quitado del tablero:
     | R - e - - m R r | 7
-    | - - - - - - d E | 6
+    | - - - - - - d - | 6
     | h - - R r - R R | 5
     | c - - R - C - - | 4
     | - r C H D - - - | 3
@@ -474,7 +474,7 @@ def tablero_8x8_gato_plateado_en_trampa_quitado():
     return leer_tablero(
         [
             "R-e--mRr",  # 7
-            "------dE",  # 6
+            "------d-",  # 6
             "h--Rr-RR",  # 5
             "c--R-C--",  # 4
             "-rCHD---",  # 3
