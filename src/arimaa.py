@@ -763,6 +763,8 @@ def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
         { juegoBienFormado (res) ∧ juegoPostMovimiento (j, res, m) }
 
     """
+    tablero_nuevo: list[list[Casilla]] = [[]]
+
     if m.accion == MOVER_A_SECAS:
         tablero_nuevo = generar_tablero_mover_a_secas(
             j.tablero, m.origen, m.pasos[0]
@@ -1262,7 +1264,7 @@ def hay_conejo_en_fila_inicial_oponente(j: Juego, col: Color)-> bool:
     """
     fila_inicial_oponente: int = 0 if oponente(col) == DORADO else 7
 
-    for columna in range(0,8):
+    for columna in range(8):
         if hay_figura_de_color(j.tablero, Posicion(fila_inicial_oponente,columna), CONEJO, col):
             return True
 
@@ -1298,8 +1300,8 @@ def hay_conejo_en_tablero(j: Juego, col: Color) -> bool:
         Si en alguna posicion valida del tablero hay un conejo: True, sino False
         Existe pos: Posición. hayFiguraDeColor (j.tablero, pos, Conejo, col)
     """
-    for fila in range(0,8):
-        for columna in range(0,8):
+    for fila in range(8):
+        for columna in range(8):
             if hay_figura_de_color(j.tablero,Posicion(fila,columna),CONEJO,col):
                 return True
 
@@ -1397,28 +1399,30 @@ def ganador_del_juego(j: Juego) -> Color:
 
 #### Extras
 # FEAT #52 - Extras
-def posiciones_de_las_piezas(j: Juego) -> dict[str,list[Posicion]]:
+def posiciones_de_las_piezas(j: Juego) -> dict[Pieza, list[Posicion]]:
     """
+    PRE:
+        juego_bien_formado(j)
 
     Arguments:
-        J: Estado actual del juego
+        j: Estado actual del juego
+
     Returns:
-        dict: clave:
-        pieza valor: posiciones en las que esta la figura dentro del tablero
+        dict: clave: pieza, valor: posiciones en las que está esa pieza dentro del tablero
     """
-    # piezas: list = [""r", "h", "c", "d", "m", "e", "R", "H", "C", "D", "M", "E""]
-    diccionario: dict[str,list[Posicion]]= {}
-    # "r": [], "h": [], "c":[], "d":[], "m":[], "e":[], "R":[], "H":[], "C":[], "D":[], "M":[], "E":[]
+    diccionario: dict[Pieza, list[Posicion]] = {}
+
     for fila in range(ALTO):
         for columna in range(ANCHO):
             if j.tablero[fila][columna] != VACIA:
+                casilla_act: Casilla = j.tablero[fila][columna]
+                pieza: Pieza = Pieza(casilla_act.figura, casilla_act.color)
 
-                casilla_act = mostrar_casilla(j.tablero[fila][columna])
+                if pieza not in diccionario:
+                    diccionario[pieza] = []
 
-                if casilla_act not in diccionario:
-                    diccionario[casilla_act] = []
+                diccionario[pieza].append(Posicion(fila, columna))
 
-                diccionario[casilla_act].append(Posicion(fila,columna))
     return diccionario
 
 # FEAT #53 - Extras
