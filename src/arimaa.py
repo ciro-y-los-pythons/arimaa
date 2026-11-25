@@ -805,7 +805,8 @@ def generar_tablero_mover_a_secas(t: Tablero, pos: Posicion, d: Direccion) -> Ta
         Una copia de t con todas las posiciones iguales, moviendo la pieza en pos hacia direccion d
     """
     destino: Posicion = posicion_vecina_hacia(pos, d)
-    pieza: Pieza = t[pos.fila][pos.columna]
+    casilla: Casilla = t[pos.fila][pos.columna]
+    pieza: Pieza = Pieza(casilla.figura,casilla.color)
 
     tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(t, pieza, destino)
     tablero_nuevo = genera_tablero_quitando_pieza_en_posicion(tablero_nuevo, pos)
@@ -835,10 +836,13 @@ def generar_tablero_arrastrar(t: Tablero, pos: Posicion, d: Direccion, d_arrastr
     pos_hueco: Posicion = posicion_vecina_hacia(pos, d)
     pos_enemiga: Posicion = posicion_vecina_hacia(pos, opuesta(d_arrastre))
 
-    pieza_propia: Pieza = t[pos.fila][pos.columna]
-    pieza_enemiga: Pieza = t[pos_enemiga.fila][pos_enemiga.columna]
+    casilla_propia: Casilla = t[pos.fila][pos.columna]
+    casilla_enemiga: Casilla = t[pos_enemiga.fila][pos_enemiga.columna]
 
-    tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(t, pieza_propia, pos_hueco)
+    pieza_propia: Pieza = Pieza(casilla_propia.figura,casilla_propia.color)
+    pieza_enemiga: Pieza = Pieza(casilla_enemiga.figura,casilla_enemiga.color)
+
+    tablero_nuevo: Tablero = genera_tablero_poniendo_pieza_en_posicion(t, pieza_propia, pos_hueco)
     tablero_nuevo = genera_tablero_quitando_pieza_en_posicion(tablero_nuevo, pos)
 
     tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(tablero_nuevo, pieza_enemiga, pos)
@@ -869,10 +873,13 @@ def generar_tablero_empujar(t: Tablero, pos: Posicion, d: Direccion, d_empuje: D
     pos_enemiga: Posicion = posicion_vecina_hacia(pos, d)
     pos_hueco: Posicion = posicion_vecina_hacia(pos_enemiga, d_empuje)
 
-    pieza_propia: Pieza = t[pos.fila][pos.columna]
-    pieza_enemiga: Pieza = t[pos_enemiga.fila][pos_enemiga.columna]
+    casilla_propia: Casilla = t[pos.fila][pos.columna]
+    casilla_enemiga: Casilla = t[pos_enemiga.fila][pos_enemiga.columna]
 
-    tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(t, pieza_enemiga, pos_hueco)
+    pieza_propia: Pieza = Pieza(casilla_propia.figura,casilla_propia.color)
+    pieza_enemiga: Pieza = Pieza(casilla_enemiga.figura,casilla_enemiga.color)
+
+    tablero_nuevo: Tablero = genera_tablero_poniendo_pieza_en_posicion(t, pieza_enemiga, pos_hueco)
     tablero_nuevo = genera_tablero_quitando_pieza_en_posicion(tablero_nuevo, pos_enemiga)
 
     tablero_nuevo = genera_tablero_poniendo_pieza_en_posicion(tablero_nuevo, pieza_propia, pos_enemiga)
@@ -919,7 +926,7 @@ def es_tablero_trasladando_pieza(t0: Tablero, t1: Tablero, pos_origen: Posicion,
         ∧ esTableroPoniendoPieza (t_intermedio , t1 , pos_destino , f , col)
 
     """
-    pieza_origen: Pieza = t0[pos_origen.fila][pos_origen.columna]
+    pieza_origen: Casilla = t0[pos_origen.fila][pos_origen.columna]
 
     if pieza_origen == VACIA:
         return False
@@ -948,14 +955,15 @@ def tablero_post_mover_a_secas(t0:Tablero, t1: Tablero, pos: Posicion, d: Direcc
         bool: True si t1 es el resultado de mover la pieza en direccion d y se activaron todas las trampas
     """
     pos_destino: Posicion = posicion_vecina_hacia(pos,d)
-    pieza_a_mover: Pieza = t0[pos.fila][pos.columna]
+    casilla_pieza_a_mover: Casilla = t0[pos.fila][pos.columna]
+    pieza_a_mover: Pieza = Pieza(casilla_pieza_a_mover.figura,casilla_pieza_a_mover.color)
 
     if not posicion_en_tablero(pos_destino):
         return False
 
     tablero_intermedio: Tablero = genera_tablero_poniendo_pieza_en_posicion(t0,pieza_a_mover,pos_destino)
 
-    tablero_intermedio: Tablero = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio,pos)
+    tablero_intermedio = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio,pos)
 
     se_traslado_pieza: bool = es_tablero_trasladando_pieza(t0,tablero_intermedio,pos,pos_destino)
 
@@ -1044,7 +1052,6 @@ def tablero_post_arrastrar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion
                 t_intermedio_2, t1
             )
     """
-
     pos_hueco: Posicion = posicion_vecina_hacia(pos, d)
     pos_enemiga: Posicion = posicion_vecina_hacia(pos, opuesta(d_arrastre))
 
@@ -1054,8 +1061,11 @@ def tablero_post_arrastrar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion
     if hay_casilla_vacia(t0, pos) or hay_casilla_vacia(t0, pos_enemiga):
         return False
 
-    pieza_propia: Pieza = t0[pos.fila][pos.columna]
-    pieza_enemiga: Pieza = t0[pos_enemiga.fila][pos_enemiga.columna]
+    casilla_propia: Casilla = t0[pos.fila][pos.columna]
+    casilla_enemiga: Casilla = t0[pos_enemiga.fila][pos_enemiga.columna]
+
+    pieza_propia: Pieza = Pieza(casilla_propia.figura,casilla_propia.color)
+    pieza_enemiga: Pieza = Pieza(casilla_enemiga.figura,casilla_enemiga.color)
 
     t_intermedio_1: Tablero = genera_tablero_poniendo_pieza_en_posicion(t0, pieza_propia, pos_hueco)
     t_intermedio_1 = genera_tablero_quitando_pieza_en_posicion(t_intermedio_1, pos)
@@ -1094,18 +1104,21 @@ def tablero_post_empujar(t0: Tablero, t1: Tablero, pos: Posicion, d: Direccion, 
     if not posicion_en_tablero(pos_enemiga) or not posicion_en_tablero(pos_hueco):
         return False
 
-    pieza_propia: Pieza = t0[pos.fila][pos.columna]
-    pieza_enemiga: Pieza = t0[pos_enemiga.fila][pos_enemiga.columna]
+    casilla_propia: Casilla = t0[pos.fila][pos.columna]
+    casilla_enemiga: Casilla = t0[pos_enemiga.fila][pos_enemiga.columna]
+
+    pieza_propia: Pieza = Pieza(casilla_propia.figura,casilla_propia.color)
+    pieza_enemiga: Pieza = Pieza(casilla_enemiga.figura,casilla_enemiga.color)
 
     # Genera un tablero nuevo que tiene la pieza enemiga en la posicion donde se la quiere mover, sobreescribiendo lo que haya
     tablero_intermedio_1: Tablero = genera_tablero_poniendo_pieza_en_posicion(t0,pieza_enemiga,pos_hueco)
     # Actualiza el tablero, quitando la pieza enemiga que se empujo de su posicion inicial
-    tablero_intermedio_1: Tablero = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio_1,pos_enemiga)
+    tablero_intermedio_1 = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio_1,pos_enemiga)
 
     # Genera un tablero que tiene la pieza que se quiere mover, sobreescribiendo la posicion enemiga
     tablero_intermedio_2 : Tablero = genera_tablero_poniendo_pieza_en_posicion(tablero_intermedio_1,pieza_propia,pos_enemiga)
     # Actualiza el tablero, quitando la pieza que se movio de la posicion inicial
-    tablero_intermedio_2 : Tablero = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio_2,pos)
+    tablero_intermedio_2 = genera_tablero_quitando_pieza_en_posicion(tablero_intermedio_2,pos)
 
     # Verifica si los movimientos son correctos
     se_empujo_pieza_enemiga: bool = es_tablero_trasladando_pieza(t0,tablero_intermedio_1,pos_enemiga,pos_hueco)
@@ -1193,7 +1206,7 @@ def juego_con_turno_posiblemente_avanzado(j0: Juego, j1: Juego, m: Movimiento) -
     if hay_que_cambiar_de_turno(j0,m):
         es_avanzado: bool = j1.turno == oponente(j0.turno) and j1.pasos_consumidos == 0
     else:
-        es_avanzado: bool = j1.turno == j0.turno and j1.pasos_consumidos == (j0.pasos_consumidos + len(m.pasos))
+        es_avanzado = j1.turno == j0.turno and j1.pasos_consumidos == (j0.pasos_consumidos + len(m.pasos))
 
     return es_avanzado
 
