@@ -1527,11 +1527,61 @@ class test_hay_ganador_determinado(unittest.TestCase):
 # TEST #52 - Extra
 class test_posiciones_de_las_piezas(unittest.TestCase):
     def test_posiciones_de_las_piezas(self):
-        t = tablero_8x8_sin_conejos_dorados()
+        t = tablero_8x8_una_pieza()
         j = Juego(t,DORADO,0)
 
-        res = {"r": [(0,0)], "h": [(7,7)], "c":[(4,4)], "d":[], "m":[], "e":[], "R":[], "H":[(1,5)], "C":[], "D":[], "M":[], "E":[]}
+        res = {Pieza(figura=CONEJO, color=DORADO): [Posicion(fila=3, columna=5)]}
         self.assertEqual(posiciones_de_las_piezas(j), res)
+
+    def test_tablero_vacio(self):
+        j = Juego(tablero_8x8_vacio(), DORADO, 0)
+        self.assertEqual(posiciones_de_las_piezas(j), {})
+
+    def test_una_pieza(self):
+        j = Juego(tablero_8x8_una_pieza(), DORADO, 0)
+        res = posiciones_de_las_piezas(j)
+        self.assertEqual(list(res.keys()), [Pieza(CONEJO, DORADO)])
+        self.assertEqual(res[Pieza(CONEJO, DORADO)], [Posicion(3, 5)])
+        self.assertNotIn(Pieza(CONEJO, PLATEADO), res)
+
+    def test_inicial(self):
+        j = Juego(tablero_8x8_inicial_ejemplo(), DORADO, 0)
+        res = posiciones_de_las_piezas(j)
+
+        esperado = {
+            Pieza(CONEJO, DORADO): [Posicion(1, c) for c in range(ANCHO)],
+            Pieza(CABALLO, DORADO): [Posicion(0, 0), Posicion(0, 7)],
+            Pieza(GATO, DORADO): [Posicion(0, 1), Posicion(0, 6)],
+            Pieza(PERRO, DORADO): [Posicion(0, 2), Posicion(0, 5)],
+            Pieza(CAMELLO, DORADO): [Posicion(0, 3)],
+            Pieza(ELEFANTE, DORADO): [Posicion(0, 4)],
+            Pieza(CONEJO, PLATEADO): [Posicion(6, c) for c in range(ANCHO)],
+            Pieza(CABALLO, PLATEADO): [Posicion(7, 0), Posicion(7, 7)],
+            Pieza(GATO, PLATEADO): [Posicion(7, 1), Posicion(7, 6)],
+            Pieza(PERRO, PLATEADO): [Posicion(7, 2), Posicion(7, 5)],
+            Pieza(CAMELLO, PLATEADO): [Posicion(7, 3)],
+            Pieza(ELEFANTE, PLATEADO): [Posicion(7, 4)],
+        }
+        self.assertCountEqual(res.keys(), esperado.keys())
+        for pieza, posiciones in esperado.items():
+            self.assertCountEqual(res[pieza], posiciones)
+
+    def test_cumple_la_especificacion_en_tablero_ya_empezado(self):
+        t = tablero_8x8_ya_empezado()
+        res = posiciones_de_las_piezas(Juego(t, DORADO, 0))
+
+        for i in range(ALTO):
+            for k in range(ANCHO):
+                casilla: Casilla = t[i][k]
+                if casilla == VACIA:
+                    self.assertNotIn(casilla, res)
+                else:
+                    self.assertIn(casilla, res)
+                    self.assertIn(Posicion(i, k), res[casilla])
+
+        for pieza, posiciones in res.items():
+            for pos in posiciones:
+                self.assertEqual(t[pos.fila][pos.columna], pieza)
 
 # TEST #53 - Extras
 class test_todos_los_movimientos_posibles(unittest.TestCase):
