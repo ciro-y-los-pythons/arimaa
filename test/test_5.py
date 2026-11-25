@@ -105,7 +105,12 @@ class test_tableros_coinciden_salvo_en_la_posicion(unittest.TestCase):
         t1 = tablero_8x8_inicial_ejemplo()
         t2 = tablero_8x8_inicial_ejemplo()
         pos = Posicion(0, 0) # Indistinto, porque coinciden en todas las pos
-        self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
+        self.assertTrue(tableros_coinciden_salvo_en_la_posicion(t1, t2, pos))
+    def test_difieren_en_posicion_no_pedida(self):
+        t1 = tablero_8x8_inicial_ejemplo()
+        t2 = tablero_8x8_inicial_falta_un_conejo_dorado_en_h2()
+        pos = Posicion(0,0)
+        self.assertFalse(tableros_coinciden_salvo_en_la_posicion(t1,t2, pos))
 
 # TEST #25 - Auxiliar
 class test_es_tablero_sacando_pieza(unittest.TestCase):
