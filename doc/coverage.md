@@ -2,23 +2,31 @@
 
 ## Última Actualización
 
-+ Realizada: 30/10, 21:36
-+ Ultimo commit: `REFACTOR #08 - tests del ejercicio_7`
-+ Resultado:
+- Realizada: 25/11, 19:04
+- Ultimo commit: `TEST #52 - Extras - posiciones_de_las_piezas problema `
+- Resultado:
 
 ```Shell
 === Análisis de Coverage ===
 
-➡️  Porcentaje global de líneas cubiertas (2262/2349): 96.30%
-➡️  Porcentaje global de ramas cubiertas (145/192): 75.52%
+➡️  Porcentaje global de líneas cubiertas (1524/1600): 95.25%
+➡️  Porcentaje global de ramas cubiertas (192/230): 83.48%
 ```
 
 ## ¿Como se genera el Coverage?
 
-1. Ejecutar los tests con coverage:
+1. Ejecutar los tests con coverage (2 opciones):
+
+Opcion A (inexacto):
 
 ```Shell
 PYTHONPATH=src python3 -m coverage run --branch -m unittest discover -s test
+```
+
+Opción B:
+
+```Shell
+PYTHONPATH=src python3 -m coverage run --branch test/test_todos.py
 ```
 
 2. Generar el archivo JSON:
