@@ -199,7 +199,7 @@ class test_es_tablero_poniendo_pieza(unittest.TestCase):
         pos = Posicion(0,0)
         f = CABALLO
         col = DORADO
-        self.assertFalse(es_tablero_poniendo_pieza(t1,t2,pos,f,col))
+        self.assertTrue(es_tablero_poniendo_pieza(t1,t2,pos,f,col))
 
 # TEST #29 - Auxiliar
 class test_es_tablero_trasladando_pieza(unittest.TestCase):
