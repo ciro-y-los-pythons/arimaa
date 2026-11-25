@@ -654,7 +654,7 @@ def tableros_coinciden_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -
 def tableros_coinciden_salvo_en_la_posicion(t1: Tablero, t2: Tablero, pos: Posicion) -> bool:
     """
     Verifica si ambos tableros tienen los mismos valores en todas las posiciones sin importar pos (pasada por parametro)
-    
+
     PRE:
         True
 
@@ -1398,12 +1398,12 @@ def ganador_del_juego(j: Juego) -> Color:
 #### Extras
 # FEAT #52 - Extras
 def posiciones_de_las_piezas(j: Juego) -> dict[str,list[Posicion]]:
-    """ 
-    
+    """
+
     Arguments:
         J: Estado actual del juego
     Returns:
-        dict: clave: 
+        dict: clave:
         pieza valor: posiciones en las que esta la figura dentro del tablero
     """
     # piezas: list = [""r", "h", "c", "d", "m", "e", "R", "H", "C", "D", "M", "E""]
@@ -1422,27 +1422,48 @@ def posiciones_de_las_piezas(j: Juego) -> dict[str,list[Posicion]]:
     return diccionario
 
 # FEAT #53 - Extras
-def todos_los_movimientos_posibles (j: Juego) -> list[Movimiento]:
+def todos_los_movimientos_posibles(j: Juego) -> list[Movimiento]:
     """
-    Devuelve una lista con todos los movimientos posibles que puede realizar el jugador del turno actual en el estado actual del juego.
+    Genera todos los movimientos que se pueden realizar en el estado actual del juego.
 
-    PRE: juego_bien_formado(j)
-    asegura: 
-        sin_repetidos(res)
-        ∧ para todo m: Movimiento. (
-            m ∈ res ←→ (movimiento_bien_formado(m) ∧ puede_realizar_movimiento(j, m))
-        )
-}
-"""
-    movimientos_posibles: list[Movimiento] = []
+    PRE:
+        juego_bien_formado(j)
 
-    for fila in range(0, 8):
-        for columna in range(0, 8):
-            pos: Posicion = Posicion(fila, columna)
-            casilla: Casilla = j.tablero[fila][columna]
-            if hay_pieza(j.tablero, pos) and hay_pieza_de_color(j.tablero, pos, j.turno):
-                movimientos_posibles += movimientos_posibles_desde(j, pos)
-    return movimientos_posibles
+    Args:
+        j (Juego): Estado actual del juego.
+
+    Returns:
+        list[Movimiento]: Movimientos bien formados y realizables, sin repetidos.
+    """
+    direcciones: list[Direccion] = [NORTE, SUR, ESTE, OESTE]
+    movimientos: list[Movimiento] = []
+
+    for fila in range(ALTO):
+        for columna in range(ANCHO):
+            origen: Posicion = Posicion(fila, columna)
+
+            for d1 in direcciones:
+                vecina_d1: Posicion = posicion_vecina_hacia(origen, d1)
+
+                if posicion_en_tablero(vecina_d1):
+                    candidato: Movimiento = Movimiento(MOVER_A_SECAS, origen, [d1])
+                    if puede_realizar_movimiento(j, candidato):
+                        movimientos.append(candidato)
+
+                    for d2 in direcciones:
+                        vecina_d2: Posicion = posicion_vecina_hacia(origen, d2)
+                        if posicion_en_tablero(vecina_d2):
+                            candidato = Movimiento(ARRASTRAR, origen, [d1, d2])
+                            if puede_realizar_movimiento(j, candidato):
+                                movimientos.append(candidato)
+
+                        destino_empuje: Posicion = posicion_vecina_hacia(vecina_d1, d2)
+                        if posicion_en_tablero(destino_empuje):
+                            candidato = Movimiento(EMPUJAR, origen, [d1, d2])
+                            if puede_realizar_movimiento(j, candidato):
+                                movimientos.append(candidato)
+
+    return movimientos
 
 # FEAT #53 - Extras
 def movimientos_posibles_desde (j: Juego, pos: Posicion) -> list[Movimiento]:
