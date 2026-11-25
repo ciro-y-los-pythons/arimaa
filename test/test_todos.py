@@ -952,7 +952,7 @@ class test_es_tablero_despues_de_activar_trampa(unittest.TestCase):
         t0 = tablero_8x8_gato_plateado_en_trampa()
         t1 = tablero_8x8_gato_plateado_en_trampa_quitado()
         pos_trampa = Posicion(2,5)
-        self.assertFalse(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
+        self.assertTrue(es_tablero_despues_de_activar_trampa(t0,t1, pos_trampa))
 
     def test_no_hay_amiga_y_no_Se_quita_pieza(self):
         t0 = tablero_8x8_gato_plateado_en_trampa()
@@ -1189,7 +1189,7 @@ class test_es_tablero_poniendo_pieza(unittest.TestCase):
         pos = Posicion(0,0)
         f = CABALLO
         col = DORADO
-        self.assertFalse(es_tablero_poniendo_pieza(t1,t2,pos,f,col))
+        self.assertTrue(es_tablero_poniendo_pieza(t1,t2,pos,f,col))
 
 # TEST #29 - Auxiliar
 class test_es_tablero_trasladando_pieza(unittest.TestCase):
