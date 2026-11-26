@@ -241,6 +241,8 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
 
         # Mueve y no se activan las trampas
+        casilla: Casilla = t0[pos.fila][pos.columna]
+        pieza: Pieza = Pieza(casilla.figura, casilla.color)
         t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos)
         t2 = genera_tablero_poniendo_pieza_en_posicion(t2, t0[pos.fila][pos.columna], posicion_vecina_hacia(pos,NORTE))
         self.assertFalse(tablero_post_mover_a_secas(t0,t2,pos,d))
@@ -267,9 +269,60 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
         self.assertFalse(tablero_post_mover_a_secas(t0,t1,pos,d))
 
 # TEST #31 - Auxiliar
-# class test_tablero_post_arrastrar(unittest.TestCase):
-#     def test_tablero_post_arrastrar_ok(self):
-#         self.assertEqual(tablero_post_arrastrar())
+class test_tablero_post_arrastrar(unittest.TestCase):
+    def test_arrastra_y_no_habia_piezas_en_trampa(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_caballo_dorado_arrastra_perro_plateado()
+        pos = Posicion(0,6)
+        d = ESTE
+        d_arrastre = ESTE
+
+        self.assertTrue(tablero_post_arrastrar(t0,t1,pos,d,d_arrastre))
+
+    def test_arrastra_y_habia_piezas_en_trampa(self):
+        t0 = tablero_8x8_gato_plateado_en_trampa()
+        t1 = tablero_8x8_gato_plateado_en_trampa_quitado_caballo_arrastra_perro_plateado()
+        pos = Posicion(0,6)
+        d = ESTE
+        d_arrastre = ESTE
+
+        self.assertTrue(tablero_post_arrastrar(t0,t1,pos,d,d_arrastre))
+
+    def test_posicion_hueco_fuera_de_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        pos = Posicion(0,6)
+        d = SUR
+        d_arrastre = ESTE
+
+        self.assertFalse(tablero_post_arrastrar(t0,t1,pos,d,d_arrastre))
+
+    def test_posicion_enemiga_fuera_de_tablero(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        pos = Posicion(0,6)
+        d = ESTE
+        d_arrastre = NORTE
+
+        self.assertFalse(tablero_post_arrastrar(t0,t1,pos,d,d_arrastre))
+
+    def test_posicion_origen_vacia(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        pos = Posicion(0,7)
+        d = NORTE
+        d_arrastre = NORTE
+
+        self.assertFalse(tablero_post_arrastrar(t0,t1,pos,d,d_arrastre))
+
+    def test_posicion_enemiga_vacia(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        pos = Posicion(0,6)
+        d = ESTE
+        d_arrastre = OESTE
+
+        self.assertFalse(tablero_post_arrastrar(t0,t1,pos,d,d_arrastre))
 
 # TEST #32 - Auxiliar
 class test_tablero_post_empujar(unittest.TestCase):
@@ -296,14 +349,16 @@ class test_tablero_post_empujar(unittest.TestCase):
         # No se activan las trampas
         pos_enemiga = posicion_vecina_hacia(pos,d)
         pos_hueco = posicion_vecina_hacia(pos_enemiga,d_empuje)
+        casilla_enemiga: Casilla = t0[pos_enemiga.fila][pos_enemiga.columna]
+        pieza_enemiga: Pieza = Pieza(casilla_enemiga.figura, casilla_enemiga.color)
         t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos_enemiga)
-        t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos_enemiga.fila][pos_enemiga.columna],pos_hueco)
+        t2 = genera_tablero_poniendo_pieza_en_posicion(t2,pieza_enemiga,pos_hueco)
         self.assertFalse(tablero_post_empujar(t0,t2,pos,d,d_empuje))
 
     def test_posicion_enemiga_fuera_de_tablero(self):
         t0 = tablero_8x8_ya_empezado()
         t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
-        pos = Posicion(0,5)
+        pos = Posicion(0,6)
         d = SUR
         d_empuje = OESTE
 
@@ -312,7 +367,7 @@ class test_tablero_post_empujar(unittest.TestCase):
     def test_posicion_hueco_fuera_de_tablero(self):
         t0 = tablero_8x8_ya_empezado()
         t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
-        pos = Posicion(0,5)
+        pos = Posicion(0,6)
         d = OESTE
         d_empuje = SUR
 
