@@ -1488,8 +1488,7 @@ def movimientos_posibles_desde (j: Juego, pos: Posicion) -> list[Movimiento]:
     for d in direcciones:
         for accion in acciones:
             posible_movimiento: Movimiento = Movimiento(accion, pos, [d, d])
-            if posicion_en_tablero(posicion_vecina_hacia(pos, d)):
-                if puede_realizar_movimiento(j, posible_movimiento):
+            if posicion_en_tablero(posicion_vecina_hacia(pos, d)) and puede_realizar_movimiento(j, posible_movimiento):
                     movimientos_posibles.append(posible_movimiento)
 
     return movimientos_posibles

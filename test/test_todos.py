@@ -1225,15 +1225,15 @@ class test_tablero_post_mover_a_secas(unittest.TestCase):
     def test_mueve_y_habia_piezas_en_trampa(self):
         t0 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_1()
         t1 = tablero_8x8_piezas_en_todas_las_trampas_sin_amigas_mueve_conejo()
-        pos = Posicion(2,5)
+        pos = Posicion(2, 5)
         d = NORTE
-        # Mueve y se activan las trampas
-        self.assertTrue(tablero_post_mover_a_secas(t0,t1,pos,d))
+        self.assertTrue(tablero_post_mover_a_secas(t0, t1, pos, d))
 
-        # Mueve y no se activan las trampas
-        t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos)
-        t2 = genera_tablero_poniendo_pieza_en_posicion(t2, t0[pos.fila][pos.columna], posicion_vecina_hacia(pos,NORTE))
-        self.assertFalse(tablero_post_mover_a_secas(t0,t2,pos,d))
+        casilla: Casilla = t0[pos.fila][pos.columna]
+        pieza: Pieza = Pieza(casilla.figura, casilla.color)
+        t2 = genera_tablero_quitando_pieza_en_posicion(t0, pos)
+        t2 = genera_tablero_poniendo_pieza_en_posicion(t2, pieza, posicion_vecina_hacia(pos, d))
+        self.assertFalse(tablero_post_mover_a_secas(t0, t2, pos, d))
 
     def test_mueve_fuera_del_tablero(self):
         t0 = tablero_8x8_ya_empezado()
@@ -1276,23 +1276,22 @@ class test_tablero_post_empujar(unittest.TestCase):
     def test_empuja_y_habia_piezas_en_trampa(self):
         t0 = tablero_8x8_gato_plateado_en_trampa()
         t1 = tablero_8x8_gato_plateado_en_trampa_quitado_y_perro_plateado_empuja_conejo_dorado_a_trampa()
-        pos = Posicion(6,6)
+        pos = Posicion(6, 6)
         d = SUR
         d_empuje = OESTE
+        self.assertTrue(tablero_post_empujar(t0, t1, pos, d, d_empuje))
 
-        # Se activan las trampas
-        self.assertTrue(tablero_post_empujar(t0,t1,pos,d,d_empuje))
-
-        # No se activan las trampas
-        pos_enemiga = posicion_vecina_hacia(pos,d)
-        pos_hueco = posicion_vecina_hacia(pos_enemiga,d_empuje)
-        t2 = genera_tablero_quitando_pieza_en_posicion(t0,pos_enemiga)
-        t2 = genera_tablero_poniendo_pieza_en_posicion(t2,t0[pos_enemiga.fila][pos_enemiga.columna],pos_hueco)
-        self.assertFalse(tablero_post_empujar(t0,t2,pos,d,d_empuje))
+        pos_enemiga = posicion_vecina_hacia(pos, d)
+        pos_hueco = posicion_vecina_hacia(pos_enemiga, d_empuje)
+        casilla_enemiga: Casilla = t0[pos_enemiga.fila][pos_enemiga.columna]
+        pieza_enemiga: Pieza = Pieza(casilla_enemiga.figura, casilla_enemiga.color)
+        t2 = genera_tablero_quitando_pieza_en_posicion(t0, pos_enemiga)
+        t2 = genera_tablero_poniendo_pieza_en_posicion(t2, pieza_enemiga, pos_hueco)
+        self.assertFalse(tablero_post_empujar(t0, t2, pos, d, d_empuje))
 
     def test_posicion_enemiga_fuera_de_tablero(self):
         t0 = tablero_8x8_ya_empezado()
-        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        t1 = tablero_8x8_ya_empezado()
         pos = Posicion(0,5)
         d = SUR
         d_empuje = OESTE
@@ -1301,7 +1300,7 @@ class test_tablero_post_empujar(unittest.TestCase):
 
     def test_posicion_hueco_fuera_de_tablero(self):
         t0 = tablero_8x8_ya_empezado()
-        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        t1 = tablero_8x8_ya_empezado()
         pos = Posicion(0,5)
         d = OESTE
         d_empuje = SUR
