@@ -2,15 +2,15 @@
 
 ## Última Actualización
 
-- Realizada: 25/11, 19:04
-- Ultimo commit: `TEST #52 - Extras - posiciones_de_las_piezas problema `
+- Realizada: 25/11, 23:00
+- Ultimo commit: `TEST #31 - tablero_post_arrastrar`
 - Resultado:
 
 ```Shell
 === Análisis de Coverage ===
 
-➡️  Porcentaje global de líneas cubiertas (1524/1600): 95.25%
-➡️  Porcentaje global de ramas cubiertas (192/230): 83.48%
+➡️  Porcentaje global de líneas cubiertas (1605/1660): 96.69%
+➡️  Porcentaje global de ramas cubiertas (197/228): 86.40%
 ```
 
 ## ¿Como se genera el Coverage?
