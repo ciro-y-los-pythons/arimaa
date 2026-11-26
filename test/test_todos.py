@@ -1292,19 +1292,19 @@ class test_tablero_post_empujar(unittest.TestCase):
 
     def test_posicion_enemiga_fuera_de_tablero(self):
         t0 = tablero_8x8_ya_empezado()
-        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
-        pos = Posicion(5,7)
-        d = OESTE
+        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        pos = Posicion(0,5)
+        d = SUR
         d_empuje = OESTE
 
         self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
 
     def test_posicion_hueco_fuera_de_tablero(self):
         t0 = tablero_8x8_ya_empezado()
-        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
-        pos = Posicion(6,7)
-        d = NORTE
-        d_empuje = OESTE
+        t1 = tablero_8x8_ya_empezado() # Indistinto, devuelve False antes de verificar el tablero
+        pos = Posicion(0,5)
+        d = OESTE
+        d_empuje = SUR
 
         self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
 
