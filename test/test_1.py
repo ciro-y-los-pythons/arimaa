@@ -86,6 +86,10 @@ class test_movimiento_bien_formado(unittest.TestCase):
         self.assertFalse(
             movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE]))
         )
+    def test_excede_cantidad_de_pasos_por_movimiento(self):
+        self.assertFalse(
+            movimiento_bien_formado(Movimiento(ARRASTRAR, Posicion(0, 1), [NORTE,NORTE,SUR]))
+        )
 
 class test_juego_bien_formado(unittest.TestCase):
     def test_juego_valido_minimo(self):
