@@ -1367,6 +1367,29 @@ class test_tablero_post_empujar(unittest.TestCase):
 
         self.assertFalse(tablero_post_empujar(t0,t1,pos,d,d_empuje))
 
+# TEST #33 - Auxiliar
+class test_tablero_post_movimiento(unittest.TestCase):
+    def test_mueve_a_secas(self):
+        t0 = tablero_8x8_inicial_ejemplo()
+        t1 = tablero_8x8_mueve_conejo_dorado_h3()
+        m = Movimiento(MOVER_A_SECAS,Posicion(1,7),[NORTE])
+
+        self.assertTrue(tablero_post_movimiento(t0,t1,m))
+
+    def test_arrastra(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_caballo_dorado_arrastra_perro_plateado()
+        m = Movimiento(ARRASTRAR,Posicion(0,6),[ESTE,ESTE])
+
+        self.assertTrue(tablero_post_movimiento(t0,t1,m))
+
+    def test_empuja(self):
+        t0 = tablero_8x8_ya_empezado()
+        t1 = tablero_8x8_ya_empezado_camello_dorado_empuja_conejo_plateado()
+        m = Movimiento(EMPUJAR,Posicion(1,4),[NORTE,OESTE])
+
+        self.assertTrue(tablero_post_movimiento(t0,t1,m))
+
 # TEST #34 - Auxiliar
 class test_hay_que_cambiar_de_turno(unittest.TestCase):
     def test_mover_a_secas_inicio(self):
