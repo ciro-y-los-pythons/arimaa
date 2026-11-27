@@ -426,23 +426,23 @@ def hay_pieza_congelada(t: Tablero, pos: Posicion) -> bool:
     Verifica si hay una pieza congelada en una posicion
 
     PRE:
-            hay_casilla_vacia(t, pos)
-            ∧ hay_pieza_enemiga_mas_fuerte_vecina(t, pos)
-            ∧ hay_pieza_amiga_vecina(t, pos)
+        tableroBienFormado (t) ∧ posiciónEnTablero (pos)
 
     Args:
-        t    (in Tablero): Tablero en el que se verifica si ∃ la p_propia se encuentra congelada o no
-        pos (in Posicion): Posición de la p_propia
+        t    (in Tablero): Tablero en el que se verifica si ∃ pieza y si se encuentra congelada o no
+        pos (in Posicion): Posición en la que se evalua la condicion de la pieza (si ∃ pieza)
 
     Returns:
-        Bool: res = True ←→ hay_pieza_enemiga_mas_fuerte_vecina(t, pos)
-            ∧ not hay_pieza_amiga_vecina(t, pos)"""
-    congelado: bool =False
+        Bool: True ←→ hay_pieza(t, pos)
+            ∧ hay_pieza_enemiga_mas_fuerte_vecina(t, pos)
+            ∧ ¬ hay_pieza_amiga_vecina(t, pos)
+    """
+    if hay_pieza(t, pos):
+        pieza_congelada: bool = hay_pieza_enemiga_mas_fuerte_vecina(t, pos) and not hay_pieza_amiga_vecina(t, pos)
 
-    if not hay_casilla_vacia(t, pos):
-        congelado= hay_pieza_enemiga_mas_fuerte_vecina(t, pos) and not hay_pieza_amiga_vecina(t, pos)
+        return pieza_congelada
 
-    return congelado
+    return False
 
 
 #### Ejercicio 4
