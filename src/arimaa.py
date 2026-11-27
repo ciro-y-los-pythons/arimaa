@@ -114,7 +114,8 @@ def juego_bien_formado(j: Juego) -> bool:
 
 # FEAT #04 - Problema
 def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
-    """Verifico la posicion a la que quiero mover la pieza
+    """
+    Devuelve la posicion a la que quiero mover la pieza
 
     Args:
         pos (posicion): posicion actual
@@ -123,16 +124,16 @@ def posicion_vecina_hacia(pos: Posicion, d: Direccion) -> Posicion:
     Returns:
         Posicion (Posicion): posicion despues de mover a la dirección indicada
     """
-    movimiento: Posicion
+    posicion_vecina: Posicion
     if d == SUR:
-        movimiento = Posicion(fila=pos.fila - 1, columna=pos.columna)
+        posicion_vecina = Posicion(fila=pos.fila - 1, columna=pos.columna)
     elif d == NORTE:
-        movimiento = Posicion(fila=pos.fila + 1, columna=pos.columna)
+        posicion_vecina = Posicion(fila=pos.fila + 1, columna=pos.columna)
     elif d == ESTE:
-        movimiento = Posicion(fila=pos.fila, columna=pos.columna + 1)
-    elif d == OESTE:
-        movimiento = Posicion(fila=pos.fila, columna=pos.columna - 1)
-    return movimiento
+        posicion_vecina = Posicion(fila=pos.fila, columna=pos.columna + 1)
+    else: # Si no es SUR, NORTE o ESTE, necesariamente es OESTE (definido en template)
+        posicion_vecina = Posicion(fila=pos.fila, columna=pos.columna - 1)
+    return posicion_vecina
 
 # FEAT #05 - Auxiliar
 def casilla_en_posicion(t: Tablero, p: Posicion) -> Casilla:
