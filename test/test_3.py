@@ -146,7 +146,27 @@ class test_hay_pieza_congelada(unittest.TestCase):
                 # 01234567
             ]
         )
-        self.assertTrue(hay_pieza_congelada(t, Posicion(6, 1)))
+        pos = Posicion(6, 1)
+
+        self.assertTrue(hay_pieza_congelada(t, pos))
+
+    def test_no_hay_pieza_en_pos(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(4, 2)
+
+        self.assertFalse(hay_pieza_congelada(t, pos))
+
+    def test_enemiga_no_es_mas_fuerte(self):
+        t = tablero_8x8_ya_empezado()
+        pos = Posicion(5, 4)
+
+        self.assertFalse(hay_pieza_congelada(t, pos))
+
+    def test_hay_enemiga_pero_tambien_amiga(self):
+        t = tablero_8x8_no_congelada_por_amiga()
+        pos = Posicion(2, 4)
+
+        self.assertFalse(hay_pieza_congelada(t, pos))
 
 
 if __name__ == "__main__":

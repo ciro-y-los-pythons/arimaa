@@ -165,6 +165,36 @@ def tablero_8x8_ya_empezado():
         ]
     )
 
+def tablero_8x8_no_congelada_por_amiga():
+    """
+    ```
+    El conejo plateado de (2,4) podria estar congelado por el camello dorado, pero lo proteje el elefante (2,5)
+    | R - e - - m R r | 7
+    | - - - - - - d E | 6
+    | h - - R r - R R | 5
+    | c - - R - C - - | 4
+    | - r C H D r r - | 3
+    | - - - - r e - - | 2
+    | h - R - M - R - | 1
+    | r r - D - d H - | 0
+      0 1 2 3 4 5 6 7
+    (basado en tablero_8x8_ya_empezado)
+    ```
+    """
+    return leer_tablero(
+        [
+            "R-e--mRr",  # 7
+            "------dE",  # 6
+            "h--Rr-RR",  # 5
+            "c--R-C--",  # 4
+            "-rCHDrr-",  # 3
+            "----re--",  # 2
+            "h-R-M-R-",  # 1
+            "rr-D-dH-",  # 0
+            # 01234567
+        ]
+    )
+
 def tablero_8x8_ya_empezado_caballo_dorado_arrastra_perro_plateado():
     """
     ```
