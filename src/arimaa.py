@@ -567,16 +567,16 @@ def puede_realizar_accion(t: Tablero, m: Movimiento) -> bool:
     Returns:
         bool: True si la acción del movimiento es válida según sus reglas específicas.
     """
-    es_valida: bool = False
+    es_accion_valida: bool
 
     if m.accion == MOVER_A_SECAS:
-        es_valida = puede_mover_a_secas(t, m.origen, m.pasos[0])
+        es_accion_valida = puede_mover_a_secas(t, m.origen, m.pasos[0])
     elif m.accion == ARRASTRAR:
-        es_valida = puede_arrastrar(t, m.origen, m.pasos[0], m.pasos[1])
-    elif m.accion == EMPUJAR:
-        es_valida = puede_empujar(t, m.origen, m.pasos[0], m.pasos[1])
+        es_accion_valida = puede_arrastrar(t, m.origen, m.pasos[0], m.pasos[1])
+    else: # Si no es MOVER_A_SECAS ni ARRASTRAR, necesariamente es EMPUJAR
+        es_accion_valida = puede_empujar(t, m.origen, m.pasos[0], m.pasos[1])
 
-    return es_valida
+    return es_accion_valida
 
 
 # FEAT #22 - Problema
