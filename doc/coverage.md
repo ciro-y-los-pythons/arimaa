@@ -2,15 +2,15 @@
 
 ## Última Actualización
 
-- Realizada: 25/11, 23:00
-- Ultimo commit: `TEST #31 - tablero_post_arrastrar`
+- Realizada: 26/11, 23:00
+- Ultimo commit: `TEST #02 - movimiento_bien_formado`
 - Resultado:
 
 ```Shell
 === Análisis de Coverage ===
 
-➡️  Porcentaje global de líneas cubiertas (1605/1660): 96.69%
-➡️  Porcentaje global de ramas cubiertas (197/228): 86.40%
+➡️  Porcentaje global de líneas cubiertas (1607/1662): 96.69%
+➡️  Porcentaje global de ramas cubiertas (198/228): 86.84%
 ```
 
 ## ¿Como se genera el Coverage?
