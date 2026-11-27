@@ -1158,17 +1158,17 @@ def tablero_post_movimiento(t0: Tablero, t1: Tablero, m: Movimiento) -> bool:
 
         False en caso contrario
     """
-    resultado: bool = False
+    es_tablero_post_movimiento: bool
 
     #Evaluo el tipo de accion del movimiento y evaluo el tablero posterior
     if m.accion == MOVER_A_SECAS:
-        resultado = tablero_post_mover_a_secas(t0, t1, m.origen, m.pasos[0])
+        es_tablero_post_movimiento = tablero_post_mover_a_secas(t0, t1, m.origen, m.pasos[0])
     elif m.accion == ARRASTRAR:
-        resultado = tablero_post_arrastrar(t0, t1, m.origen, m.pasos[0], m.pasos[1])
-    elif m.accion == EMPUJAR:
-        resultado = tablero_post_empujar(t0, t1, m.origen, m.pasos[0], m.pasos[1])
+        es_tablero_post_movimiento = tablero_post_arrastrar(t0, t1, m.origen, m.pasos[0], m.pasos[1])
+    else: # Si no es MOVER_A_SECAS o ARRASTRAR, necesariamente es EMPUJAR (definido en template)
+        es_tablero_post_movimiento = tablero_post_empujar(t0, t1, m.origen, m.pasos[0], m.pasos[1])
 
-    return resultado
+    return es_tablero_post_movimiento
 
 # FEAT #34 - Auxiliar
 def hay_que_cambiar_de_turno(j: Juego, m: Movimiento) -> bool: # Auxiliar
