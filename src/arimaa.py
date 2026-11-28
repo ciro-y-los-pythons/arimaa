@@ -1215,13 +1215,24 @@ def juego_con_turno_posiblemente_avanzado(j0: Juego, j1: Juego, m: Movimiento) -
 
 # FEAT #36 - Auxiliar
 def juego_post_movimiento(j0, j1: Juego, m: Movimiento) -> bool:
+    """
+    Verifica si el Juego j1 tiene el Tablero correcto, resultado de realizar el Movimiento m en el Tablero del Juego j0 y si j1 tiene el cambio de turno correcto con respecto a j0.
+
+    PRE:
+        juego_bien_formado(j0)
+        ∧ juego_bien_formado(j1)
+        ∧ movimiento_bien_formado(m)
+
+    Args:
+        j0 (Juego): Estado del juego previo
+        j1 (Juego): Estado del juego posterior
+        m (Movimiento): Movimiento realizado
+
+    Returns:
+        Bool: True ↔ (j1 es el Juego posterior a j0 realizando el Movimiento m) ∧ (j1 cambio de turno, o no, si j0.pasos_consumidos + m.pasos > 3)
+    """
     tablero_correcto: bool = tablero_post_movimiento(j0.tablero, j1.tablero, m)
-    pasos_totales: int = j0.pasos_consumidos + len(m.pasos)
-    turno_correcto: bool = False
-    if pasos_totales == MAX_PASOS:
-        turno_correcto = (j1.turno == oponente(j0.turno)and j1.pasos_consumidos == 0)
-    else:
-        turno_correcto = (j1.turno == j0.turno and j1.pasos_consumidos == pasos_totales)
+    turno_correcto: bool = juego_con_turno_posiblemente_avanzado(j0, j1, m)
     return tablero_correcto and turno_correcto
 
 
