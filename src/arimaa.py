@@ -776,7 +776,7 @@ def realizar_movimiento(j: Juego, m: Movimiento) -> Juego:
             j.tablero, m.origen, m.pasos[0], m.pasos[1]
         )
 
-    elif m.accion == EMPUJAR:
+    else: # Si m.accion no es MOVER_A_SECAS o ARRASTRAR, necesariamente es EMPUJAR
         tablero_nuevo = generar_tablero_empujar(
             j.tablero, m.origen, m.pasos[0], m.pasos[1]
         )
